@@ -1,0 +1,9 @@
+.settings
+edu-common/target
+edu-dao/target
+edu-interface/target
+edu-laboratory/target
+edu-pojo/target
+edu-service/target
+edu-student/target
+edu-teacher/target
