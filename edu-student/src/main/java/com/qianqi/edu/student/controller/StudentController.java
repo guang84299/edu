@@ -207,6 +207,7 @@ public class StudentController {
 			{
 				int num = paperService.findPaperItemNumByPaperId(paperId);
 				float size = items.size();
+				System.out.println("num="+num+"   size="+size);
 				int state = (int) (size/num*100);
 				Student student = (Student) request.getAttribute("student");
 				PaperAnswer pa = paperService.findPaperAnswerByStudentIdAndPaperId(student.getId(), paperId);
