@@ -32,7 +32,8 @@
 			<mvc:exclude-mapping path="/**/*.jpeg"/>
 			<mvc:exclude-mapping path="/**/*login*"/>
 			<mvc:exclude-mapping path="/**/*Login*"/>
-			<mvc:exclude-mapping path="/user/**"/>
+			<mvc:exclude-mapping path="/**/*register*"/>
+			<mvc:exclude-mapping path="/**/*Register*"/>
 			<bean class="com.qianqi.edu.teacher.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
@@ -51,7 +52,12 @@
 	<!-- 引用dubbo服务 -->
 	<dubbo:application name="edu-teacher"/>
 	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>	
-	<dubbo:reference interface="com.qianqi.edu.service.UserService" id="userService" />
+	<dubbo:reference interface="com.qianqi.edu.service.GradeService" id="gradeServiceImpl" />
+	<dubbo:reference interface="com.qianqi.edu.service.SubjectService" id="subjectServiceImpl" />
+	<dubbo:reference interface="com.qianqi.edu.service.TeacherService" id="teacherServiceImpl" />
 	<dubbo:reference interface="com.qianqi.edu.service.SsoService" id="ssoService" />
 	<dubbo:reference interface="com.qianqi.edu.service.QuestionService" id="questionServiceImpl" />
+	<dubbo:reference interface="com.qianqi.edu.service.TclassService" id="tclassServiceImpl" />
+	<dubbo:reference interface="com.qianqi.edu.service.StudentService" id="studentServiceImpl" />
+	<dubbo:reference interface="com.qianqi.edu.service.PaperService" id="paperServiceImpl" />
 </beans>

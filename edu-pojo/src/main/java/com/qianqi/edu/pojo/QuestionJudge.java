@@ -16,6 +16,10 @@ public class QuestionJudge implements Serializable {
 
     private Long teacherId;
 
+    private Integer subjectId;
+
+    private Integer gradeId;
+
     private Integer difficult;
 
     private String knowledgePoint;
@@ -58,6 +62,22 @@ public class QuestionJudge implements Serializable {
 
     public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
+    }
+
+    public Integer getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(Integer subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public Integer getGradeId() {
+        return gradeId;
+    }
+
+    public void setGradeId(Integer gradeId) {
+        this.gradeId = gradeId;
     }
 
     public Integer getDifficult() {

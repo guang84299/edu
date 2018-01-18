@@ -77,6 +77,7 @@ public class QuestionServiceImpl implements QuestionService{
 		if(StringUtils.isEmpty(data))
 		{
 			judge = questionJudgeMapper.selectByPrimaryKey(id);
+			if(judge != null)
 			jedisClient.hset(QUESTION_JUDGE_LIST, id+"", JsonUtils.objectToJson(judge));
 		}
 		else
@@ -93,6 +94,7 @@ public class QuestionServiceImpl implements QuestionService{
 		if(StringUtils.isEmpty(data))
 		{
 			single = questionSingleMapper.selectByPrimaryKey(id);
+			if(single != null)
 			jedisClient.hset(QUESTION_SINGLE_LIST, id+"", JsonUtils.objectToJson(single));
 		}
 		else
@@ -109,6 +111,7 @@ public class QuestionServiceImpl implements QuestionService{
 		if(StringUtils.isEmpty(data))
 		{
 			multi = questionMultiMapper.selectByPrimaryKey(id);
+			if(multi != null)
 			jedisClient.hset(QUESTION_MULTI_LIST, id+"", JsonUtils.objectToJson(multi));
 		}
 		else
@@ -284,6 +287,7 @@ public class QuestionServiceImpl implements QuestionService{
 		if(StringUtils.isEmpty(data))
 		{
 			category = questionCategoryMapper.selectByPrimaryKey(id);
+			if(category != null)
 			jedisClient.hset(QUESTION_CATEGORY_LIST, id+"", JsonUtils.objectToJson(category));
 		}
 		else

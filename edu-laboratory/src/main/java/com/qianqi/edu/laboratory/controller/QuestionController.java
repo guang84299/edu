@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,22 +21,34 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.qianqi.edu.laboratory.pojo.QuestionCategoryItem;
+import com.qianqi.edu.pojo.Grade;
 import com.qianqi.edu.pojo.QuestionCategory;
 import com.qianqi.edu.pojo.QuestionJudge;
 import com.qianqi.edu.pojo.QuestionMulti;
 import com.qianqi.edu.pojo.QuestionSingle;
+import com.qianqi.edu.pojo.Subject;
 import com.qianqi.edu.pojo.common.EasyUIDataGridResult;
 import com.qianqi.edu.pojo.common.EduResult;
+import com.qianqi.edu.service.GradeService;
 import com.qianqi.edu.service.QuestionService;
+import com.qianqi.edu.service.SubjectService;
 
 @Controller
 public class QuestionController {
 	@Autowired
 	private QuestionService questionService;
+	@Autowired
+	private GradeService gradeService;
+	@Autowired
+	private SubjectService subjectService;
 	
 	@RequestMapping("/question/toadd")
-	public String toAdd()
+	public String toAdd(Model model)
 	{
+		List<Grade> grades = gradeService.findGradeAll();
+		List<Subject> subjects = subjectService.findSubjectAll();
+		model.addAttribute("grades", grades);
+		model.addAttribute("subjects", subjects);
 		return "question-add";
 	}
 	
@@ -115,20 +128,32 @@ public class QuestionController {
 	}
 	
 	@RequestMapping("/question/toeditjudge")
-	public String toEditJudge()
+	public String toEditJudge(Model model)
 	{
+		List<Grade> grades = gradeService.findGradeAll();
+		List<Subject> subjects = subjectService.findSubjectAll();
+		model.addAttribute("grades", grades);
+		model.addAttribute("subjects", subjects);
 		return "question-editjudge";
 	}
 	
 	@RequestMapping("/question/toeditsingle")
-	public String toEditSingle()
+	public String toEditSingle(Model model)
 	{
+		List<Grade> grades = gradeService.findGradeAll();
+		List<Subject> subjects = subjectService.findSubjectAll();
+		model.addAttribute("grades", grades);
+		model.addAttribute("subjects", subjects);
 		return "question-editsingle";
 	}
 	
 	@RequestMapping("/question/toeditmulti")
-	public String toEditMulti()
+	public String toEditMulti(Model model)
 	{
+		List<Grade> grades = gradeService.findGradeAll();
+		List<Subject> subjects = subjectService.findSubjectAll();
+		model.addAttribute("grades", grades);
+		model.addAttribute("subjects", subjects);
 		return "question-editmulti";
 	}
 	

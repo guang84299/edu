@@ -54,4 +54,6 @@
 	<dubbo:reference interface="com.qianqi.edu.service.UserService" id="userService" />
 	<dubbo:reference interface="com.qianqi.edu.service.SsoService" id="ssoService" />
 	<dubbo:reference interface="com.qianqi.edu.service.QuestionService" id="questionServiceImpl" />
+	<dubbo:reference interface="com.qianqi.edu.service.GradeService" id="gradeServiceImpl" />
+	<dubbo:reference interface="com.qianqi.edu.service.SubjectService" id="subjectServiceImpl" />
 </beans>

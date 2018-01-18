@@ -13,7 +13,7 @@
 </head>
 <body>
   <body style="background-color: #F3F3F3">
-    <div class="easyui-dialog" title="管理员登录" data-options="closable:false,draggable:false" style="width:400px;height:300px;padding:10px;">
+    <div id="loginbg" class="easyui-dialog" title="管理员登录" data-options="modal:true,closable:false,draggable:false" style="width:400px;height:300px;padding:10px;">
        	<div style="margin-left: 50px;margin-top: 50px;">
        		<div style="margin-bottom:20px;">
 	            <div>
@@ -22,7 +22,7 @@
 	        </div>
 	        <div style="margin-bottom:20px">
 	            <div>
-	            	密&nbsp;&nbsp;码: <input name="password" class="easyui-textbox" type="password" style="width:200px;height:32px" data-options="" value="admin"/>
+	            	密&nbsp;&nbsp;码: <input name="password" class="easyui-textbox" type="password" style="width:200px;height:32px" data-options="" value=""/>
 	            </div>
 	        </div>
 	        <div>
@@ -34,8 +34,8 @@
     <script type="text/javascript">
     	$("#login").click(function(){
     		var user = {};
-    		user.name = $("[name=name]").val();
-    		user.password = $("[name=password]").val();
+    		user.name = $("#loginbg [name=name]").val();
+    		user.password = $("#loginbg [name=password]").val();
     		
     		if(user.username=="" || user.password==""){
     			$.messager.alert('错误',"用户名密码不能为空！");
@@ -52,7 +52,7 @@
 					//$.cookie('token', data.data, { expires: 7 }); 
 					if(data.state == 200)
 					{
-						$.cookie('token', data.data); 
+						$.cookie('token-laboratory', data.data); 
 						window.location.href="/";
 					}
 					else

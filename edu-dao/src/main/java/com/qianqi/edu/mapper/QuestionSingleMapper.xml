@@ -6,6 +6,8 @@
     <result column="answer" property="answer" jdbcType="VARCHAR" />
     <result column="score" property="score" jdbcType="INTEGER" />
     <result column="teacher_id" property="teacherId" jdbcType="BIGINT" />
+    <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+    <result column="grade_id" property="gradeId" jdbcType="INTEGER" />
     <result column="difficult" property="difficult" jdbcType="INTEGER" />
     <result column="knowledge_point" property="knowledgePoint" jdbcType="VARCHAR" />
     <result column="normal_time" property="normalTime" jdbcType="INTEGER" />
@@ -80,8 +82,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, answer, score, teacher_id, difficult, knowledge_point, normal_time, choice_a, 
-    choice_b, choice_c, choice_d, choice_e, choice_f, created, updated
+    id, answer, score, teacher_id, subject_id, grade_id, difficult, knowledge_point, 
+    normal_time, choice_a, choice_b, choice_c, choice_d, choice_e, choice_f, created, 
+    updated
   </sql>
   <sql id="Blob_Column_List" >
     context
@@ -136,17 +139,19 @@
   </delete>
   <insert id="insert" parameterType="com.qianqi.edu.pojo.QuestionSingle" >
     insert into question_single (id, answer, score, 
-      teacher_id, difficult, knowledge_point, 
-      normal_time, choice_a, choice_b, 
-      choice_c, choice_d, choice_e, 
-      choice_f, created, updated, 
-      context)
+      teacher_id, subject_id, grade_id, 
+      difficult, knowledge_point, normal_time, 
+      choice_a, choice_b, choice_c, 
+      choice_d, choice_e, choice_f, 
+      created, updated, context
+      )
     values (#{id,jdbcType=BIGINT}, #{answer,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
-      #{teacherId,jdbcType=BIGINT}, #{difficult,jdbcType=INTEGER}, #{knowledgePoint,jdbcType=VARCHAR}, 
-      #{normalTime,jdbcType=INTEGER}, #{choiceA,jdbcType=VARCHAR}, #{choiceB,jdbcType=VARCHAR}, 
-      #{choiceC,jdbcType=VARCHAR}, #{choiceD,jdbcType=VARCHAR}, #{choiceE,jdbcType=VARCHAR}, 
-      #{choiceF,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, 
-      #{context,jdbcType=LONGVARCHAR})
+      #{teacherId,jdbcType=BIGINT}, #{subjectId,jdbcType=INTEGER}, #{gradeId,jdbcType=INTEGER}, 
+      #{difficult,jdbcType=INTEGER}, #{knowledgePoint,jdbcType=VARCHAR}, #{normalTime,jdbcType=INTEGER}, 
+      #{choiceA,jdbcType=VARCHAR}, #{choiceB,jdbcType=VARCHAR}, #{choiceC,jdbcType=VARCHAR}, 
+      #{choiceD,jdbcType=VARCHAR}, #{choiceE,jdbcType=VARCHAR}, #{choiceF,jdbcType=VARCHAR}, 
+      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{context,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.qianqi.edu.pojo.QuestionSingle" >
     insert into question_single
@@ -162,6 +167,12 @@
       </if>
       <if test="teacherId != null" >
         teacher_id,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="gradeId != null" >
+        grade_id,
       </if>
       <if test="difficult != null" >
         difficult,
@@ -212,6 +223,12 @@
       </if>
       <if test="teacherId != null" >
         #{teacherId,jdbcType=BIGINT},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=INTEGER},
       </if>
       <if test="difficult != null" >
         #{difficult,jdbcType=INTEGER},
@@ -272,6 +289,12 @@
       <if test="record.teacherId != null" >
         teacher_id = #{record.teacherId,jdbcType=BIGINT},
       </if>
+      <if test="record.subjectId != null" >
+        subject_id = #{record.subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradeId != null" >
+        grade_id = #{record.gradeId,jdbcType=INTEGER},
+      </if>
       <if test="record.difficult != null" >
         difficult = #{record.difficult,jdbcType=INTEGER},
       </if>
@@ -319,6 +342,8 @@
       answer = #{record.answer,jdbcType=VARCHAR},
       score = #{record.score,jdbcType=INTEGER},
       teacher_id = #{record.teacherId,jdbcType=BIGINT},
+      subject_id = #{record.subjectId,jdbcType=INTEGER},
+      grade_id = #{record.gradeId,jdbcType=INTEGER},
       difficult = #{record.difficult,jdbcType=INTEGER},
       knowledge_point = #{record.knowledgePoint,jdbcType=VARCHAR},
       normal_time = #{record.normalTime,jdbcType=INTEGER},
@@ -341,6 +366,8 @@
       answer = #{record.answer,jdbcType=VARCHAR},
       score = #{record.score,jdbcType=INTEGER},
       teacher_id = #{record.teacherId,jdbcType=BIGINT},
+      subject_id = #{record.subjectId,jdbcType=INTEGER},
+      grade_id = #{record.gradeId,jdbcType=INTEGER},
       difficult = #{record.difficult,jdbcType=INTEGER},
       knowledge_point = #{record.knowledgePoint,jdbcType=VARCHAR},
       normal_time = #{record.normalTime,jdbcType=INTEGER},
@@ -367,6 +394,12 @@
       </if>
       <if test="teacherId != null" >
         teacher_id = #{teacherId,jdbcType=BIGINT},
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeId != null" >
+        grade_id = #{gradeId,jdbcType=INTEGER},
       </if>
       <if test="difficult != null" >
         difficult = #{difficult,jdbcType=INTEGER},
@@ -412,6 +445,8 @@
     set answer = #{answer,jdbcType=VARCHAR},
       score = #{score,jdbcType=INTEGER},
       teacher_id = #{teacherId,jdbcType=BIGINT},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      grade_id = #{gradeId,jdbcType=INTEGER},
       difficult = #{difficult,jdbcType=INTEGER},
       knowledge_point = #{knowledgePoint,jdbcType=VARCHAR},
       normal_time = #{normalTime,jdbcType=INTEGER},
@@ -431,6 +466,8 @@
     set answer = #{answer,jdbcType=VARCHAR},
       score = #{score,jdbcType=INTEGER},
       teacher_id = #{teacherId,jdbcType=BIGINT},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      grade_id = #{gradeId,jdbcType=INTEGER},
       difficult = #{difficult,jdbcType=INTEGER},
       knowledge_point = #{knowledgePoint,jdbcType=VARCHAR},
       normal_time = #{normalTime,jdbcType=INTEGER},

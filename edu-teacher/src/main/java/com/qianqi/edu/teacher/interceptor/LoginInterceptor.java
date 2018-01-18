@@ -34,20 +34,20 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 		
-		String token = CookieUtils.getCookieValue(request, "token");
+		String token = CookieUtils.getCookieValue(request, "token-teacher");
 		if(StringUtils.isEmpty(token))
 		{
 			response.sendRedirect("/toLogin");
 			return false;
 		}
 		System.out.println("token="+token);
-		EduResult res = ssoService.getUserByToken(token);
+		EduResult res = ssoService.getTeacherByToken(token);
 		if(res.getState() != 200)
 		{
 			response.sendRedirect("/toLogin");
 			return false;
 		}
-		request.setAttribute("user", res.getData());
+		request.setAttribute("teacher", res.getData());
 		return true;
 	}
 

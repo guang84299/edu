@@ -1,8 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <div style="padding:10px 10px 10px 10px">
 	<form id="questionMultiEditForm" class="itemForm" method="post">
 		<input type="hidden" name="id"/>
 	    <table cellpadding="5">
+	    		 <tr>
+            		<td>年级:</td>
+	            <td>
+	            	<select name="gradeId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+				    <c:forEach items="${grades}" var="val">
+				      <option value="${val.id }">${val.name }</option>
+				     </c:forEach>
+			    </select>
+	            </td>
+	        </tr>
+	        <tr>
+            		<td>学科:</td>
+	            <td>
+	            <select name="subjectId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+			    <c:forEach items="${subjects}" var="val">
+			      <option value="${val.id }">${val.name }</option>
+			     </c:forEach>
+			    </select>
+	            </td>
+	        </tr>
 	    		<tr>
 	            <td>题目:</td>
 	            <td><input class="easyui-textbox" type="text" name="context" data-options="width:280,multiline:true,min:1,max:99999999,precision:2,required:true" />
@@ -70,6 +92,8 @@
 		
 		var question = {};
 		question.id = $("#questionMultiEditForm [name=id]").val();
+		question.gradeId = $("#questionMultiEditForm [name=gradeId]").val();
+		question.subjectId = $("#questionMultiEditForm [name=subjectId]").val();
 		question.context = $("#questionMultiEditForm [name=context]").val();
 		question.difficult = $("#questionMultiEditForm [name=difficult]:checked").val();
 		question.score = $("#questionMultiEditForm [name=score]").val();

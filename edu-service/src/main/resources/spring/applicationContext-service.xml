@@ -23,4 +23,10 @@
 	<dubbo:service interface="com.qianqi.edu.service.UserService" ref="userServiceImpl" timeout="600000"/>
 	<dubbo:service interface="com.qianqi.edu.service.SsoService" ref="ssoServiceImpl" timeout="600000"/>
 	<dubbo:service interface="com.qianqi.edu.service.QuestionService" ref="questionServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.TeacherService" ref="teacherServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.GradeService" ref="gradeServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.PaperService" ref="paperServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.SubjectService" ref="subjectServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.TclassService" ref="tclassServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.StudentService" ref="studentServiceImpl" timeout="600000"/>
 </beans>

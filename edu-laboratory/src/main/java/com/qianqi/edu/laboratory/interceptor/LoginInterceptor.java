@@ -34,7 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 		
-		String token = CookieUtils.getCookieValue(request, "token");
+		String token = CookieUtils.getCookieValue(request, "token-laboratory");
 		if(StringUtils.isEmpty(token))
 		{
 			response.sendRedirect("/toLogin");

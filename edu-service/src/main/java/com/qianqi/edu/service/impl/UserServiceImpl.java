@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService{
 		if(StringUtils.isEmpty(data))
 		{
 			user = userMapper.selectByPrimaryKey(id);
+			if(user != null)
 			jedisClient.hset(USER_LIST, id+"", JsonUtils.objectToJson(user));
 		}
 		else

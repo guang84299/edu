@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <div style="padding:10px 10px 10px 10px">
 
 	<form id="questionAddFormSel" class="itemForm" method="post">
@@ -19,6 +21,26 @@
 	  
 	<form id="questionAddForm0" class="itemForm" method="post">
 	    <table cellpadding="5">
+	    		 <tr>
+            		<td>年级:</td>
+	            <td>
+	            	<select name="gradeId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+				    <c:forEach items="${grades}" var="val">
+				      <option value="${val.id }">${val.name }</option>
+				     </c:forEach>
+			    </select>
+	            </td>
+	        </tr>
+	        <tr>
+            		<td>学科:</td>
+	            <td>
+	            <select name="subjectId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+			    <c:forEach items="${subjects}" var="val">
+			      <option value="${val.id }">${val.name }</option>
+			     </c:forEach>
+			    </select>
+	            </td>
+	        </tr>
 	        <tr>
             		<td>题目:</td>
 	            <td><input class="easyui-textbox" type="text" name="context" data-options="width:280,multiline:true,min:1,max:99999999,precision:2,required:true" />
@@ -56,6 +78,26 @@
 	
 	<form id="questionAddForm1" class="itemForm" method="post">
 	    <table cellpadding="5">
+	    		 <tr>
+            		<td>年级:</td>
+	            <td>
+	            	<select name="gradeId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+				    <c:forEach items="${grades}" var="val">
+				      <option value="${val.id }">${val.name }</option>
+				     </c:forEach>
+			    </select>
+	            </td>
+	        </tr>
+	        <tr>
+            		<td>学科:</td>
+	            <td>
+	            <select name="subjectId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+			    <c:forEach items="${subjects}" var="val">
+			      <option value="${val.id }">${val.name }</option>
+			     </c:forEach>
+			    </select>
+	            </td>
+	        </tr>
 	        <tr>
 	            <td>题目:</td>
 	            <td><input class="easyui-textbox" type="text" name="context" data-options="width:280,multiline:true,min:1,max:99999999,precision:2,required:true" />
@@ -111,6 +153,26 @@
 	
 	<form id="questionAddForm2" class="itemForm" method="post">
 	    <table cellpadding="5">
+	    		 <tr>
+            		<td>年级:</td>
+	            <td>
+	            	<select name="gradeId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+				    <c:forEach items="${grades}" var="val">
+				      <option value="${val.id }">${val.name }</option>
+				     </c:forEach>
+			    </select>
+	            </td>
+	        </tr>
+	        <tr>
+            		<td>学科:</td>
+	            <td>
+	            <select name="subjectId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+			    <c:forEach items="${subjects}" var="val">
+			      <option value="${val.id }">${val.name }</option>
+			     </c:forEach>
+			    </select>
+	            </td>
+	        </tr>
 	        <tr>
 	            <td>题目:</td>
 	            <td><input class="easyui-textbox" type="text" name="context" data-options="width:280,multiline:true,min:1,max:99999999,precision:2,required:true" />
@@ -188,6 +250,8 @@
 		question.score = $(formName + " [name=score]").val();
 		question.normalTime = $(formName + " [name=normalTime]").val();
 		question.knowledgePoint = $(formName + " [name=knowledgePoint]").val();
+		question.gradeId = $(formName + " [name=gradeId]").val();
+		question.subjectId = $(formName + " [name=subjectId]").val();
 		if(type == 0)
 		{
 			question.answer = $(formName + " .question_judge [name=answer]:checked").val();
