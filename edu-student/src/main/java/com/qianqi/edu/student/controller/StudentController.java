@@ -207,7 +207,6 @@ public class StudentController {
 			{
 				int num = paperService.findPaperItemNumByPaperId(paperId);
 				float size = items.size();
-				System.out.println("num="+num+"   size="+size);
 				int state = (int) (size/num*100);
 				Student student = (Student) request.getAttribute("student");
 				PaperAnswer pa = paperService.findPaperAnswerByStudentIdAndPaperId(student.getId(), paperId);
@@ -242,6 +241,12 @@ public class StudentController {
 			answerResult.setTclass(tclassService.findTclass(paper.getTclassId()).getName());
 			answerResult.setSubject(subjectService.findSubject(paper.getSubjectId()).getName());
 			answerResult.setStateStr(pa.getState()+"%");
+			if(pa.getCheckState() == 0)
+				answerResult.setCheckStateStr("未批改");
+			else if(pa.getCheckState() == 1)
+				answerResult.setCheckStateStr("批改中");
+			else if(pa.getCheckState() == 2)
+				answerResult.setCheckStateStr("已批改");
 			pasr.add(answerResult);
 		}
 		result.setRows(pasr);

@@ -28,6 +28,7 @@ import com.qianqi.edu.pojo.Tclass;
 import com.qianqi.edu.pojo.Teacher;
 import com.qianqi.edu.pojo.common.EasyUIDataGridResult;
 import com.qianqi.edu.pojo.common.EduResult;
+import com.qianqi.edu.pojo.common.PaperAnswerResult;
 import com.qianqi.edu.pojo.common.PaperResult;
 import com.qianqi.edu.pojo.common.QuestionResult;
 import com.qianqi.edu.service.GradeService;
@@ -318,11 +319,86 @@ public class TeacherController {
 				answer.setPaperId(paper.getId());
 				answer.setStudentId(st.getStudentId());
 				answer.setState(0);
+				answer.setCheckState(0);
 				answer.setCreated(new Date());
 				paperService.addPaperAnswer(answer);
 			}
 		}
 		
+		return EduResult.ok("", null);
+	}
+	
+	@RequestMapping("/paper/check/tolist")
+	public String toPaperCheckList()
+	{
+		return "paper-check-list";
+	}
+	
+	@RequestMapping("/paper/check/list")
+	@ResponseBody
+	public EasyUIDataGridResult checkPaper(@RequestParam(defaultValue="0") long teacherId,@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows,HttpServletRequest request)
+	{
+		EasyUIDataGridResult res = paperService.findPaperList(teacherId,page,rows);
+		List<Paper> papers = (List<Paper>) res.getRows();
+		List<Long> paperIds = new ArrayList<>();
+		for(Paper paper : papers)
+		{
+			paperIds.add(paper.getId());
+		}
+		List<PaperAnswer> pas = paperService.findPaperAnswerByPaperIds(paperIds);
+		List<PaperAnswerResult> list = new ArrayList<>();
+		for(PaperAnswer pa : pas)
+		{
+			PaperAnswerResult result = new PaperAnswerResult(pa);
+			Paper currpaper = null;
+			for(Paper paper : papers)
+			{
+				if((long)(pa.getPaperId()) == (long)(paper.getId()))
+				{
+					currpaper = paper;
+					break;
+				}
+			}
+			result.setTclass(tclassService.findTclass(currpaper.getTclassId()).getName());
+			result.setSubject(subjectService.findSubject(currpaper.getSubjectId()).getName());
+			result.setStateStr(pa.getState()+"%");
+			if(pa.getCheckState() == 0)
+				result.setCheckStateStr("未批改");
+			else if(pa.getCheckState() == 1)
+				result.setCheckStateStr("批改中");
+			else if(pa.getCheckState() == 2)
+				result.setCheckStateStr("已批改");
+			result.setStudentName(studentService.findStudentById(pa.getStudentId()).getName());
+			list.add(result);
+		}
+		res.setRows(list);
+		res.setTotal(list.size());
+		
+		return res;
+	}
+	
+	@RequestMapping("/paper/tocheck")
+	public String toPaperCheck(Model model,HttpServletRequest request)
+	{
+		String pa = request.getParameter("paperAnswerId");
+		if(pa != null)
+		{
+			long paid = Long.parseLong(pa);
+			model.addAttribute("paid", paid);
+		}
+		return "paper-check";
+	}
+	
+	@RequestMapping("/paper/check")
+	@ResponseBody
+	public EduResult paperCheck(@RequestParam(defaultValue="0") long paperAnswerId)
+	{
+		if(paperAnswerId != 0)
+		{
+			PaperAnswer pa = paperService.findPaperAnswerById(paperAnswerId);
+			pa.setCheckState(2);
+			paperService.updatePaperAnswer(pa);
+		}
 		return EduResult.ok("", null);
 	}
 }

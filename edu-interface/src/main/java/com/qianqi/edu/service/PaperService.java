@@ -27,6 +27,7 @@ public interface PaperService {
 	PaperAnswer findPaperAnswerByStudentIdAndPaperId(Long studentId,Long paperId);
 	List<PaperAnswer> findPaperAnswerByStudentId(Long studentId);
 	List<PaperAnswer> findPaperAnswerByPaperId(Long paperId);
+	List<PaperAnswer> findPaperAnswerByPaperIds(List<Long> paperIds);
 	List<PaperAnswer> findPaperAnswerByStudentIdAndState(Long studentId,int state);
 	EasyUIDataGridResult findPaperAnswerByStudentId(Long studentId,int page,int rows);
 	

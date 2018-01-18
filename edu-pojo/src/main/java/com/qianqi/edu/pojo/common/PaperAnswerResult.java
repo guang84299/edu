@@ -9,6 +9,8 @@ public class PaperAnswerResult extends PaperAnswer implements Serializable{
 	private String subject;
 	private String tclass;
 	private String stateStr;
+	private String checkStateStr;
+	private String studentName;
 	
 	public PaperAnswerResult() {}
 	public PaperAnswerResult(PaperAnswer answer) 
@@ -36,6 +38,18 @@ public class PaperAnswerResult extends PaperAnswer implements Serializable{
 	}
 	public void setStateStr(String stateStr) {
 		this.stateStr = stateStr;
+	}
+	public String getCheckStateStr() {
+		return checkStateStr;
+	}
+	public void setCheckStateStr(String checkStateStr) {
+		this.checkStateStr = checkStateStr;
+	}
+	public String getStudentName() {
+		return studentName;
+	}
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
 	}
 	
 	

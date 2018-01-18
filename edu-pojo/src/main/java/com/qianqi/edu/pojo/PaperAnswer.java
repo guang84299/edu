@@ -16,6 +16,8 @@ public class PaperAnswer implements Serializable {
 
     private Integer state;
 
+    private Integer checkState;
+
     private Date created;
 
     public Long getId() {
@@ -48,6 +50,14 @@ public class PaperAnswer implements Serializable {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Integer getCheckState() {
+        return checkState;
+    }
+
+    public void setCheckState(Integer checkState) {
+        this.checkState = checkState;
     }
 
     public Date getCreated() {

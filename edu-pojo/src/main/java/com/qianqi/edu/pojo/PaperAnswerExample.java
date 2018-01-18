@@ -345,6 +345,66 @@ public class PaperAnswerExample {
             return (Criteria) this;
         }
 
+        public Criteria andCheckStateIsNull() {
+            addCriterion("check_state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateIsNotNull() {
+            addCriterion("check_state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateEqualTo(Integer value) {
+            addCriterion("check_state =", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateNotEqualTo(Integer value) {
+            addCriterion("check_state <>", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateGreaterThan(Integer value) {
+            addCriterion("check_state >", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("check_state >=", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateLessThan(Integer value) {
+            addCriterion("check_state <", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateLessThanOrEqualTo(Integer value) {
+            addCriterion("check_state <=", value, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateIn(List<Integer> values) {
+            addCriterion("check_state in", values, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateNotIn(List<Integer> values) {
+            addCriterion("check_state not in", values, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateBetween(Integer value1, Integer value2) {
+            addCriterion("check_state between", value1, value2, "checkState");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("check_state not between", value1, value2, "checkState");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatedIsNull() {
             addCriterion("created is null");
             return (Criteria) this;

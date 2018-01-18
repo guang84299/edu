@@ -96,6 +96,7 @@ public class PaperServiceImpl implements PaperService{
 	@Override
 	public List<Paper> findPaperByTeacherId(Long id) {
 		PaperExample paperExample = new PaperExample();
+		paperExample.setOrderByClause("id desc");
 		paperExample.createCriteria().andTeacherIdEqualTo(id);
 		return paperMapper.selectByExample(paperExample);
 	}
@@ -111,6 +112,7 @@ public class PaperServiceImpl implements PaperService{
 		PageHelper.startPage(page, rows);
 		//执行查询
 		PaperExample example = new PaperExample();
+		example.setOrderByClause("id desc");
 		if(teacherId != null)
 			example.createCriteria().andTeacherIdEqualTo(teacherId);
 		List<Paper> list = paperMapper.selectByExample(example);
@@ -194,6 +196,15 @@ public class PaperServiceImpl implements PaperService{
 		paperAnswerExample.createCriteria().andPaperIdEqualTo(paperId);
 		return paperAnswerMapper.selectByExample(paperAnswerExample);
 	}
+	
+	@Override
+	public List<PaperAnswer> findPaperAnswerByPaperIds(List<Long> paperIds) {
+		PaperAnswerExample paperAnswerExample = new PaperAnswerExample();
+		paperAnswerExample.createCriteria().andPaperIdIn(paperIds);
+		
+		return paperAnswerMapper.selectByExample(paperAnswerExample);
+	}
+
 	
 	@Override
 	public List<PaperAnswer> findPaperAnswerByStudentIdAndState(Long studentId,int state) {
@@ -297,6 +308,7 @@ public class PaperServiceImpl implements PaperService{
 		return paperItemMapper.countByExample(example);
 	}
 
+	
 	
 	
 }
