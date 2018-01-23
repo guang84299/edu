@@ -29,4 +29,5 @@
 	<dubbo:service interface="com.qianqi.edu.service.SubjectService" ref="subjectServiceImpl" timeout="600000"/>
 	<dubbo:service interface="com.qianqi.edu.service.TclassService" ref="tclassServiceImpl" timeout="600000"/>
 	<dubbo:service interface="com.qianqi.edu.service.StudentService" ref="studentServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.SearchService" ref="searchServiceImpl" timeout="600000"/>
 </beans>

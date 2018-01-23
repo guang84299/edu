@@ -63,6 +63,13 @@
 	         	</ul>
          	</li>
          	
+         	<li>
+         		<span>索引库管理</span>
+         		<ul>
+	         		<li data-options="attributes:{'url':'/search/toimportall'}">同步索引</li>
+	         	</ul>
+         	</li>
+         	
          </ul>
     </div>
     <div data-options="region:'center',title:''">
