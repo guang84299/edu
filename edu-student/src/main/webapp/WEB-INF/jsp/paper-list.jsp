@@ -50,6 +50,10 @@
         	}
         	$('#paperEditWindow').window({href:"/paper/toanswer?paperId="+ids});
         	$("#paperEditWindow").window({
+        		onClose :function()
+        		{
+        			$("#paperEditWindow").html("");
+        		}
         		/* onLoad :function(){
         			//回显数据
         			var data = $("#paperList").datagrid("getSelections")[0];

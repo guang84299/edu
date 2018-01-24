@@ -34,7 +34,7 @@
 <body class="easyui-layout">
     <!-- 头部标题 -->
 	<div data-options="region:'north',border:false" style="height:60px; padding:5px; background:#F3F3F3"> 
-		<span class="northTitle">管理系统</span>
+		<span class="northTitle">教研室端</span>
 	    <span class="loginInfo">登录用户：${user.name}&nbsp;&nbsp;角色：<c:if test="${user.role == 0}">系统管理员</c:if><c:if test="${user.role == 1}">普通管理员</c:if>&nbsp;&nbsp;<span class="loginout">退出</span></span>
 	</div>
     <div data-options="region:'west',title:'菜单',split:true" style="width:180px;">

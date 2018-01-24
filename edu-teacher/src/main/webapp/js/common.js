@@ -61,6 +61,27 @@ var E3 = {
         	return '错';
         }
     },
+    // 格式化题库类型
+    formatQuestionType : function formatStatus(val,row){
+        if (val == 1){
+            return '判断题';
+        } 
+        else if (val == 2){
+            return '单选题';
+        } 
+        else if (val == 3){
+            return '多选题';
+        } 
+        else if (val == 4){
+            return '填空题';
+        } 
+        else if (val == 5){
+            return '主观题';
+        } 
+        else {
+        	return '未知';
+        }
+    },
     // 格式化题库困难度
 	formatQuestionDifficult : function formatStatus(val,row){
         if (val == 0){

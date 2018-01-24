@@ -5,6 +5,7 @@
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
         	<th data-options="field:'id',width:60">题库ID</th>
+        	<th data-options="field:'type',width:200,formatter:E3.formatQuestionType">类型</th>
             <th data-options="field:'context',width:200">题目</th>
             <th data-options="field:'score',width:100">分数</th>
             <th data-options="field:'normalTime',width:100">答题时间</th>
@@ -17,7 +18,7 @@
 </table>
 <input type="hidden" id="paperquestionList-type"/>
 <input type="hidden" id="paperquestionList-paperId"/>
-<div id="questionJudgeEditWindow" class="easyui-window" title="编辑" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/question/toeditjudge'" style="width:80%;height:80%;padding:10px;">
+<div id="questionJudgeEditWindow" class="easyui-window" title="编辑" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/question/toedit'" style="width:80%;height:80%;padding:10px;">
 </div>
 <script>
 

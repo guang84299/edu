@@ -9,15 +9,15 @@ public class QuestionItem extends Question implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Long paperItemId;
 	private Long paperAnswerId;
-    private Integer type;
+    private Integer paperItemType;
     private Long paperId;
-    private Integer questionType;
     private PaperAnswerItem paperAnswerItem;
     
 	public QuestionItem() {}
 	public QuestionItem(Question question) 
 	{
 		this.setId(question.getId());
+		this.setType(question.getType());
 		this.setAnswer(question.getAnswer());
 		this.setScore(question.getScore());
 		this.setTeacherId(question.getTeacherId());
@@ -29,6 +29,10 @@ public class QuestionItem extends Question implements Serializable{
 		this.setCreated(question.getCreated());
 		this.setUpdated(question.getUpdated());
 		this.setContext(question.getContext());
+		this.setChoiceA(question.getChoiceA());
+		this.setChoiceB(question.getChoiceB());
+		this.setChoiceC(question.getChoiceC());
+		this.setChoiceD(question.getChoiceD());
 	}
 	public Long getPaperItemId() {
 		return paperItemId;
@@ -36,23 +40,19 @@ public class QuestionItem extends Question implements Serializable{
 	public void setPaperItemId(Long paperItemId) {
 		this.paperItemId = paperItemId;
 	}
-	public Integer getType() {
-		return type;
-	}
-	public void setType(Integer type) {
-		this.type = type;
-	}
+	
 	public Long getPaperId() {
 		return paperId;
 	}
 	public void setPaperId(Long paperId) {
 		this.paperId = paperId;
 	}
-	public Integer getQuestionType() {
-		return questionType;
+	
+	public Integer getPaperItemType() {
+		return paperItemType;
 	}
-	public void setQuestionType(Integer questionType) {
-		this.questionType = questionType;
+	public void setPaperItemType(Integer paperItemType) {
+		this.paperItemType = paperItemType;
 	}
 	public Long getPaperAnswerId() {
 		return paperAnswerId;

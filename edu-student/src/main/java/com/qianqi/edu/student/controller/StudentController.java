@@ -1,6 +1,8 @@
 package com.qianqi.edu.student.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -165,12 +167,18 @@ public class StudentController {
 					QuestionItem item = new QuestionItem(question);
 					item.setPaperAnswerId(pa.getId());
 					item.setPaperItemId(pi.getId());
-					item.setType(pi.getType());
+					item.setPaperItemType(pi.getType());
 					item.setPaperId(pi.getPaperId());
 					item.setPaperAnswerItem(paperService.findPaperAnswerItem(item.getPaperItemId(), item.getPaperAnswerId()));
 					items.add(item);
 				}
 			}
+			//按题库类型重新排序
+			Collections.sort(items,new Comparator<QuestionItem>(){
+	            public int compare(QuestionItem arg0, QuestionItem arg1) {
+	                return arg0.getType().compareTo(arg1.getType());
+	            }
+	        });
 			model.addAttribute("items", items);
 		}
 		return "answer";

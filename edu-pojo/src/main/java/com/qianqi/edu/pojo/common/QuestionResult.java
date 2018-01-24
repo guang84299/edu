@@ -12,6 +12,7 @@ public class QuestionResult extends Question implements Serializable{
 	public QuestionResult(Question question)
 	{
 		this.setId(question.getId());
+		this.setType(question.getType());
 		this.setAnswer(question.getAnswer());
 		this.setScore(question.getScore());
 		this.setTeacherId(question.getTeacherId());
