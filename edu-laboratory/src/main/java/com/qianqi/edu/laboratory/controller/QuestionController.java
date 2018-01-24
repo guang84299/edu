@@ -22,10 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.qianqi.edu.laboratory.pojo.QuestionCategoryItem;
 import com.qianqi.edu.pojo.Grade;
+import com.qianqi.edu.pojo.Question;
 import com.qianqi.edu.pojo.QuestionCategory;
-import com.qianqi.edu.pojo.QuestionJudge;
-import com.qianqi.edu.pojo.QuestionMulti;
-import com.qianqi.edu.pojo.QuestionSingle;
 import com.qianqi.edu.pojo.Subject;
 import com.qianqi.edu.pojo.common.EasyUIDataGridResult;
 import com.qianqi.edu.pojo.common.EduResult;
@@ -52,110 +50,44 @@ public class QuestionController {
 		return "question-add";
 	}
 	
-	@RequestMapping("/question/addJudge")
+	@RequestMapping("/question/add")
 	@ResponseBody
-	public EduResult addJudge(@RequestBody QuestionJudge questionJudge)
+	public EduResult add(@RequestBody Question question)
 	{
-		questionJudge.setTeacherId(0l);
-		questionJudge.setCreated(new Date());
-		questionJudge.setUpdated(new Date());
-		questionService.addQuestionJudge(questionJudge);
+		question.setTeacherId(0l);
+		question.setCreated(new Date());
+		question.setUpdated(new Date());
+		questionService.addQuestion(question);
 		return EduResult.ok(null, null);
 	}
 	
-	@RequestMapping("/question/addSingle")
-	@ResponseBody
-	public EduResult addSingle(@RequestBody QuestionSingle questionSingle)
-	{
-		questionSingle.setTeacherId(0l);
-		questionSingle.setCreated(new Date());
-		questionSingle.setUpdated(new Date());
-		questionService.addQuestionSingle(questionSingle);
-		return EduResult.ok(null, null);
-	}
 	
-	@RequestMapping("/question/addMulti")
-	@ResponseBody
-	public EduResult addMulti(@RequestBody QuestionMulti questionMulti)
-	{
-		questionMulti.setTeacherId(0l);
-		questionMulti.setCreated(new Date());
-		questionMulti.setUpdated(new Date());
-		questionService.addQuestionMulti(questionMulti);
-		return EduResult.ok(null, null);
-	}
-	
-	@RequestMapping("/question/tojudgelist")
+	@RequestMapping("/question/tolist")
 	public String toJudgeList()
 	{
-		return "question-judgelist";
+		return "question-list";
 	}
 	
-	@RequestMapping("/question/tosinglelist")
-	public String toSingleList()
-	{
-		return "question-singlelist";
-	}
 	
-	@RequestMapping("/question/tomultilist")
-	public String toMultiList()
-	{
-		return "question-multilist";
-	}
-	
-	@RequestMapping("/question/judgelist")
+	@RequestMapping("/question/list")
 	@ResponseBody
 	public EasyUIDataGridResult questionJudgeList(@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
 	{
-		EasyUIDataGridResult result = questionService.findQuestionJudgeList(page, rows);
+		EasyUIDataGridResult result = questionService.findQuestionList(page, rows);
 		return result;
 	}
 	
-	@RequestMapping("/question/singlelist")
-	@ResponseBody
-	public EasyUIDataGridResult questionSingleList(@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
-	{
-		EasyUIDataGridResult result = questionService.findQuestionSingleList(page, rows);		
-		return result;
-	}
 	
-	@RequestMapping("/question/multilist")
-	@ResponseBody
-	public EasyUIDataGridResult questionMultiList(@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
-	{
-		EasyUIDataGridResult result = questionService.findQuestionMultiList(page, rows);
-		return result;
-	}
-	
-	@RequestMapping("/question/toeditjudge")
+	@RequestMapping("/question/toedit")
 	public String toEditJudge(Model model)
 	{
 		List<Grade> grades = gradeService.findGradeAll();
 		List<Subject> subjects = subjectService.findSubjectAll();
 		model.addAttribute("grades", grades);
 		model.addAttribute("subjects", subjects);
-		return "question-editjudge";
+		return "question-edit";
 	}
 	
-	@RequestMapping("/question/toeditsingle")
-	public String toEditSingle(Model model)
-	{
-		List<Grade> grades = gradeService.findGradeAll();
-		List<Subject> subjects = subjectService.findSubjectAll();
-		model.addAttribute("grades", grades);
-		model.addAttribute("subjects", subjects);
-		return "question-editsingle";
-	}
-	
-	@RequestMapping("/question/toeditmulti")
-	public String toEditMulti(Model model)
-	{
-		List<Grade> grades = gradeService.findGradeAll();
-		List<Subject> subjects = subjectService.findSubjectAll();
-		model.addAttribute("grades", grades);
-		model.addAttribute("subjects", subjects);
-		return "question-editmulti";
-	}
 	
 	@RequestMapping("/question/toimport")
 	public String toImport()
@@ -163,34 +95,17 @@ public class QuestionController {
 		return "question-import";
 	}
 	
-	@RequestMapping("/question/editjudge")
+	@RequestMapping("/question/edit")
 	@ResponseBody
-	public EduResult editJudge(@RequestBody QuestionJudge questionJudge)
+	public EduResult editJudge(@RequestBody Question question)
 	{
-		questionJudge.setUpdated(new Date());
-		questionService.updateQuestionJudge(questionJudge);
+		question.setUpdated(new Date());
+		questionService.updateQuestion(question);
 		return EduResult.ok("", null);
 	}
 	
-	@RequestMapping("/question/editsingle")
-	@ResponseBody
-	public EduResult editSingle(@RequestBody QuestionSingle questionSingle)
-	{
-		questionSingle.setUpdated(new Date());
-		questionService.updateQuestionSingle(questionSingle);
-		return EduResult.ok("", null);
-	}
 	
-	@RequestMapping("/question/editmulti")
-	@ResponseBody
-	public EduResult editMulti(@RequestBody QuestionMulti questionMulti)
-	{
-		questionMulti.setUpdated(new Date());
-		questionService.updateQuestionMulti(questionMulti);
-		return EduResult.ok("", null);
-	}
-	
-	@RequestMapping("/question/deletejudge")
+	@RequestMapping("/question/delete")
 	@ResponseBody
 	public EduResult deleteJudge(String ids)
 	{
@@ -198,41 +113,17 @@ public class QuestionController {
 		for(String sid : idss)
 		{
 			long id = Long.parseLong(sid);
-			questionService.deleteQuestionJudge(id);
+			questionService.deleteQuestion(id);
 		}
 		return EduResult.ok("", null);
 	}
 	
-	@RequestMapping("/question/deletesingle")
-	@ResponseBody
-	public EduResult deleteSingle(String ids)
-	{
-		String[] idss = ids.split(",");
-		for(String sid : idss)
-		{
-			long id = Long.parseLong(sid);
-			questionService.deleteQuestionSingle(id);
-		}
-		return EduResult.ok("", null);
-	}
-	
-	@RequestMapping("/question/deletemulti")
-	@ResponseBody
-	public EduResult deleteMulti(String ids)
-	{
-		String[] idss = ids.split(",");
-		for(String sid : idss)
-		{
-			long id = Long.parseLong(sid);
-			questionService.deleteQuestionMulti(id);
-		}
-		return EduResult.ok("", null);
-	}
+
 	
 	@RequestMapping("/question/import")
 	@ResponseBody
     public EduResult uploadFile(MultipartFile excel) {
-		List<QuestionJudge> questions = new ArrayList<QuestionJudge>();
+		List<Question> questions = new ArrayList<Question>();
 		try {
 			Workbook workbook = WorkbookFactory.create(excel.getInputStream());
 			Sheet sheet = workbook.getSheetAt(0);
@@ -240,7 +131,7 @@ public class QuestionController {
 			List<String> colNames = new ArrayList<>();
 			 for (Row row : sheet) 
 			 {
-				 QuestionJudge questionJudge = new QuestionJudge();
+				 Question question = new Question();
 				 for (Cell cell : row)
 				 {
 					 String text = formatter.formatCellValue(cell);
@@ -252,49 +143,49 @@ public class QuestionController {
 					 {
 						 if(colNames.get(cell.getColumnIndex()).equals("context"))
 						 {
-							 questionJudge.setContext(text);
+							 question.setContext(text);
 						 }
 						 else if(colNames.get(cell.getColumnIndex()).equals("answer"))
 						 {
-							 questionJudge.setAnswer(text.equals("1"));
+							 question.setAnswer(text);
 						 }
 						 else if(colNames.get(cell.getColumnIndex()).equals("score"))
 						 {
-							 questionJudge.setScore(Integer.parseInt(text));
+							 question.setScore(Integer.parseInt(text));
 						 }
 						 else if(colNames.get(cell.getColumnIndex()).equals("teacher_id"))
 						 {
-							 questionJudge.setTeacherId(Long.parseLong(text));
+							 question.setTeacherId(Long.parseLong(text));
 						 }
 						 else if(colNames.get(cell.getColumnIndex()).equals("difficult"))
 						 {
-							 questionJudge.setDifficult(Integer.parseInt(text));
+							 question.setDifficult(Integer.parseInt(text));
 						 }
 						 else if(colNames.get(cell.getColumnIndex()).equals("knowledge_point"))
 						 {
-							 questionJudge.setKnowledgePoint(text);
+							 question.setKnowledgePoint(text);
 						 }
 						 else if(colNames.get(cell.getColumnIndex()).equals("normal_time"))
 						 {
-							 questionJudge.setNormalTime(Integer.parseInt(text));
+							 question.setNormalTime(Integer.parseInt(text));
 						 }
 					 }
 				
 				 }
 				 if(row.getRowNum() != 0)
 				 {
-					 questionJudge.setUpdated(new Date());
-					 questionJudge.setCreated(new Date());
-					 questions.add(questionJudge);
+					 question.setUpdated(new Date());
+					 question.setCreated(new Date());
+					 questions.add(question);
 				 }
 			 }
 		} catch (Exception e) {
 			e.printStackTrace();
 			return EduResult.err(null, null);
 		}
-        for(QuestionJudge questionJudge : questions)
+        for(Question question : questions)
         {
-        		questionService.addQuestionJudge(questionJudge);
+        		questionService.addQuestion(question);
         }
 		return EduResult.ok("", null);
     }

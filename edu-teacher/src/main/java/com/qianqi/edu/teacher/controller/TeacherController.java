@@ -21,7 +21,7 @@ import com.qianqi.edu.pojo.Grade;
 import com.qianqi.edu.pojo.Paper;
 import com.qianqi.edu.pojo.PaperAnswer;
 import com.qianqi.edu.pojo.PaperItem;
-import com.qianqi.edu.pojo.QuestionJudge;
+import com.qianqi.edu.pojo.Question;
 import com.qianqi.edu.pojo.StudentTclass;
 import com.qianqi.edu.pojo.Subject;
 import com.qianqi.edu.pojo.Tclass;
@@ -31,9 +31,11 @@ import com.qianqi.edu.pojo.common.EduResult;
 import com.qianqi.edu.pojo.common.PaperAnswerResult;
 import com.qianqi.edu.pojo.common.PaperResult;
 import com.qianqi.edu.pojo.common.QuestionResult;
+import com.qianqi.edu.pojo.common.SearchItem;
 import com.qianqi.edu.service.GradeService;
 import com.qianqi.edu.service.PaperService;
 import com.qianqi.edu.service.QuestionService;
+import com.qianqi.edu.service.SearchService;
 import com.qianqi.edu.service.SsoService;
 import com.qianqi.edu.service.StudentService;
 import com.qianqi.edu.service.SubjectService;
@@ -58,6 +60,8 @@ public class TeacherController {
 	private StudentService studentService;
 	@Autowired
 	private SsoService ssoService;
+	@Autowired
+	private SearchService searchService;
 	
 	@RequestMapping("/toRegister")
 	public String toRegister(Model model)
@@ -232,11 +236,11 @@ public class TeacherController {
 	@ResponseBody
 	public EasyUIDataGridResult questionList(@RequestParam(defaultValue="0") long paperId,@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
 	{
-		EasyUIDataGridResult result = questionService.findQuestionJudgeList(page, rows);
+		EasyUIDataGridResult result = questionService.findQuestionList(page, rows);
 		List<PaperItem> haslist = paperService.findPaperItemByPaperId(paperId);
-		List<QuestionJudge> list = (List<QuestionJudge>) result.getRows();
+		List<Question> list = (List<Question>) result.getRows();
 		List<QuestionResult> newlist = new ArrayList<>();
-		for(QuestionJudge question : list)
+		for(Question question : list)
 		{
 			QuestionResult questionResult = new QuestionResult(question);
 			questionResult.setCk(false);
@@ -291,7 +295,6 @@ public class TeacherController {
 				PaperItem item = new PaperItem();
 				item.setPaperId(paperId);
 				item.setType(type);
-				item.setQuestionType(1);
 				item.setQuestionId(id);
 				item.setCreated(new Date());
 				paperService.addPaperItem(item);
@@ -400,5 +403,19 @@ public class TeacherController {
 			paperService.updatePaperAnswer(pa);
 		}
 		return EduResult.ok("", null);
+	}
+	
+	@RequestMapping("/question/tosearch")
+	public String tosearch()
+	{
+		return "search";
+	}
+	
+	@RequestMapping("/question/search")
+	@ResponseBody
+	public List<SearchItem> search(String keyword)
+	{
+		List<SearchItem> list = searchService.searchQuestion(keyword, 1, 10);
+		return list;
 	}
 }

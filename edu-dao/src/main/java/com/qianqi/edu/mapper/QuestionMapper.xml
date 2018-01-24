@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qianqi.edu.mapper.QuestionJudgeMapper" >
-  <resultMap id="BaseResultMap" type="com.qianqi.edu.pojo.QuestionJudge" >
+<mapper namespace="com.qianqi.edu.mapper.QuestionMapper" >
+  <resultMap id="BaseResultMap" type="com.qianqi.edu.pojo.Question" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="answer" property="answer" jdbcType="BIT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
     <result column="score" property="score" jdbcType="INTEGER" />
     <result column="teacher_id" property="teacherId" jdbcType="BIGINT" />
     <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
@@ -11,10 +12,17 @@
     <result column="difficult" property="difficult" jdbcType="INTEGER" />
     <result column="knowledge_point" property="knowledgePoint" jdbcType="VARCHAR" />
     <result column="normal_time" property="normalTime" jdbcType="INTEGER" />
+    <result column="choice_a" property="choiceA" jdbcType="VARCHAR" />
+    <result column="choice_b" property="choiceB" jdbcType="VARCHAR" />
+    <result column="choice_c" property="choiceC" jdbcType="VARCHAR" />
+    <result column="choice_d" property="choiceD" jdbcType="VARCHAR" />
+    <result column="choice_e" property="choiceE" jdbcType="VARCHAR" />
+    <result column="choice_f" property="choiceF" jdbcType="VARCHAR" />
+    <result column="choice_g" property="choiceG" jdbcType="VARCHAR" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
     <result column="updated" property="updated" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.qianqi.edu.pojo.QuestionJudge" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.qianqi.edu.pojo.Question" extends="BaseResultMap" >
     <result column="context" property="context" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -76,13 +84,14 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, answer, score, teacher_id, subject_id, grade_id, difficult, knowledge_point, 
-    normal_time, created, updated
+    id, type, answer, score, teacher_id, subject_id, grade_id, difficult, knowledge_point, 
+    normal_time, choice_a, choice_b, choice_c, choice_d, choice_e, choice_f, choice_g, 
+    created, updated
   </sql>
   <sql id="Blob_Column_List" >
     context
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.qianqi.edu.pojo.QuestionJudgeExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.qianqi.edu.pojo.QuestionExample" >
     select
     <if test="distinct" >
       distinct
@@ -90,7 +99,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from question_judge
+    from question
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -98,13 +107,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qianqi.edu.pojo.QuestionJudgeExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qianqi.edu.pojo.QuestionExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from question_judge
+    from question
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -117,36 +126,43 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from question_judge
+    from question
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from question_judge
+    delete from question
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.qianqi.edu.pojo.QuestionJudgeExample" >
-    delete from question_judge
+  <delete id="deleteByExample" parameterType="com.qianqi.edu.pojo.QuestionExample" >
+    delete from question
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.qianqi.edu.pojo.QuestionJudge" >
-    insert into question_judge (id, answer, score, 
-      teacher_id, subject_id, grade_id, 
-      difficult, knowledge_point, normal_time, 
-      created, updated, context
-      )
-    values (#{id,jdbcType=BIGINT}, #{answer,jdbcType=BIT}, #{score,jdbcType=INTEGER}, 
-      #{teacherId,jdbcType=BIGINT}, #{subjectId,jdbcType=INTEGER}, #{gradeId,jdbcType=INTEGER}, 
-      #{difficult,jdbcType=INTEGER}, #{knowledgePoint,jdbcType=VARCHAR}, #{normalTime,jdbcType=INTEGER}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{context,jdbcType=LONGVARCHAR}
-      )
+  <insert id="insert" parameterType="com.qianqi.edu.pojo.Question" >
+    insert into question (id, type, answer, 
+      score, teacher_id, subject_id, 
+      grade_id, difficult, knowledge_point, 
+      normal_time, choice_a, choice_b, 
+      choice_c, choice_d, choice_e, 
+      choice_f, choice_g, created, 
+      updated, context)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{answer,jdbcType=VARCHAR}, 
+      #{score,jdbcType=INTEGER}, #{teacherId,jdbcType=BIGINT}, #{subjectId,jdbcType=INTEGER}, 
+      #{gradeId,jdbcType=INTEGER}, #{difficult,jdbcType=INTEGER}, #{knowledgePoint,jdbcType=VARCHAR}, 
+      #{normalTime,jdbcType=INTEGER}, #{choiceA,jdbcType=VARCHAR}, #{choiceB,jdbcType=VARCHAR}, 
+      #{choiceC,jdbcType=VARCHAR}, #{choiceD,jdbcType=VARCHAR}, #{choiceE,jdbcType=VARCHAR}, 
+      #{choiceF,jdbcType=VARCHAR}, #{choiceG,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP}, #{context,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.qianqi.edu.pojo.QuestionJudge" >
-    insert into question_judge
+  <insert id="insertSelective" parameterType="com.qianqi.edu.pojo.Question" >
+    insert into question
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="type != null" >
+        type,
       </if>
       <if test="answer != null" >
         answer,
@@ -172,6 +188,27 @@
       <if test="normalTime != null" >
         normal_time,
       </if>
+      <if test="choiceA != null" >
+        choice_a,
+      </if>
+      <if test="choiceB != null" >
+        choice_b,
+      </if>
+      <if test="choiceC != null" >
+        choice_c,
+      </if>
+      <if test="choiceD != null" >
+        choice_d,
+      </if>
+      <if test="choiceE != null" >
+        choice_e,
+      </if>
+      <if test="choiceF != null" >
+        choice_f,
+      </if>
+      <if test="choiceG != null" >
+        choice_g,
+      </if>
       <if test="created != null" >
         created,
       </if>
@@ -186,8 +223,11 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
       <if test="answer != null" >
-        #{answer,jdbcType=BIT},
+        #{answer,jdbcType=VARCHAR},
       </if>
       <if test="score != null" >
         #{score,jdbcType=INTEGER},
@@ -210,6 +250,27 @@
       <if test="normalTime != null" >
         #{normalTime,jdbcType=INTEGER},
       </if>
+      <if test="choiceA != null" >
+        #{choiceA,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceB != null" >
+        #{choiceB,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceC != null" >
+        #{choiceC,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceD != null" >
+        #{choiceD,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceE != null" >
+        #{choiceE,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceF != null" >
+        #{choiceF,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceG != null" >
+        #{choiceG,jdbcType=VARCHAR},
+      </if>
       <if test="created != null" >
         #{created,jdbcType=TIMESTAMP},
       </if>
@@ -221,20 +282,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.qianqi.edu.pojo.QuestionJudgeExample" resultType="java.lang.Integer" >
-    select count(*) from question_judge
+  <select id="countByExample" parameterType="com.qianqi.edu.pojo.QuestionExample" resultType="java.lang.Integer" >
+    select count(*) from question
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update question_judge
+    update question
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
       <if test="record.answer != null" >
-        answer = #{record.answer,jdbcType=BIT},
+        answer = #{record.answer,jdbcType=VARCHAR},
       </if>
       <if test="record.score != null" >
         score = #{record.score,jdbcType=INTEGER},
@@ -257,6 +321,27 @@
       <if test="record.normalTime != null" >
         normal_time = #{record.normalTime,jdbcType=INTEGER},
       </if>
+      <if test="record.choiceA != null" >
+        choice_a = #{record.choiceA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choiceB != null" >
+        choice_b = #{record.choiceB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choiceC != null" >
+        choice_c = #{record.choiceC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choiceD != null" >
+        choice_d = #{record.choiceD,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choiceE != null" >
+        choice_e = #{record.choiceE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choiceF != null" >
+        choice_f = #{record.choiceF,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choiceG != null" >
+        choice_g = #{record.choiceG,jdbcType=VARCHAR},
+      </if>
       <if test="record.created != null" >
         created = #{record.created,jdbcType=TIMESTAMP},
       </if>
@@ -272,9 +357,10 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update question_judge
+    update question
     set id = #{record.id,jdbcType=BIGINT},
-      answer = #{record.answer,jdbcType=BIT},
+      type = #{record.type,jdbcType=INTEGER},
+      answer = #{record.answer,jdbcType=VARCHAR},
       score = #{record.score,jdbcType=INTEGER},
       teacher_id = #{record.teacherId,jdbcType=BIGINT},
       subject_id = #{record.subjectId,jdbcType=INTEGER},
@@ -282,6 +368,13 @@
       difficult = #{record.difficult,jdbcType=INTEGER},
       knowledge_point = #{record.knowledgePoint,jdbcType=VARCHAR},
       normal_time = #{record.normalTime,jdbcType=INTEGER},
+      choice_a = #{record.choiceA,jdbcType=VARCHAR},
+      choice_b = #{record.choiceB,jdbcType=VARCHAR},
+      choice_c = #{record.choiceC,jdbcType=VARCHAR},
+      choice_d = #{record.choiceD,jdbcType=VARCHAR},
+      choice_e = #{record.choiceE,jdbcType=VARCHAR},
+      choice_f = #{record.choiceF,jdbcType=VARCHAR},
+      choice_g = #{record.choiceG,jdbcType=VARCHAR},
       created = #{record.created,jdbcType=TIMESTAMP},
       updated = #{record.updated,jdbcType=TIMESTAMP},
       context = #{record.context,jdbcType=LONGVARCHAR}
@@ -290,9 +383,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update question_judge
+    update question
     set id = #{record.id,jdbcType=BIGINT},
-      answer = #{record.answer,jdbcType=BIT},
+      type = #{record.type,jdbcType=INTEGER},
+      answer = #{record.answer,jdbcType=VARCHAR},
       score = #{record.score,jdbcType=INTEGER},
       teacher_id = #{record.teacherId,jdbcType=BIGINT},
       subject_id = #{record.subjectId,jdbcType=INTEGER},
@@ -300,17 +394,27 @@
       difficult = #{record.difficult,jdbcType=INTEGER},
       knowledge_point = #{record.knowledgePoint,jdbcType=VARCHAR},
       normal_time = #{record.normalTime,jdbcType=INTEGER},
+      choice_a = #{record.choiceA,jdbcType=VARCHAR},
+      choice_b = #{record.choiceB,jdbcType=VARCHAR},
+      choice_c = #{record.choiceC,jdbcType=VARCHAR},
+      choice_d = #{record.choiceD,jdbcType=VARCHAR},
+      choice_e = #{record.choiceE,jdbcType=VARCHAR},
+      choice_f = #{record.choiceF,jdbcType=VARCHAR},
+      choice_g = #{record.choiceG,jdbcType=VARCHAR},
       created = #{record.created,jdbcType=TIMESTAMP},
       updated = #{record.updated,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qianqi.edu.pojo.QuestionJudge" >
-    update question_judge
+  <update id="updateByPrimaryKeySelective" parameterType="com.qianqi.edu.pojo.Question" >
+    update question
     <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
       <if test="answer != null" >
-        answer = #{answer,jdbcType=BIT},
+        answer = #{answer,jdbcType=VARCHAR},
       </if>
       <if test="score != null" >
         score = #{score,jdbcType=INTEGER},
@@ -333,6 +437,27 @@
       <if test="normalTime != null" >
         normal_time = #{normalTime,jdbcType=INTEGER},
       </if>
+      <if test="choiceA != null" >
+        choice_a = #{choiceA,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceB != null" >
+        choice_b = #{choiceB,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceC != null" >
+        choice_c = #{choiceC,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceD != null" >
+        choice_d = #{choiceD,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceE != null" >
+        choice_e = #{choiceE,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceF != null" >
+        choice_f = #{choiceF,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceG != null" >
+        choice_g = #{choiceG,jdbcType=VARCHAR},
+      </if>
       <if test="created != null" >
         created = #{created,jdbcType=TIMESTAMP},
       </if>
@@ -345,9 +470,10 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qianqi.edu.pojo.QuestionJudge" >
-    update question_judge
-    set answer = #{answer,jdbcType=BIT},
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qianqi.edu.pojo.Question" >
+    update question
+    set type = #{type,jdbcType=INTEGER},
+      answer = #{answer,jdbcType=VARCHAR},
       score = #{score,jdbcType=INTEGER},
       teacher_id = #{teacherId,jdbcType=BIGINT},
       subject_id = #{subjectId,jdbcType=INTEGER},
@@ -355,14 +481,22 @@
       difficult = #{difficult,jdbcType=INTEGER},
       knowledge_point = #{knowledgePoint,jdbcType=VARCHAR},
       normal_time = #{normalTime,jdbcType=INTEGER},
+      choice_a = #{choiceA,jdbcType=VARCHAR},
+      choice_b = #{choiceB,jdbcType=VARCHAR},
+      choice_c = #{choiceC,jdbcType=VARCHAR},
+      choice_d = #{choiceD,jdbcType=VARCHAR},
+      choice_e = #{choiceE,jdbcType=VARCHAR},
+      choice_f = #{choiceF,jdbcType=VARCHAR},
+      choice_g = #{choiceG,jdbcType=VARCHAR},
       created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP},
       context = #{context,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qianqi.edu.pojo.QuestionJudge" >
-    update question_judge
-    set answer = #{answer,jdbcType=BIT},
+  <update id="updateByPrimaryKey" parameterType="com.qianqi.edu.pojo.Question" >
+    update question
+    set type = #{type,jdbcType=INTEGER},
+      answer = #{answer,jdbcType=VARCHAR},
       score = #{score,jdbcType=INTEGER},
       teacher_id = #{teacherId,jdbcType=BIGINT},
       subject_id = #{subjectId,jdbcType=INTEGER},
@@ -370,6 +504,13 @@
       difficult = #{difficult,jdbcType=INTEGER},
       knowledge_point = #{knowledgePoint,jdbcType=VARCHAR},
       normal_time = #{normalTime,jdbcType=INTEGER},
+      choice_a = #{choiceA,jdbcType=VARCHAR},
+      choice_b = #{choiceB,jdbcType=VARCHAR},
+      choice_c = #{choiceC,jdbcType=VARCHAR},
+      choice_d = #{choiceD,jdbcType=VARCHAR},
+      choice_e = #{choiceE,jdbcType=VARCHAR},
+      choice_f = #{choiceF,jdbcType=VARCHAR},
+      choice_g = #{choiceG,jdbcType=VARCHAR},
       created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

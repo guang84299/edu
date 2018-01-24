@@ -4,15 +4,17 @@ import java.io.Serializable;
 
 import java.util.Date;
 
-public class QuestionMulti implements Serializable {
+public class Question implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
+    private Integer type;
+
     private String answer;
 
-    private String score;
+    private Integer score;
 
     private Long teacherId;
 
@@ -54,6 +56,14 @@ public class QuestionMulti implements Serializable {
         this.id = id;
     }
 
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     public String getAnswer() {
         return answer;
     }
@@ -62,12 +72,12 @@ public class QuestionMulti implements Serializable {
         this.answer = answer == null ? null : answer.trim();
     }
 
-    public String getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(String score) {
-        this.score = score == null ? null : score.trim();
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Long getTeacherId() {

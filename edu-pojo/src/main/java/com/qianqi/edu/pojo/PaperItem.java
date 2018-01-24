@@ -14,8 +14,6 @@ public class PaperItem implements Serializable {
 
     private Long paperId;
 
-    private Integer questionType;
-
     private Long questionId;
 
     private Date created;
@@ -42,14 +40,6 @@ public class PaperItem implements Serializable {
 
     public void setPaperId(Long paperId) {
         this.paperId = paperId;
-    }
-
-    public Integer getQuestionType() {
-        return questionType;
-    }
-
-    public void setQuestionType(Integer questionType) {
-        this.questionType = questionType;
     }
 
     public Long getQuestionId() {

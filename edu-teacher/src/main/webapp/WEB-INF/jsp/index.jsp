@@ -55,6 +55,13 @@
 	         	</ul>
          	</li>
          	<li>
+         		<span>题库</span>
+         		<ul>
+	         		<li data-options="attributes:{'url':'/question/category'}">创建私有题库</li>
+	         		<li data-options="attributes:{'url':'/question/tosearch'}">搜索题目</li>
+	         	</ul>
+         	</li>
+         	<li>
          		<span>学生管理</span>
          		<ul>
 	         		<li data-options="attributes:{'url':'/question/category'}">题库分类</li>

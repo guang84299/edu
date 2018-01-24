@@ -19,7 +19,7 @@ import com.qianqi.edu.pojo.Paper;
 import com.qianqi.edu.pojo.PaperAnswer;
 import com.qianqi.edu.pojo.PaperAnswerItem;
 import com.qianqi.edu.pojo.PaperItem;
-import com.qianqi.edu.pojo.QuestionJudge;
+import com.qianqi.edu.pojo.Question;
 import com.qianqi.edu.pojo.Student;
 import com.qianqi.edu.pojo.StudentTclass;
 import com.qianqi.edu.pojo.Tclass;
@@ -159,15 +159,14 @@ public class StudentController {
 			List<PaperItem> pis = paperService.findPaperItemByPaperId(pa.getPaperId());
 			for(PaperItem pi : pis)
 			{
-				QuestionJudge judge = questionService.findQuestionJudgeById(pi.getQuestionId());
-				if(judge != null)
+				Question question = questionService.findQuestionById(pi.getQuestionId());
+				if(question != null)
 				{
-					QuestionItem item = new QuestionItem(judge);
+					QuestionItem item = new QuestionItem(question);
 					item.setPaperAnswerId(pa.getId());
 					item.setPaperItemId(pi.getId());
 					item.setType(pi.getType());
 					item.setPaperId(pi.getPaperId());
-					item.setQuestionType(pi.getQuestionType());
 					item.setPaperAnswerItem(paperService.findPaperAnswerItem(item.getPaperItemId(), item.getPaperAnswerId()));
 					items.add(item);
 				}

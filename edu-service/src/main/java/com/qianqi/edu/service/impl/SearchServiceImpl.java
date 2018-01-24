@@ -15,26 +15,26 @@ import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qianqi.edu.mapper.QuestionJudgeMapper;
-import com.qianqi.edu.pojo.QuestionJudge;
-import com.qianqi.edu.pojo.QuestionJudgeExample;
+import com.qianqi.edu.mapper.QuestionMapper;
+import com.qianqi.edu.pojo.Question;
+import com.qianqi.edu.pojo.QuestionExample;
 import com.qianqi.edu.pojo.common.SearchItem;
 import com.qianqi.edu.service.SearchService;
 
 @Service
 public class SearchServiceImpl implements SearchService{
 	@Autowired
-	private QuestionJudgeMapper questionJudgeMapper;
+	private QuestionMapper questionMapper;
 	@Autowired
 	private SolrServer solrServer;
 	
 	@Override
 	public void synchroSearchItem() {
 		
-		QuestionJudgeExample example = new QuestionJudgeExample();
-		List<QuestionJudge> list = questionJudgeMapper.selectByExampleWithBLOBs(example);
+		QuestionExample example = new QuestionExample();
+		List<Question> list = questionMapper.selectByExampleWithBLOBs(example);
 		try {
-			for(QuestionJudge question : list)
+			for(Question question : list)
 			{
 				//创建文档对象
 				SolrInputDocument document = new SolrInputDocument();

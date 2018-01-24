@@ -285,66 +285,6 @@ public class PaperItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andQuestionTypeIsNull() {
-            addCriterion("question_type is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionTypeIsNotNull() {
-            addCriterion("question_type is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionTypeEqualTo(Integer value) {
-            addCriterion("question_type =", value, "questionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionTypeNotEqualTo(Integer value) {
-            addCriterion("question_type <>", value, "questionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionTypeGreaterThan(Integer value) {
-            addCriterion("question_type >", value, "questionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("question_type >=", value, "questionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionTypeLessThan(Integer value) {
-            addCriterion("question_type <", value, "questionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("question_type <=", value, "questionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionTypeIn(List<Integer> values) {
-            addCriterion("question_type in", values, "questionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionTypeNotIn(List<Integer> values) {
-            addCriterion("question_type not in", values, "questionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionTypeBetween(Integer value1, Integer value2) {
-            addCriterion("question_type between", value1, value2, "questionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andQuestionTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("question_type not between", value1, value2, "questionType");
-            return (Criteria) this;
-        }
-
         public Criteria andQuestionIdIsNull() {
             addCriterion("question_id is null");
             return (Criteria) this;

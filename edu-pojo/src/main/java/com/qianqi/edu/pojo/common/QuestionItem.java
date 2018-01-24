@@ -3,9 +3,9 @@ package com.qianqi.edu.pojo.common;
 import java.io.Serializable;
 
 import com.qianqi.edu.pojo.PaperAnswerItem;
-import com.qianqi.edu.pojo.QuestionJudge;
+import com.qianqi.edu.pojo.Question;
 
-public class QuestionItem extends QuestionJudge implements Serializable{
+public class QuestionItem extends Question implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Long paperItemId;
 	private Long paperAnswerId;
@@ -15,7 +15,7 @@ public class QuestionItem extends QuestionJudge implements Serializable{
     private PaperAnswerItem paperAnswerItem;
     
 	public QuestionItem() {}
-	public QuestionItem(QuestionJudge question) 
+	public QuestionItem(Question question) 
 	{
 		this.setId(question.getId());
 		this.setAnswer(question.getAnswer());

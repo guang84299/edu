@@ -2,14 +2,14 @@ package com.qianqi.edu.pojo.common;
 
 import java.io.Serializable;
 
-import com.qianqi.edu.pojo.QuestionJudge;
+import com.qianqi.edu.pojo.Question;
 
-public class QuestionResult extends QuestionJudge implements Serializable{
+public class QuestionResult extends Question implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private boolean ck;
 	
 	public QuestionResult() {}
-	public QuestionResult(QuestionJudge question)
+	public QuestionResult(Question question)
 	{
 		this.setId(question.getId());
 		this.setAnswer(question.getAnswer());

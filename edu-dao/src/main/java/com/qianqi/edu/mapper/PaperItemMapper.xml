@@ -5,7 +5,6 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="paper_id" property="paperId" jdbcType="BIGINT" />
-    <result column="question_type" property="questionType" jdbcType="INTEGER" />
     <result column="question_id" property="questionId" jdbcType="BIGINT" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -68,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, type, paper_id, question_type, question_id, created
+    id, type, paper_id, question_id, created
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qianqi.edu.pojo.PaperItemExample" >
     select
@@ -102,11 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.qianqi.edu.pojo.PaperItem" >
     insert into paper_item (id, type, paper_id, 
-      question_type, question_id, created
-      )
+      question_id, created)
     values (#{id,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{paperId,jdbcType=BIGINT}, 
-      #{questionType,jdbcType=INTEGER}, #{questionId,jdbcType=BIGINT}, #{created,jdbcType=TIMESTAMP}
-      )
+      #{questionId,jdbcType=BIGINT}, #{created,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.qianqi.edu.pojo.PaperItem" >
     insert into paper_item
@@ -119,9 +116,6 @@
       </if>
       <if test="paperId != null" >
         paper_id,
-      </if>
-      <if test="questionType != null" >
-        question_type,
       </if>
       <if test="questionId != null" >
         question_id,
@@ -139,9 +133,6 @@
       </if>
       <if test="paperId != null" >
         #{paperId,jdbcType=BIGINT},
-      </if>
-      <if test="questionType != null" >
-        #{questionType,jdbcType=INTEGER},
       </if>
       <if test="questionId != null" >
         #{questionId,jdbcType=BIGINT},
@@ -169,9 +160,6 @@
       <if test="record.paperId != null" >
         paper_id = #{record.paperId,jdbcType=BIGINT},
       </if>
-      <if test="record.questionType != null" >
-        question_type = #{record.questionType,jdbcType=INTEGER},
-      </if>
       <if test="record.questionId != null" >
         question_id = #{record.questionId,jdbcType=BIGINT},
       </if>
@@ -188,7 +176,6 @@
     set id = #{record.id,jdbcType=BIGINT},
       type = #{record.type,jdbcType=INTEGER},
       paper_id = #{record.paperId,jdbcType=BIGINT},
-      question_type = #{record.questionType,jdbcType=INTEGER},
       question_id = #{record.questionId,jdbcType=BIGINT},
       created = #{record.created,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -204,9 +191,6 @@
       <if test="paperId != null" >
         paper_id = #{paperId,jdbcType=BIGINT},
       </if>
-      <if test="questionType != null" >
-        question_type = #{questionType,jdbcType=INTEGER},
-      </if>
       <if test="questionId != null" >
         question_id = #{questionId,jdbcType=BIGINT},
       </if>
@@ -220,7 +204,6 @@
     update paper_item
     set type = #{type,jdbcType=INTEGER},
       paper_id = #{paperId,jdbcType=BIGINT},
-      question_type = #{questionType,jdbcType=INTEGER},
       question_id = #{questionId,jdbcType=BIGINT},
       created = #{created,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
