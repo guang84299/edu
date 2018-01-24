@@ -63,7 +63,7 @@ public class QuestionController {
 	
 	
 	@RequestMapping("/question/tolist")
-	public String toJudgeList()
+	public String toQuestionList()
 	{
 		return "question-list";
 	}
@@ -71,7 +71,7 @@ public class QuestionController {
 	
 	@RequestMapping("/question/list")
 	@ResponseBody
-	public EasyUIDataGridResult questionJudgeList(@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
+	public EasyUIDataGridResult questionList(@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
 	{
 		EasyUIDataGridResult result = questionService.findQuestionList(page, rows);
 		return result;
@@ -79,7 +79,7 @@ public class QuestionController {
 	
 	
 	@RequestMapping("/question/toedit")
-	public String toEditJudge(Model model)
+	public String toEditQuestion(Model model)
 	{
 		List<Grade> grades = gradeService.findGradeAll();
 		List<Subject> subjects = subjectService.findSubjectAll();
@@ -97,7 +97,7 @@ public class QuestionController {
 	
 	@RequestMapping("/question/edit")
 	@ResponseBody
-	public EduResult editJudge(@RequestBody Question question)
+	public EduResult editQuestion(@RequestBody Question question)
 	{
 		question.setUpdated(new Date());
 		questionService.updateQuestion(question);
@@ -107,7 +107,7 @@ public class QuestionController {
 	
 	@RequestMapping("/question/delete")
 	@ResponseBody
-	public EduResult deleteJudge(String ids)
+	public EduResult deleteQuestion(String ids)
 	{
 		String[] idss = ids.split(",");
 		for(String sid : idss)
@@ -124,6 +124,8 @@ public class QuestionController {
 	@ResponseBody
     public EduResult uploadFile(MultipartFile excel) {
 		List<Question> questions = new ArrayList<Question>();
+		List<Grade> grades = gradeService.findGradeAll();
+		List<Subject> subjects = subjectService.findSubjectAll();
 		try {
 			Workbook workbook = WorkbookFactory.create(excel.getInputStream());
 			Sheet sheet = workbook.getSheetAt(0);
@@ -141,33 +143,91 @@ public class QuestionController {
 		             }
 					 else
 					 {
-						 if(colNames.get(cell.getColumnIndex()).equals("context"))
+						 if(colNames.get(cell.getColumnIndex()).equals("类型"))
+						 {
+							 question.setType(Integer.parseInt(text));
+						 }
+						 else if(colNames.get(cell.getColumnIndex()).equals("题干"))
 						 {
 							 question.setContext(text);
 						 }
-						 else if(colNames.get(cell.getColumnIndex()).equals("answer"))
+						 else if(colNames.get(cell.getColumnIndex()).equals("答案"))
 						 {
 							 question.setAnswer(text);
 						 }
-						 else if(colNames.get(cell.getColumnIndex()).equals("score"))
+						 else if(colNames.get(cell.getColumnIndex()).equals("分数"))
 						 {
 							 question.setScore(Integer.parseInt(text));
 						 }
-						 else if(colNames.get(cell.getColumnIndex()).equals("teacher_id"))
+						 else if(colNames.get(cell.getColumnIndex()).equals("老师ID"))
 						 {
 							 question.setTeacherId(Long.parseLong(text));
 						 }
-						 else if(colNames.get(cell.getColumnIndex()).equals("difficult"))
+						 else if(colNames.get(cell.getColumnIndex()).equals("学科"))
+						 {
+							 int subjectId = 0;
+							 for(Subject subject : subjects)
+							 {
+								 if(subject.getName().equals(text))
+								 {
+									 subjectId = subject.getId();
+									 break;
+								 }
+							 }
+							 if(subjectId == 0)
+							 {
+								 subjectId = subjects.get(0).getId();
+							 }
+							 question.setSubjectId(subjectId);
+						 }
+						 else if(colNames.get(cell.getColumnIndex()).equals("年级"))
+						 {
+							 int gradeId = 0;
+							 for(Grade grade : grades)
+							 {
+								 if(grade.getName().equals(text))
+								 {
+									 gradeId = grade.getId();
+									 break;
+								 }
+							 }
+							 if(gradeId == 0)
+							 {
+								 gradeId = grades.get(0).getId();
+							 }
+							 question.setGradeId(gradeId);
+						 }
+						 else if(colNames.get(cell.getColumnIndex()).equals("困难度"))
 						 {
 							 question.setDifficult(Integer.parseInt(text));
 						 }
-						 else if(colNames.get(cell.getColumnIndex()).equals("knowledge_point"))
+						 else if(colNames.get(cell.getColumnIndex()).equals("知识点"))
 						 {
 							 question.setKnowledgePoint(text);
 						 }
-						 else if(colNames.get(cell.getColumnIndex()).equals("normal_time"))
+						 else if(colNames.get(cell.getColumnIndex()).equals("答题时间"))
 						 {
 							 question.setNormalTime(Integer.parseInt(text));
+						 }
+						 else if(colNames.get(cell.getColumnIndex()).equals("A"))
+						 {
+							 if(!StringUtils.isEmpty(text))
+								 question.setChoiceA(text);
+						 }
+						 else if(colNames.get(cell.getColumnIndex()).equals("B"))
+						 {
+							 if(!StringUtils.isEmpty(text))
+								 question.setChoiceB(text);
+						 }
+						 else if(colNames.get(cell.getColumnIndex()).equals("C"))
+						 {
+							 if(!StringUtils.isEmpty(text))
+								 question.setChoiceC(text);
+						 }
+						 else if(colNames.get(cell.getColumnIndex()).equals("D"))
+						 {
+							 if(!StringUtils.isEmpty(text))
+								 question.setChoiceD(text);
 						 }
 					 }
 				

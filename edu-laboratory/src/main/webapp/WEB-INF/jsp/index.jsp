@@ -50,9 +50,7 @@
          		<span>题库管理</span>
          		<ul>
 	         		<li data-options="attributes:{'url':'/question/toadd'}">新增题库</li>
-	         		<li data-options="attributes:{'url':'/question/tojudgelist'}">判断题库</li>
-	         		<li data-options="attributes:{'url':'/question/tosinglelist'}">单选题库</li>
-	         		<li data-options="attributes:{'url':'/question/tomultilist'}">多选题库</li>
+	         		<li data-options="attributes:{'url':'/question/tolist'}">查询题库</li>
 	         		<li data-options="attributes:{'url':'/question/toimport'}">批量导入</li>
 	         	</ul>
          	</li>

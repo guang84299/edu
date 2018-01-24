@@ -55,10 +55,35 @@ var E3 = {
     },
     // 格式化题库答案对错
     formatQuestionAnswer : function formatStatus(val,row){
-        if (val){
+        if (val == '1'){
             return '对';
-        } else {
-        	return '错';
+        } 
+        if (val == '0'){
+            return '错';
+        } 
+        else {
+        	return val;
+        }
+    },
+    // 格式化题库类型
+    formatQuestionType : function formatStatus(val,row){
+        if (val == 1){
+            return '判断题';
+        } 
+        else if (val == 2){
+            return '单选题';
+        } 
+        else if (val == 3){
+            return '多选题';
+        } 
+        else if (val == 4){
+            return '填空题';
+        } 
+        else if (val == 5){
+            return '主观题';
+        } 
+        else {
+        	return '未知';
         }
     },
     // 格式化题库困难度
