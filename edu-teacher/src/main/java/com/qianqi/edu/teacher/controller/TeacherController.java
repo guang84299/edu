@@ -418,4 +418,24 @@ public class TeacherController {
 		List<SearchItem> list = searchService.searchQuestion(keyword, 1, 10);
 		return list;
 	}
+	
+	@RequestMapping("/question/toadd")
+	public String toAdd(Model model)
+	{
+		List<Grade> grades = gradeService.findGradeAll();
+		List<Subject> subjects = subjectService.findSubjectAll();
+		model.addAttribute("grades", grades);
+		model.addAttribute("subjects", subjects);
+		return "question-add";
+	}
+	
+	@RequestMapping("/question/add")
+	@ResponseBody
+	public EduResult add(@RequestBody Question question)
+	{
+		question.setCreated(new Date());
+		question.setUpdated(new Date());
+		questionService.addQuestion(question);
+		return EduResult.ok(null, null);
+	}
 }

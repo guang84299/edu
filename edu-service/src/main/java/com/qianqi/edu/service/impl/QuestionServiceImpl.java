@@ -17,8 +17,10 @@ import com.qianqi.edu.pojo.QuestionCategory;
 import com.qianqi.edu.pojo.QuestionCategoryExample;
 import com.qianqi.edu.pojo.QuestionExample;
 import com.qianqi.edu.pojo.common.EasyUIDataGridResult;
+import com.qianqi.edu.pojo.common.SearchItem;
 import com.qianqi.edu.service.JedisClient;
 import com.qianqi.edu.service.QuestionService;
+import com.qianqi.edu.service.SearchService;
 
 @Service
 public class QuestionServiceImpl implements QuestionService{
@@ -28,6 +30,8 @@ public class QuestionServiceImpl implements QuestionService{
 	private QuestionCategoryMapper  questionCategoryMapper;
 	@Autowired
 	private JedisClient jedisClient;
+	@Autowired
+	private SearchService searchService;
 	
 	@Value("${QUESTION_LIST}")
 	private String QUESTION_LIST; 
@@ -76,18 +80,25 @@ public class QuestionServiceImpl implements QuestionService{
 		question.setId(id);
 		
 		questionMapper.insertSelective(question);
+		
+		//添加到索引库
+		searchService.addSearchItem(new SearchItem(question));
 	}
 
 	@Override
 	public void updateQuestion(Question question) {
 		questionMapper.updateByPrimaryKeySelective(question);
 		jedisClient.hdel(QUESTION_LIST, question.getId()+"");
+		
+		searchService.addSearchItem(new SearchItem(question));
 	}
 
 	@Override
 	public void deleteQuestion(Long id) {
 		questionMapper.deleteByPrimaryKey(id);
 		jedisClient.hdel(QUESTION_LIST, id+"");
+		
+		searchService.deleteSearchItem(id+"");
 	}
 
 	@Override
