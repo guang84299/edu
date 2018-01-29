@@ -229,6 +229,61 @@
 	  <input type="hidden" name="teacherId" value="${teacher.id}"/>
 	</form>
 		
+		
+	<form id="questionAddForm3" class="itemForm" method="post">
+	    <table cellpadding="5">
+	    		 <tr>
+            		<td>年级:</td>
+	            <td>
+	            	<select name="gradeId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+				    <c:forEach items="${grades}" var="val">
+				      <option value="${val.id }">${val.name }</option>
+				     </c:forEach>
+			    </select>
+	            </td>
+	        </tr>
+	        <tr>
+            		<td>学科:</td>
+	            <td>
+	            <select name="subjectId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+			    <c:forEach items="${subjects}" var="val">
+			      <option value="${val.id }">${val.name }</option>
+			     </c:forEach>
+			    </select>
+	            </td>
+	        </tr>
+	        <tr>
+            		<td>题目:</td>
+	            <td><input class="easyui-textbox" type="text" name="context" data-options="width:280,multiline:true,min:1,max:99999999,precision:2,required:true" />
+	            </td>
+	        </tr>
+	        <tr class="question_zhuguan">
+	            <td>答案:</td>
+	            <td><input class="easyui-textbox" type="text" name="answer" data-options="width:280,multiline:true,min:1,max:99999999,precision:0" /></td>
+	        </tr>
+	        <tr>
+	            <td>困难度:</td>
+	            <td>
+	            <input name="difficult" type="radio" value="0" checked="checked" style="width:20px;"/>简单
+		        <input name="difficult" type="radio" value="1" style="width:20px;"/>一般
+		        <input name="difficult" type="radio" value="2" style="width:20px;"/>困难
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>分数:</td>
+	            <td><input class="easyui-textbox" type="text" name="score" data-options="min:1,max:99999999,precision:0,required:true" /></td>
+	        </tr>
+			<tr>
+	            <td>答题时间:</td>
+	            <td><input class="easyui-textbox" type="text" name="normalTime" data-options="min:1,max:99999999,precision:0,required:true" />秒</td>
+	        </tr>
+	        <tr>
+	            <td>知识点:</td>
+	            <td><input class="easyui-textbox" type="text" name="knowledgePoint" data-options="width:280,multiline:true,min:1,max:99999999,precision:0" /></td>
+	        </tr>
+	    </table>
+	    <input type="hidden" name="teacherId" value="${teacher.id}"/>
+	</form>
 	        	
 	<div style="padding:5px">
 	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
@@ -286,6 +341,11 @@
 			question.choiceC = $(formName + " [name=choiceC]").val();
 			question.choiceD = $(formName + " [name=choiceD]").val();
 		}
+		else if(type == 3)
+		{
+			question.type = 5;
+			question.answer = $(formName + " [name=answer]").val();
+		}
 		
 		var datas = JSON.stringify(question);
 		$.ajax({
@@ -315,11 +375,13 @@
 		$('#questionAddForm0').form('reset');
 		$('#questionAddForm1').form('reset');
 		$('#questionAddForm2').form('reset');
+		$('#questionAddForm3').form('reset');
 	}
 	
 	$(function(){
 		$("#questionAddForm1").hide();
 		$("#questionAddForm2").hide();
+		$("#questionAddForm3").hide();
 		$("#questionAddFormSel .easyui-combobox").combobox({
 			onChange: function (n,o) {
 				if(n == 0)
@@ -327,18 +389,28 @@
 					$("#questionAddForm0").show();
 					$("#questionAddForm1").hide();
 					$("#questionAddForm2").hide();
+					$("#questionAddForm3").hide();
 				}
 				else if(n == 1)
 				{
 					$("#questionAddForm0").hide();
 					$("#questionAddForm1").show();
 					$("#questionAddForm2").hide();
+					$("#questionAddForm3").hide();
 				}
 				else if(n == 2)
 				{
 					$("#questionAddForm0").hide();
 					$("#questionAddForm1").hide();
 					$("#questionAddForm2").show();
+					$("#questionAddForm3").hide();
+				}
+				else if(n == 3)
+				{
+					$("#questionAddForm0").hide();
+					$("#questionAddForm1").hide();
+					$("#questionAddForm2").hide();
+					$("#questionAddForm3").show();
 				}
 			}
 		});
