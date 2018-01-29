@@ -3,12 +3,15 @@ package com.qianqi.edu.teacher.controller;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.qianqi.edu.pojo.Grade;
 import com.qianqi.edu.pojo.Paper;
 import com.qianqi.edu.pojo.PaperAnswer;
+import com.qianqi.edu.pojo.PaperAnswerItem;
 import com.qianqi.edu.pojo.PaperItem;
 import com.qianqi.edu.pojo.Question;
 import com.qianqi.edu.pojo.StudentTclass;
@@ -30,6 +34,7 @@ import com.qianqi.edu.pojo.common.EasyUIDataGridResult;
 import com.qianqi.edu.pojo.common.EduResult;
 import com.qianqi.edu.pojo.common.PaperAnswerResult;
 import com.qianqi.edu.pojo.common.PaperResult;
+import com.qianqi.edu.pojo.common.QuestionItem;
 import com.qianqi.edu.pojo.common.QuestionResult;
 import com.qianqi.edu.pojo.common.SearchItem;
 import com.qianqi.edu.service.GradeService;
@@ -62,6 +67,9 @@ public class TeacherController {
 	private SsoService ssoService;
 	@Autowired
 	private SearchService searchService;
+	
+	@Value("${IMAGE_SERVER_URL}")
+	private String IMAGE_SERVER_URL;
 	
 	@RequestMapping("/toRegister")
 	public String toRegister(Model model)
@@ -383,11 +391,37 @@ public class TeacherController {
 	@RequestMapping("/paper/tocheck")
 	public String toPaperCheck(Model model,HttpServletRequest request)
 	{
-		String pa = request.getParameter("paperAnswerId");
-		if(pa != null)
+		String pas = request.getParameter("paperAnswerId");
+		if(pas != null)
 		{
-			long paid = Long.parseLong(pa);
+			long paid = Long.parseLong(pas);
 			model.addAttribute("paid", paid);
+			
+			PaperAnswer pa = paperService.findPaperAnswerById(paid);
+			if(pa != null)
+			{
+				List<QuestionItem> items = new ArrayList<>();
+				List<PaperItem> pis = paperService.findPaperItemByPaperId(pa.getPaperId());
+				for(PaperItem pi : pis)
+				{
+					Question question = questionService.findQuestionById(pi.getQuestionId());
+					if(question != null && question.getType() == 5)
+					{
+						QuestionItem item = new QuestionItem(question);
+						item.setPaperAnswerId(pa.getId());
+						item.setPaperItemId(pi.getId());
+						item.setPaperItemType(pi.getType());
+						item.setPaperId(pi.getPaperId());
+						PaperAnswerItem pai = paperService.findPaperAnswerItem(item.getPaperItemId(), item.getPaperAnswerId());
+						if(pai != null)
+							pai.setAnswer(IMAGE_SERVER_URL+pai.getAnswer());
+						item.setPaperAnswerItem(pai);
+						items.add(item);
+					}
+				}
+				
+				model.addAttribute("items", items);
+			}
 		}
 		return "paper-check";
 	}
