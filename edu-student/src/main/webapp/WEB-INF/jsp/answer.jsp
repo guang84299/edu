@@ -52,6 +52,20 @@
 	        			</tr>
 	        		</c:when>
 	        		
+	        		<c:when test="${val.type == 5 }">
+	        			<tr class="question_zhuguan">
+	        				<td>答案:</td>
+	        				<td>
+	        					<input name="answer_${val.paperItemId }" data-paperItemId="${val.paperItemId }" data-paperAnswerId="${val.paperAnswerId }"  type="hidden" value="${val.paperAnswerItem.answer }" style="width:20px;"/>
+	        					<img alt="" src="${val.paperAnswerItem.answer }" class="uploadimg_${val.paperItemId }" <c:if test="${val.paperAnswerItem.answer == null}">style="display:none;"</c:if> width="100px">
+	        					<div class="uploaddiv_${val.paperItemId }" <c:if test="${val.paperAnswerItem.answer != null}">style="display:none;"</c:if>>
+	        						<input type="file" class="uploadfile_${val.paperItemId }">
+		        					<button data-paperItemId="${val.paperItemId }" >上传</button>
+	        					</div>
+	        				</td>
+	        			</tr>
+	        		</c:when>
+	        		
 	        </c:choose>
 	        
 	    </c:forEach>
@@ -62,7 +76,7 @@
 				作业都做完了
 			</c:when>
 			<c:otherwise>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="answersubmitForm()">提交作业</a>
+				<a href="javascript:void(0)"class="easyui-linkbutton"  onclick="answersubmitForm()">提交作业</a>
 			</c:otherwise>
 		</c:choose>	    
 	</div>
@@ -70,6 +84,51 @@
 
 <script type="text/javascript">
 	
+	$("#answerEditForm .question_zhuguan button").click(function(){
+		var paperItemId = $(this).attr("data-paperItemId");
+		var fileName = $("#answerEditForm .question_zhuguan .uploadfile_"+paperItemId).val();
+		if(fileName == "" || fileName == null || fileName == undefined)
+		{
+			$.messager.alert('提示','请选择图片!');
+			return;
+		}
+		var fix = fileName.substr(fileName.lastIndexOf("."),fileName.length);
+		fix = fix.toLowerCase();
+		if(fix != ".png" && fix != ".jpeg" && fix != ".jpg")
+		{
+			$.messager.alert('提示','文件格式不正确!');
+			return;
+		}
+		var file = $("#answerEditForm .question_zhuguan .uploadfile_"+paperItemId).prop('files');
+		var data = new FormData();  
+		data.append("file", file[0]);
+		$.ajax({  
+	        data: data,  
+	        type: "POST",  
+	        url: '/paper/answer/upload',
+	        cache: false,  
+	        contentType: false,  
+	        processData: false,  
+	        success: function(data) { 
+				if(data.state == 200)
+				{
+					$("#answerEditForm .question_zhuguan [name=answer_"+paperItemId+"]").val(data.msg);
+					$("#answerEditForm .question_zhuguan .uploaddiv_"+paperItemId).hide();
+					$("#answerEditForm .question_zhuguan .uploadimg_"+paperItemId).attr("src",data.msg);
+					$("#answerEditForm .question_zhuguan .uploadimg_"+paperItemId).show();
+				}
+				else
+				{
+					$.messager.alert('错误',"上传失败！");
+				}
+			}, 
+			error: function(e) { 
+				$.messager.alert('错误',"网络错误");
+			} 
+	    }); 		
+	});
+
+
 	function answersubmitForm(){
 		/* if(!$('#answerEditForm').form('validate')){
 			$.messager.alert('提示','表单还未填写完成!');
@@ -123,6 +182,22 @@
 			    	paper_answer_items.push(paper_answer_item);
 			}
 		  });
+		
+		$("#answerEditForm .question_zhuguan").each(function(){
+			var paper_answer_item = {};
+			var paperItemId = $(this).find("input:eq(0)").attr("data-paperItemId");
+			var paperAnswerId = $(this).find("input:eq(0)").attr("data-paperAnswerId");
+		    	var an = $(this).find("input:eq(0)").attr("name");
+		    	var answer = $("#answerEditForm [name="+an+"]").val();
+		    	if(answer != "" && answer.length > 0)
+			{
+		    		paper_answer_item.paperItemId = paperItemId;
+			    	paper_answer_item.paperAnswerId = paperAnswerId;
+			    	paper_answer_item.answer = answer;
+			    	paper_answer_items.push(paper_answer_item);
+			}
+		  });
+		
 		var datas = JSON.stringify(paper_answer_items);
 		
 		$.ajax({

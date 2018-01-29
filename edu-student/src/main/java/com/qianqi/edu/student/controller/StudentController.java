@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.qianqi.edu.common.FastDFSClient;
 import com.qianqi.edu.pojo.Paper;
 import com.qianqi.edu.pojo.PaperAnswer;
 import com.qianqi.edu.pojo.PaperAnswerItem;
@@ -51,6 +54,9 @@ public class StudentController {
 	private QuestionService questionService;
 	@Autowired
 	private SsoService ssoService;
+	
+	@Value("${IMAGE_SERVER_URL}")
+	private String IMAGE_SERVER_URL;
 	
 	@RequestMapping("/toRegister")
 	public String toRegister()
@@ -169,7 +175,10 @@ public class StudentController {
 					item.setPaperItemId(pi.getId());
 					item.setPaperItemType(pi.getType());
 					item.setPaperId(pi.getPaperId());
-					item.setPaperAnswerItem(paperService.findPaperAnswerItem(item.getPaperItemId(), item.getPaperAnswerId()));
+					PaperAnswerItem pai = paperService.findPaperAnswerItem(item.getPaperItemId(), item.getPaperAnswerId());
+					if(question.getType() == 5 && pai != null)
+						pai.setAnswer(IMAGE_SERVER_URL+pai.getAnswer());
+					item.setPaperAnswerItem(pai);
 					items.add(item);
 				}
 			}
@@ -198,6 +207,12 @@ public class StudentController {
 					PaperItem pi = paperService.findPaperItemById(item.getPaperItemId());
 					paperId = pi.getPaperId();
 				}
+				if(item.getAnswer().contains(IMAGE_SERVER_URL))
+				{
+					String answer = item.getAnswer().replace(IMAGE_SERVER_URL, "");
+					item.setAnswer(answer);
+				}
+				
 				PaperAnswerItem paperAnswerItem = paperService.findPaperAnswerItem(item.getPaperItemId(), item.getPaperAnswerId());
 				if(paperAnswerItem == null)
 				{
@@ -227,6 +242,27 @@ public class StudentController {
 		}
 		return EduResult.ok("", null);
 	}
+	
+	@RequestMapping("/paper/answer/upload")
+	@ResponseBody
+    public EduResult uploadFile(MultipartFile file) 
+    {
+		try {
+			//把图片上传的图片服务器
+			FastDFSClient fastDFSClient = new FastDFSClient("classpath:conf/client.conf");
+			//取文件扩展名
+			String originalFilename = file.getOriginalFilename();
+			String extName = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+			//得到一个图片的地址和文件名
+			String url = fastDFSClient.uploadFile(file.getBytes(), extName);
+			//补充为完整的url
+			url = IMAGE_SERVER_URL + url;
+			return EduResult.ok(url, "");
+		}
+		catch (Exception e) {
+			return EduResult.err(null, null);
+		}
+    }
 	
 	@RequestMapping("/paper/tolist")
 	public String toPaperList()
