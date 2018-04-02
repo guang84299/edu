@@ -14,9 +14,9 @@ import com.qianqi.edu.pojo.KnowledgeExample;
 import com.qianqi.edu.service.JedisClient;
 import com.qianqi.edu.service.KnowledgeService;
 
-@Service
+@Service     
 public class KnowledgeServiceImpl implements KnowledgeService{
-
+			 
 	@Autowired
 	private KnowledgeMapper knowledgeMapper;
 	@Autowired
@@ -69,7 +69,7 @@ public class KnowledgeServiceImpl implements KnowledgeService{
 	
 
 	@Override
-	public Knowledge findKnowledge(String knowledge) {
+	public Knowledge findKnowledgeByKnowledge(String knowledge) {
 		KnowledgeExample knowledgeExample = new KnowledgeExample();
 		knowledgeExample.createCriteria().andKnowledgeEqualTo(knowledge);
 		List<Knowledge> list = knowledgeMapper.selectByExample(knowledgeExample);

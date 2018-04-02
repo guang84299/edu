@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qianqi.edu.mapper.StudentTclassMapper" >
-  <resultMap id="BaseResultMap" type="com.qianqi.edu.pojo.StudentTclass" >
+<mapper namespace="com.qianqi.edu.mapper.TeacherSubjectMapper" >
+  <resultMap id="BaseResultMap" type="com.qianqi.edu.pojo.TeacherSubject" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="student_id" property="studentId" jdbcType="BIGINT" />
+    <result column="taecher_id" property="taecherId" jdbcType="BIGINT" />
+    <result column="school_id" property="schoolId" jdbcType="INTEGER" />
+    <result column="grade_id" property="gradeId" jdbcType="INTEGER" />
     <result column="tclass_id" property="tclassId" jdbcType="BIGINT" />
-    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -67,15 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, student_id, tclass_id, updated, created
+    id, taecher_id, school_id, grade_id, tclass_id, subject_id, created
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qianqi.edu.pojo.StudentTclassExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qianqi.edu.pojo.TeacherSubjectExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from student_tclass
+    from teacher_subject
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,39 +88,47 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from student_tclass
+    from teacher_subject
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from student_tclass
+    delete from teacher_subject
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.qianqi.edu.pojo.StudentTclassExample" >
-    delete from student_tclass
+  <delete id="deleteByExample" parameterType="com.qianqi.edu.pojo.TeacherSubjectExample" >
+    delete from teacher_subject
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.qianqi.edu.pojo.StudentTclass" >
-    insert into student_tclass (id, student_id, tclass_id, 
-      updated, created)
-    values (#{id,jdbcType=BIGINT}, #{studentId,jdbcType=BIGINT}, #{tclassId,jdbcType=BIGINT}, 
-      #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.qianqi.edu.pojo.TeacherSubject" >
+    insert into teacher_subject (id, taecher_id, school_id, 
+      grade_id, tclass_id, subject_id, 
+      created)
+    values (#{id,jdbcType=BIGINT}, #{taecherId,jdbcType=BIGINT}, #{schoolId,jdbcType=INTEGER}, 
+      #{gradeId,jdbcType=INTEGER}, #{tclassId,jdbcType=BIGINT}, #{subjectId,jdbcType=INTEGER}, 
+      #{created,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.qianqi.edu.pojo.StudentTclass" >
-    insert into student_tclass
+  <insert id="insertSelective" parameterType="com.qianqi.edu.pojo.TeacherSubject" >
+    insert into teacher_subject
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="studentId != null" >
-        student_id,
+      <if test="taecherId != null" >
+        taecher_id,
+      </if>
+      <if test="schoolId != null" >
+        school_id,
+      </if>
+      <if test="gradeId != null" >
+        grade_id,
       </if>
       <if test="tclassId != null" >
         tclass_id,
       </if>
-      <if test="updated != null" >
-        updated,
+      <if test="subjectId != null" >
+        subject_id,
       </if>
       <if test="created != null" >
         created,
@@ -128,40 +138,52 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="studentId != null" >
-        #{studentId,jdbcType=BIGINT},
+      <if test="taecherId != null" >
+        #{taecherId,jdbcType=BIGINT},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=INTEGER},
       </if>
       <if test="tclassId != null" >
         #{tclassId,jdbcType=BIGINT},
       </if>
-      <if test="updated != null" >
-        #{updated,jdbcType=TIMESTAMP},
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=INTEGER},
       </if>
       <if test="created != null" >
         #{created,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.qianqi.edu.pojo.StudentTclassExample" resultType="java.lang.Integer" >
-    select count(*) from student_tclass
+  <select id="countByExample" parameterType="com.qianqi.edu.pojo.TeacherSubjectExample" resultType="java.lang.Integer" >
+    select count(*) from teacher_subject
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update student_tclass
+    update teacher_subject
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.studentId != null" >
-        student_id = #{record.studentId,jdbcType=BIGINT},
+      <if test="record.taecherId != null" >
+        taecher_id = #{record.taecherId,jdbcType=BIGINT},
+      </if>
+      <if test="record.schoolId != null" >
+        school_id = #{record.schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradeId != null" >
+        grade_id = #{record.gradeId,jdbcType=INTEGER},
       </if>
       <if test="record.tclassId != null" >
         tclass_id = #{record.tclassId,jdbcType=BIGINT},
       </if>
-      <if test="record.updated != null" >
-        updated = #{record.updated,jdbcType=TIMESTAMP},
+      <if test="record.subjectId != null" >
+        subject_id = #{record.subjectId,jdbcType=INTEGER},
       </if>
       <if test="record.created != null" >
         created = #{record.created,jdbcType=TIMESTAMP},
@@ -172,27 +194,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update student_tclass
+    update teacher_subject
     set id = #{record.id,jdbcType=BIGINT},
-      student_id = #{record.studentId,jdbcType=BIGINT},
+      taecher_id = #{record.taecherId,jdbcType=BIGINT},
+      school_id = #{record.schoolId,jdbcType=INTEGER},
+      grade_id = #{record.gradeId,jdbcType=INTEGER},
       tclass_id = #{record.tclassId,jdbcType=BIGINT},
-      updated = #{record.updated,jdbcType=TIMESTAMP},
+      subject_id = #{record.subjectId,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qianqi.edu.pojo.StudentTclass" >
-    update student_tclass
+  <update id="updateByPrimaryKeySelective" parameterType="com.qianqi.edu.pojo.TeacherSubject" >
+    update teacher_subject
     <set >
-      <if test="studentId != null" >
-        student_id = #{studentId,jdbcType=BIGINT},
+      <if test="taecherId != null" >
+        taecher_id = #{taecherId,jdbcType=BIGINT},
+      </if>
+      <if test="schoolId != null" >
+        school_id = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeId != null" >
+        grade_id = #{gradeId,jdbcType=INTEGER},
       </if>
       <if test="tclassId != null" >
         tclass_id = #{tclassId,jdbcType=BIGINT},
       </if>
-      <if test="updated != null" >
-        updated = #{updated,jdbcType=TIMESTAMP},
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=INTEGER},
       </if>
       <if test="created != null" >
         created = #{created,jdbcType=TIMESTAMP},
@@ -200,11 +230,13 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qianqi.edu.pojo.StudentTclass" >
-    update student_tclass
-    set student_id = #{studentId,jdbcType=BIGINT},
+  <update id="updateByPrimaryKey" parameterType="com.qianqi.edu.pojo.TeacherSubject" >
+    update teacher_subject
+    set taecher_id = #{taecherId,jdbcType=BIGINT},
+      school_id = #{schoolId,jdbcType=INTEGER},
+      grade_id = #{gradeId,jdbcType=INTEGER},
       tclass_id = #{tclassId,jdbcType=BIGINT},
-      updated = #{updated,jdbcType=TIMESTAMP},
+      subject_id = #{subjectId,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>

@@ -12,7 +12,7 @@ public class Tclass implements Serializable {
 
     private String name;
 
-    private Long teacherId;
+    private Long userId;
 
     private Date updated;
 
@@ -34,12 +34,12 @@ public class Tclass implements Serializable {
         this.name = name == null ? null : name.trim();
     }
 
-    public Long getTeacherId() {
-        return teacherId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Date getUpdated() {

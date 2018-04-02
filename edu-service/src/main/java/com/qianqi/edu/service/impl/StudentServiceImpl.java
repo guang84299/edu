@@ -12,11 +12,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qianqi.edu.common.JsonUtils;
 import com.qianqi.edu.mapper.StudentMapper;
-import com.qianqi.edu.mapper.StudentTclassMapper;
+import com.qianqi.edu.mapper.StudentTeacherSubjectMapper;
 import com.qianqi.edu.pojo.Student;
 import com.qianqi.edu.pojo.StudentExample;
-import com.qianqi.edu.pojo.StudentTclass;
-import com.qianqi.edu.pojo.StudentTclassExample;
+import com.qianqi.edu.pojo.StudentTeacherSubject;
+import com.qianqi.edu.pojo.StudentTeacherSubjectExample;
 import com.qianqi.edu.pojo.common.EasyUIDataGridResult;
 import com.qianqi.edu.service.JedisClient;
 import com.qianqi.edu.service.StudentService;
@@ -26,15 +26,15 @@ public class StudentServiceImpl implements StudentService{
 	@Autowired
 	private StudentMapper studentMapper;
 	@Autowired
-	private StudentTclassMapper studentTclassMapper;
+	private StudentTeacherSubjectMapper studentTeacherSubjectMapper;
 	@Autowired
 	private JedisClient jedisClient;
 	
 	@Value("${STUDENT_LIST}")
 	private String STUDENT_LIST; 
 	
-	@Value("${STUDENT_TCLASS_LIST}")
-	private String STUDENT_TCLASS_LIST; 
+	@Value("${STUDENT_TEACHER_SUBJECT_LIST}")
+	private String STUDENT_TEACHER_SUBJECT_LIST; 
 	
 	@Override
 	public void addStudent(Student student) {
@@ -110,69 +110,70 @@ public class StudentServiceImpl implements StudentService{
 	
 	//--------------------------StudentTclass----------------
 
+
+
 	@Override
-	public void addStudentTclass(StudentTclass studentTclass) {
-		studentTclassMapper.insertSelective(studentTclass);
+	public void addStudentTeacherSubject(StudentTeacherSubject studentTeacherSubject) {
+		studentTeacherSubjectMapper.insertSelective(studentTeacherSubject);
 	}
 
 	@Override
-	public void deleteStudentTclass(Long id) {
-		studentTclassMapper.deleteByPrimaryKey(id);
-		jedisClient.hdel(STUDENT_TCLASS_LIST, id+"");
+	public void deleteStudentTeacherSubject(Long id) {
+		studentTeacherSubjectMapper.deleteByPrimaryKey(id);
+		jedisClient.hdel(STUDENT_TEACHER_SUBJECT_LIST, id+"");
 	}
 
 	@Override
-	public void updateStudentTclass(StudentTclass studentTclass) {
-		studentTclassMapper.updateByPrimaryKeySelective(studentTclass);
-		jedisClient.hdel(STUDENT_TCLASS_LIST, studentTclass.getId()+"");
+	public void updateStudentTeacherSubject(StudentTeacherSubject studentTeacherSubject) {
+		studentTeacherSubjectMapper.updateByPrimaryKey(studentTeacherSubject);
 	}
 
 	@Override
-	public StudentTclass findStudentTclassById(Long id) {
-		String data = jedisClient.hget(STUDENT_TCLASS_LIST,id+"");
-		StudentTclass studentTclass = null;
+	public StudentTeacherSubject findStudentTeacherSubjectById(Long id) {
+		String data = jedisClient.hget(STUDENT_TEACHER_SUBJECT_LIST,id+"");
+		StudentTeacherSubject studentTeacherSubject = null;
 		if(StringUtils.isEmpty(data))
 		{
-			studentTclass = studentTclassMapper.selectByPrimaryKey(id);
-			if(studentTclass != null)
-			jedisClient.hset(STUDENT_TCLASS_LIST, id+"", JsonUtils.objectToJson(studentTclass));
+			studentTeacherSubject =studentTeacherSubjectMapper.selectByPrimaryKey(id);
+			if(studentTeacherSubject != null)
+			jedisClient.hset(STUDENT_TEACHER_SUBJECT_LIST, id+"", JsonUtils.objectToJson(studentTeacherSubject));
 		}
 		else
 		{
-			studentTclass = JsonUtils.jsonToPojo(data, StudentTclass.class);
+			studentTeacherSubject = JsonUtils.jsonToPojo(data, StudentTeacherSubject.class);
 		}
-		return studentTclass;
+		return studentTeacherSubject;
 	}
 
 	@Override
-	public List<StudentTclass> findStudentTclassByStudentId(Long studentId) {
-		StudentTclassExample example = new StudentTclassExample();
+	public List<StudentTeacherSubject> findStudentTeacherSubjectByStudentId(Long studentId) {
+		StudentTeacherSubjectExample example = new StudentTeacherSubjectExample();
 		example.createCriteria().andStudentIdEqualTo(studentId);
 		
-		return studentTclassMapper.selectByExample(example);
+		return studentTeacherSubjectMapper.selectByExample(example);
 	}
 
 	@Override
-	public List<StudentTclass> findStudentTclassByTclassId(Long tclassId) {
-		StudentTclassExample example = new StudentTclassExample();
-		example.createCriteria().andTclassIdEqualTo(tclassId);
+	public List<StudentTeacherSubject> findStudentTeacherSubjectByTeacherSubjectId(Long teacherSubjectId) {
+		StudentTeacherSubjectExample example = new StudentTeacherSubjectExample();
+		example.createCriteria().andTeacherSubjectIdEqualTo(teacherSubjectId);
 		
-		return studentTclassMapper.selectByExample(example);
+		return studentTeacherSubjectMapper.selectByExample(example);
 	}
 
 	@Override
-	public EasyUIDataGridResult findStudentTclassListByStudentId(Long studentId, int page, int rows) {
+	public EasyUIDataGridResult findStudentTeacherSubjectListByStudentId(Long studentId, int page, int rows) {
 		//设置分页信息
 		PageHelper.startPage(page, rows);
 		//执行查询
-		StudentTclassExample example = new StudentTclassExample();
+		StudentTeacherSubjectExample example = new StudentTeacherSubjectExample();
 		example.createCriteria().andStudentIdEqualTo(studentId);
-		List<StudentTclass> list = studentTclassMapper.selectByExample(example);
+		List<StudentTeacherSubject> list = studentTeacherSubjectMapper.selectByExample(example);
 		//创建一个返回值对象
 		EasyUIDataGridResult result = new EasyUIDataGridResult();
 		result.setRows(list);
 		//取分页结果
-		PageInfo<StudentTclass> pageInfo = new PageInfo<>(list);
+		PageInfo<StudentTeacherSubject> pageInfo = new PageInfo<>(list);
 		//取总记录数
 		long total = pageInfo.getTotal();
 		result.setTotal(total);
@@ -180,18 +181,19 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public EasyUIDataGridResult findStudentTclassListByTclassId(Long tclassId, int page, int rows) {
+	public EasyUIDataGridResult findStudentTeacherSubjectListByTeacherSubjectId(Long teacherSubjectId, int page,
+			int rows) {
 		//设置分页信息
 		PageHelper.startPage(page, rows);
 		//执行查询
-		StudentTclassExample example = new StudentTclassExample();
-		example.createCriteria().andTclassIdEqualTo(tclassId);
-		List<StudentTclass> list = studentTclassMapper.selectByExample(example);
+		StudentTeacherSubjectExample example = new StudentTeacherSubjectExample();
+		example.createCriteria().andTeacherSubjectIdEqualTo(teacherSubjectId);
+		List<StudentTeacherSubject> list = studentTeacherSubjectMapper.selectByExample(example);
 		//创建一个返回值对象
 		EasyUIDataGridResult result = new EasyUIDataGridResult();
 		result.setRows(list);
 		//取分页结果
-		PageInfo<StudentTclass> pageInfo = new PageInfo<>(list);
+		PageInfo<StudentTeacherSubject> pageInfo = new PageInfo<>(list);
 		//取总记录数
 		long total = pageInfo.getTotal();
 		result.setTotal(total);
@@ -199,18 +201,19 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public EasyUIDataGridResult findStudentTclassListByTclassIds(List<Long> tclassIds, int page, int rows) {
+	public EasyUIDataGridResult findStudentTeacherSubjectListByTeacherSubjectIds(List<Long> teacherSubjectIds, int page,
+			int rows) {
 		//设置分页信息
 		PageHelper.startPage(page, rows);
 		//执行查询
-		StudentTclassExample example = new StudentTclassExample();
-		example.createCriteria().andTclassIdIn(tclassIds);
-		List<StudentTclass> list = studentTclassMapper.selectByExample(example);
+		StudentTeacherSubjectExample example = new StudentTeacherSubjectExample();
+		example.createCriteria().andTeacherSubjectIdIn(teacherSubjectIds);
+		List<StudentTeacherSubject> list = studentTeacherSubjectMapper.selectByExample(example);
 		//创建一个返回值对象
 		EasyUIDataGridResult result = new EasyUIDataGridResult();
 		result.setRows(list);
 		//取分页结果
-		PageInfo<StudentTclass> pageInfo = new PageInfo<>(list);
+		PageInfo<StudentTeacherSubject> pageInfo = new PageInfo<>(list);
 		//取总记录数
 		long total = pageInfo.getTotal();
 		result.setTotal(total);

@@ -24,7 +24,7 @@ import com.qianqi.edu.pojo.PaperAnswer;
 import com.qianqi.edu.pojo.PaperAnswerItem;
 import com.qianqi.edu.pojo.PaperItem;
 import com.qianqi.edu.pojo.Question;
-import com.qianqi.edu.pojo.StudentTclass;
+import com.qianqi.edu.pojo.StudentTeacherSubject;
 import com.qianqi.edu.pojo.Subject;
 import com.qianqi.edu.pojo.Tclass;
 import com.qianqi.edu.pojo.Teacher;

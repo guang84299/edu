@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import java.util.Date;
 
-public class StudentTclass implements Serializable {
+public class StudentTeacherSubject implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -12,7 +12,7 @@ public class StudentTclass implements Serializable {
 
     private Long studentId;
 
-    private Long tclassId;
+    private Long teacherSubjectId;
 
     private Date updated;
 
@@ -34,12 +34,12 @@ public class StudentTclass implements Serializable {
         this.studentId = studentId;
     }
 
-    public Long getTclassId() {
-        return tclassId;
+    public Long getTeacherSubjectId() {
+        return teacherSubjectId;
     }
 
-    public void setTclassId(Long tclassId) {
-        this.tclassId = tclassId;
+    public void setTeacherSubjectId(Long teacherSubjectId) {
+        this.teacherSubjectId = teacherSubjectId;
     }
 
     public Date getUpdated() {

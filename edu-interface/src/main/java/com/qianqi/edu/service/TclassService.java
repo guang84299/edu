@@ -10,7 +10,7 @@ public interface TclassService {
 	void deleteTclass(Long id);
 	void updateTclass(Tclass tclass);
 	Tclass findTclass(Long id);
-	List<Tclass> findTclassByTeacherId(Long teacherId);
+	List<Tclass> findTclassByUserId(Long userId);
 	EasyUIDataGridResult findTclassList(int page,int rows);
-	EasyUIDataGridResult findTclassList(Long teacherId,int page,int rows);
+	EasyUIDataGridResult findTclassList(Long userId,int page,int rows);
 }

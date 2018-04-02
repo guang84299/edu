@@ -9,7 +9,7 @@ public interface KnowledgeService {
 	void deleteKnowledge(Long id);
 	void updateKnowledge(Knowledge knowledge);
 	Knowledge findKnowledge(Long id);
-	Knowledge findKnowledge(String knowledge);
+	Knowledge findKnowledgeByKnowledge(String knowledge);
 	List<Knowledge> findKnowledgeBySubjectId(int subjectId);
 	List<Knowledge> findKnowledgeAll();
 }

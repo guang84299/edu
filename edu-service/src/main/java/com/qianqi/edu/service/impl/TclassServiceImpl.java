@@ -77,9 +77,9 @@ public class TclassServiceImpl implements TclassService{
 	}
 
 	@Override
-	public List<Tclass> findTclassByTeacherId(Long teacherId) {
+	public List<Tclass> findTclassByUserId(Long userId) {
 		TclassExample tclassExample = new TclassExample();
-		tclassExample.createCriteria().andTeacherIdEqualTo(teacherId);
+		tclassExample.createCriteria().andUserIdEqualTo(userId);
 		return tclassMapper.selectByExample(tclassExample);
 	}
 
@@ -89,13 +89,13 @@ public class TclassServiceImpl implements TclassService{
 	}
 
 	@Override
-	public EasyUIDataGridResult findTclassList(Long teacherId, int page, int rows) {
+	public EasyUIDataGridResult findTclassList(Long userId, int page, int rows) {
 		//设置分页信息
 		PageHelper.startPage(page, rows);
 		//执行查询
 		TclassExample example = new TclassExample();
-		if(teacherId != null)
-			example.createCriteria().andTeacherIdEqualTo(teacherId);
+		if(userId != null)
+			example.createCriteria().andUserIdEqualTo(userId);
 		List<Tclass> list = tclassMapper.selectByExample(example);
 		//创建一个返回值对象
 		EasyUIDataGridResult result = new EasyUIDataGridResult();
