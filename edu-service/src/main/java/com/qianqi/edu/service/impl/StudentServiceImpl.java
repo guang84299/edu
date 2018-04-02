@@ -198,4 +198,23 @@ public class StudentServiceImpl implements StudentService{
 		return result;
 	}
 
+	@Override
+	public EasyUIDataGridResult findStudentTclassListByTclassIds(List<Long> tclassIds, int page, int rows) {
+		//设置分页信息
+		PageHelper.startPage(page, rows);
+		//执行查询
+		StudentTclassExample example = new StudentTclassExample();
+		example.createCriteria().andTclassIdIn(tclassIds);
+		List<StudentTclass> list = studentTclassMapper.selectByExample(example);
+		//创建一个返回值对象
+		EasyUIDataGridResult result = new EasyUIDataGridResult();
+		result.setRows(list);
+		//取分页结果
+		PageInfo<StudentTclass> pageInfo = new PageInfo<>(list);
+		//取总记录数
+		long total = pageInfo.getTotal();
+		result.setTotal(total);
+		return result;
+	}
+
 }

@@ -1,5 +1,7 @@
 package com.qianqi.edu.student.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -193,6 +195,57 @@ public class StudentController {
 		return "answer";
 	}
 	
+	@RequestMapping("/paper/toanswer2")
+	@ResponseBody
+	public List<QuestionItem> toPaperAnswer2(Model model,HttpServletRequest request)
+	{
+		Student student = (Student) request.getAttribute("student");
+		String paperIdStr =  request.getParameter("paperId");
+		PaperAnswer pa = null;
+		if(paperIdStr != null)
+		{
+			long paperId = Long.parseLong(paperIdStr);
+			pa = paperService.findPaperAnswerByStudentIdAndPaperId(student.getId(), paperId);
+		}
+		else
+		{
+			List<PaperAnswer> list = paperService.findPaperAnswerByStudentIdAndState(student.getId(), 100);
+			if(list != null && list.size()>0)
+			{
+				pa = list.get(0);
+			}
+		}
+		List<QuestionItem> items = new ArrayList<>();
+		if(pa != null)
+		{
+			List<PaperItem> pis = paperService.findPaperItemByPaperId(pa.getPaperId());
+			for(PaperItem pi : pis)
+			{
+				Question question = questionService.findQuestionById(pi.getQuestionId());
+				if(question != null)
+				{
+					QuestionItem item = new QuestionItem(question);
+					item.setPaperAnswerId(pa.getId());
+					item.setPaperItemId(pi.getId());
+					item.setPaperItemType(pi.getType());
+					item.setPaperId(pi.getPaperId());
+					PaperAnswerItem pai = paperService.findPaperAnswerItem(item.getPaperItemId(), item.getPaperAnswerId());
+					if(question.getType() == 5 && pai != null)
+						pai.setAnswer(IMAGE_SERVER_URL+pai.getAnswer());
+					item.setPaperAnswerItem(pai);
+					items.add(item);
+				}
+			}
+			//按题库类型重新排序
+			Collections.sort(items,new Comparator<QuestionItem>(){
+	            public int compare(QuestionItem arg0, QuestionItem arg1) {
+	                return arg0.getType().compareTo(arg1.getType());
+	            }
+	        });
+		}
+		return items;
+	}
+	
 	@RequestMapping("/paper/answer")
 	@ResponseBody
 	public EduResult answer(@RequestBody List<PaperAnswerItem> items,HttpServletRequest request)
@@ -295,4 +348,52 @@ public class StudentController {
 		result.setRows(pasr);
 		return result;
 	}
+	
+	
+	@RequestMapping("/paper/test")
+	@ResponseBody
+    public EduResult test(MultipartFile file) 
+    {
+		try {
+			File f = new File("/Users/guang/Documents/work/abcd/test_images/test01.jpg");
+			if(f.exists())
+				f.delete();
+			file.transferTo(f);
+			if(f.exists())
+			{
+				f = new File("/Users/guang/Documents/work/abcd/output/test01.jpg");
+				if(f.exists())
+					f.delete();
+				execPy();
+				if(f.exists())
+				{
+					//把图片上传的图片服务器
+					FastDFSClient fastDFSClient = new FastDFSClient("classpath:conf/client.conf");
+					//得到一个图片的地址和文件名
+					String url = fastDFSClient.uploadFile(f.getAbsolutePath());
+					//补充为完整的url
+					url = IMAGE_SERVER_URL + url;
+					return EduResult.ok(url, "");
+				}
+			}
+			return EduResult.err(null, null);
+		}
+		catch (Exception e) {
+			return EduResult.err(null, null);
+		}
+    }
+	
+	
+	
+	public void execPy() {
+        Process proc = null;
+        try {
+            proc = Runtime.getRuntime().exec("python " + "/Users/guang/Documents/work/abcd/object_detection/object_detection_runner.py");
+            proc.waitFor();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

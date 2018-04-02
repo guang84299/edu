@@ -3,8 +3,6 @@ package com.qianqi.edu.teacher.controller;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +35,7 @@ import com.qianqi.edu.pojo.common.PaperResult;
 import com.qianqi.edu.pojo.common.QuestionItem;
 import com.qianqi.edu.pojo.common.QuestionResult;
 import com.qianqi.edu.pojo.common.SearchItem;
+import com.qianqi.edu.pojo.common.StudentData;
 import com.qianqi.edu.service.GradeService;
 import com.qianqi.edu.service.PaperService;
 import com.qianqi.edu.service.QuestionService;
@@ -471,5 +470,62 @@ public class TeacherController {
 		question.setUpdated(new Date());
 		questionService.addQuestion(question);
 		return EduResult.ok(null, null);
+	}
+	
+	@RequestMapping("/student/tolist")
+	public String tostudent()
+	{
+		return "student-list";
+	}
+	
+	@RequestMapping("/student/list")
+	@ResponseBody
+	public EasyUIDataGridResult studentList(@RequestParam(defaultValue="0") long teacherId,@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows,HttpServletRequest request)
+	{
+		List<Tclass> clss = tclassService.findTclassByTeacherId(teacherId);
+		List<Long> clsids = new ArrayList<>();
+		for(Tclass c : clss)
+		{
+			clsids.add(c.getId());
+		}
+		EasyUIDataGridResult res = studentService.findStudentTclassListByTclassIds(clsids, page, rows);
+		List<StudentTclass> sts = (List<StudentTclass>) res.getRows();
+		Teacher teacher = teacherService.findTeacherById(teacherId);
+		
+		List<StudentData> list = new ArrayList<>();
+		for(StudentTclass st : sts)
+		{
+			StudentData result = new StudentData(studentService.findStudentById(st.getStudentId()));
+			result.setStudentTclassId(st.getId());
+			Tclass tclass = null;
+			for(Tclass c : clss)
+			{
+				if((long)c.getId() == (long)st.getTclassId())
+				{
+					tclass = c;
+					break;
+				}
+			}
+			result.setTclass(tclass.getName());
+			result.setSubject(subjectService.findSubject(teacher.getSubjectId()).getName());
+			list.add(result);
+		}
+		res.setRows(list);
+		res.setTotal(list.size());
+		
+		return res;
+	}
+	
+	@RequestMapping("/student/delete")
+	@ResponseBody
+	public EduResult deleteStudent(String ids)
+	{
+		String[] idss = ids.split(",");
+		for(String sid : idss)
+		{
+			long id = Long.parseLong(sid);
+			studentService.deleteStudentTclass(id);
+		}
+		return EduResult.ok("", null);
 	}
 }

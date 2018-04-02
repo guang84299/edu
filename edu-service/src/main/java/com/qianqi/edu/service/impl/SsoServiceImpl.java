@@ -130,10 +130,11 @@ public class SsoServiceImpl implements SsoService{
 			String token = UUID.randomUUID().toString();
 			Student student = list.get(0);
 			student.setPassword(null);
-			jedisClient.set(SESSION_STUDENT_LIST+token, JsonUtils.objectToJson(student));
+			String students = JsonUtils.objectToJson(student);
+			jedisClient.set(SESSION_STUDENT_LIST+token, students);
 			// 设置Session的过期时间
 			jedisClient.expire(SESSION_STUDENT_LIST+token, SESSION_EXPIRE);
-			return EduResult.ok(null, token);
+			return EduResult.ok(students, token);
 		}
 		return EduResult.err(null, null);
 	}

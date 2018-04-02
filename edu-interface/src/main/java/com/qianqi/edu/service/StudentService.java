@@ -22,4 +22,5 @@ public interface StudentService {
 	List<StudentTclass> findStudentTclassByTclassId(Long tclassId);
 	EasyUIDataGridResult findStudentTclassListByStudentId(Long studentId,int page,int rows);
 	EasyUIDataGridResult findStudentTclassListByTclassId(Long tclassId,int page,int rows);
+	EasyUIDataGridResult findStudentTclassListByTclassIds(List<Long> tclassId,int page,int rows);
 }

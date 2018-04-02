@@ -64,7 +64,7 @@
          	<li>
          		<span>学生管理</span>
          		<ul>
-	         		<li data-options="attributes:{'url':'/question/category'}">题库分类</li>
+	         		<li data-options="attributes:{'url':'/student/tolist'}">查看学生</li>
 	         	</ul>
          	</li>
          	<li>

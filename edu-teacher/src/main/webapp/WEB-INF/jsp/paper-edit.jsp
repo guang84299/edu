@@ -59,6 +59,30 @@
     	}).window("open");
 	});
 	
+	$("#paperEditForm [name=type_2]").click(function(){
+		var id = $("#paperEditForm [name=id]").val();
+		$('#paperItemEditWindow').window({href:"/paper/question/tolist?paperId="+id});
+		$("#paperItemEditWindow").window({
+    		onLoad :function(){
+    			//回显数据
+    			$("#paperquestionList-type").val("2");
+    			$("#paperquestionList-paperId").val(id);
+    		}
+    	}).window("open");
+	});
+	
+	$("#paperEditForm [name=type_3]").click(function(){
+		var id = $("#paperEditForm [name=id]").val();
+		$('#paperItemEditWindow').window({href:"/paper/question/tolist?paperId="+id});
+		$("#paperItemEditWindow").window({
+    		onLoad :function(){
+    			//回显数据
+    			$("#paperquestionList-type").val("3");
+    			$("#paperquestionList-paperId").val(id);
+    		}
+    	}).window("open");
+	});
+	
 	function papersubmitForm(){
 		if(!$('#paperEditForm').form('validate')){
 			$.messager.alert('提示','表单还未填写完成!');
