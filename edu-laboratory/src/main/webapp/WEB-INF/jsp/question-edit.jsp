@@ -60,6 +60,7 @@
 	    </table>
 	    <input type="hidden" name="id"/>
 	    <input type="hidden" name="type"/>
+	    <input type="hidden" name="knowledgeId"/>
 	</form>
 	
 	<form id="questionEditForm2" class="itemForm" method="post">
@@ -137,6 +138,7 @@
 	  </table>
 	  <input type="hidden" name="id"/>
 	  <input type="hidden" name="type"/>
+	  <input type="hidden" name="knowledgeId"/>
 	</form>
 	
 	<form id="questionEditForm3" class="itemForm" method="post">
@@ -214,6 +216,7 @@
 	  </table>
 	  <input type="hidden" name="id"/>
 	  <input type="hidden" name="type"/>
+	  <input type="hidden" name="knowledgeId"/>
 	</form>
 	
 	<div style="padding:5px">
@@ -252,6 +255,7 @@
 		question.score = $(formName+" [name=score]").val();
 		question.normalTime = $(formName+" [name=normalTime]").val();
 		question.knowledgePoint = $(formName+" [name=knowledgePoint]").val();
+		question.knowledgeId = $(formName+" [name=knowledgeId]").val();
 		if(type == '1')
 		{
 			question.answer = $(formName+" [name=answer]:checked").val();

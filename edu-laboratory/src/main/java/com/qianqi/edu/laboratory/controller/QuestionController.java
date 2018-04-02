@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
@@ -22,12 +24,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.qianqi.edu.laboratory.pojo.QuestionCategoryItem;
 import com.qianqi.edu.pojo.Grade;
+import com.qianqi.edu.pojo.Knowledge;
 import com.qianqi.edu.pojo.Question;
 import com.qianqi.edu.pojo.QuestionCategory;
 import com.qianqi.edu.pojo.Subject;
 import com.qianqi.edu.pojo.common.EasyUIDataGridResult;
 import com.qianqi.edu.pojo.common.EduResult;
+import com.qianqi.edu.pojo.common.QuestionResult;
 import com.qianqi.edu.service.GradeService;
+import com.qianqi.edu.service.KnowledgeService;
 import com.qianqi.edu.service.QuestionService;
 import com.qianqi.edu.service.SubjectService;
 
@@ -39,6 +44,8 @@ public class QuestionController {
 	private GradeService gradeService;
 	@Autowired
 	private SubjectService subjectService;
+	@Autowired
+	private KnowledgeService knowledgeService;
 	
 	@RequestMapping("/question/toadd")
 	public String toAdd(Model model)
@@ -52,8 +59,21 @@ public class QuestionController {
 	
 	@RequestMapping("/question/add")
 	@ResponseBody
-	public EduResult add(@RequestBody Question question)
+	public EduResult add(@RequestBody QuestionResult question)
 	{
+		if(!StringUtils.isEmpty(question.getKnowledgePoint()))
+		{
+			Knowledge kg = knowledgeService.findKnowledgeByKnowledge(question.getKnowledgePoint());
+			if(kg == null)
+			{
+				kg = new Knowledge();
+				kg.setKnowledge(question.getKnowledgePoint());
+				kg.setSubjectId(question.getSubjectId());
+				long id = knowledgeService.addKnowledge(kg);
+				kg.setId(id);
+			}
+			question.setKnowledgeId(kg.getId());
+		}
 		question.setTeacherId(0l);
 		question.setCreated(new Date());
 		question.setUpdated(new Date());
@@ -63,17 +83,59 @@ public class QuestionController {
 	
 	
 	@RequestMapping("/question/tolist")
-	public String toQuestionList()
+	public String toQuestionList(Model model)
 	{
+		List<Grade> grades = gradeService.findGradeAll();
+		List<Subject> subjects = subjectService.findSubjectAll();
+		model.addAttribute("grades", grades);
+		model.addAttribute("subjects", subjects);
 		return "question-list";
 	}
 	
 	
 	@RequestMapping("/question/list")
 	@ResponseBody
-	public EasyUIDataGridResult questionList(@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
+	public EasyUIDataGridResult questionList(@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows,HttpServletRequest request)
 	{
-		EasyUIDataGridResult result = questionService.findQuestionList(page, rows);
+		String subjectId = request.getParameter("subjectIds");
+		String gradeId = request.getParameter("gradeIds");
+		String type = request.getParameter("types");
+		String difficult = request.getParameter("difficults");
+		
+		List<Integer> subjectIds = new ArrayList<>();
+		List<Integer> gradeIds = new ArrayList<>();
+		List<Integer> types = new ArrayList<>();
+		List<Integer> difficults = new ArrayList<>();
+		
+		if(!StringUtils.isEmpty(subjectId) && !"0".equals(subjectId))
+		{
+			subjectIds.add(Integer.parseInt(subjectId));
+		}
+		if(!StringUtils.isEmpty(gradeId) && !"0".equals(gradeId))
+		{
+			gradeIds.add(Integer.parseInt(gradeId));
+		}
+		if(!StringUtils.isEmpty(type) && !"0".equals(type))
+		{
+			types.add(Integer.parseInt(type));
+		}
+		if(!StringUtils.isEmpty(difficult) && !"-1".equals(difficult))
+		{
+			difficults.add(Integer.parseInt(difficult));
+		}
+		
+		EasyUIDataGridResult result = questionService.findQuestionList(types,subjectIds,gradeIds,difficults,page, rows);
+		List<Question> list = (List<Question>) result.getRows();
+		List<QuestionResult> list2 = new ArrayList<QuestionResult>();
+		for(Question question : list)
+		{
+			Knowledge kg = knowledgeService.findKnowledge(question.getKnowledgeId());
+			QuestionResult r = new QuestionResult(question);
+			r.setKnowledgePoint(kg.getKnowledge());
+			list2.add(r);
+		}
+		result.setRows(list2);
+		
 		return result;
 	}
 	
@@ -203,7 +265,20 @@ public class QuestionController {
 						 }
 						 else if(colNames.get(cell.getColumnIndex()).equals("知识点"))
 						 {
-							 question.setKnowledgeId(Long.parseLong(text));
+							 if(!StringUtils.isEmpty(text))
+							 {
+								 Knowledge kd = knowledgeService.findKnowledgeByKnowledge(text);
+								 if(kd == null)
+								 {
+									 kd = new Knowledge();
+									 kd.setKnowledge(text);
+									 kd.setSubjectId(question.getSubjectId());
+									 long id = knowledgeService.addKnowledge(kd);
+									 kd.setId(id);
+								 }
+								 question.setKnowledgeId(kd.getId());
+							 }
+							 
 						 }
 						 else if(colNames.get(cell.getColumnIndex()).equals("答题时间"))
 						 {

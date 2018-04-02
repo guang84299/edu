@@ -7,6 +7,7 @@ import com.qianqi.edu.pojo.Question;
 public class QuestionResult extends Question implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private boolean ck;
+	private String knowledgePoint;
 	
 	public QuestionResult() {}
 	public QuestionResult(Question question)
@@ -31,6 +32,12 @@ public class QuestionResult extends Question implements Serializable{
 	}
 	public void setCk(boolean ck) {
 		this.ck = ck;
+	}
+	public String getKnowledgePoint() {
+		return knowledgePoint;
+	}
+	public void setKnowledgePoint(String knowledgePoint) {
+		this.knowledgePoint = knowledgePoint;
 	}
 	
 	

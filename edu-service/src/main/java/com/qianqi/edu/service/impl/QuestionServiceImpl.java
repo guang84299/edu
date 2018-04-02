@@ -16,6 +16,7 @@ import com.qianqi.edu.pojo.Question;
 import com.qianqi.edu.pojo.QuestionCategory;
 import com.qianqi.edu.pojo.QuestionCategoryExample;
 import com.qianqi.edu.pojo.QuestionExample;
+import com.qianqi.edu.pojo.QuestionExample.Criteria;
 import com.qianqi.edu.pojo.common.EasyUIDataGridResult;
 import com.qianqi.edu.pojo.common.SearchItem;
 import com.qianqi.edu.service.JedisClient;
@@ -107,6 +108,35 @@ public class QuestionServiceImpl implements QuestionService{
 		PageHelper.startPage(page, rows);
 		//执行查询
 		QuestionExample example = new QuestionExample();
+		List<Question> list = questionMapper.selectByExampleWithBLOBs(example);
+		//创建一个返回值对象
+		EasyUIDataGridResult result = new EasyUIDataGridResult();
+		result.setRows(list);
+		//取分页结果
+		PageInfo<Question> pageInfo = new PageInfo<>(list);
+		//取总记录数
+		long total = pageInfo.getTotal();
+		result.setTotal(total);
+		return result;
+	}
+	
+	@Override
+	public EasyUIDataGridResult findQuestionList(List<Integer> types,List<Integer> subjectIds,List<Integer> gradeIds, List<Integer> difficults,int page,int rows)
+	{
+		//设置分页信息
+		PageHelper.startPage(page, rows);
+		//执行查询
+		QuestionExample example = new QuestionExample();
+		Criteria criteria = example.createCriteria();
+		if(types != null && types.size()>0)
+			criteria = criteria.andTypeIn(types);
+		if(subjectIds != null && subjectIds.size()>0)
+			criteria = criteria.andSubjectIdIn(subjectIds);
+		if(gradeIds != null && gradeIds.size()>0)
+			criteria = criteria.andGradeIdIn(gradeIds);
+		if(difficults != null && difficults.size()>0)
+			criteria = criteria.andDifficultIn(difficults);
+		
 		List<Question> list = questionMapper.selectByExampleWithBLOBs(example);
 		//创建一个返回值对象
 		EasyUIDataGridResult result = new EasyUIDataGridResult();

@@ -16,6 +16,7 @@ public interface QuestionService {
 	void deleteQuestion(Long id);
 	
 	EasyUIDataGridResult findQuestionList(int page,int rows);
+	EasyUIDataGridResult findQuestionList(List<Integer> types,List<Integer> subjectIds,List<Integer> gradeIds, List<Integer> difficults,int page,int rows);
 	
 	//分类
 	Integer addQuestionCategory(QuestionCategory category);

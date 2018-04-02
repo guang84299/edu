@@ -38,6 +38,7 @@ public class SearchServiceImpl implements SearchService{
 		QuestionExample example = new QuestionExample();
 		List<Question> list = questionMapper.selectByExampleWithBLOBs(example);
 		try {
+			solrServer.deleteByQuery("*:*");
 			for(Question question : list)
 			{
 				Knowledge knowledge = knowledgeMapper.selectByPrimaryKey(question.getKnowledgeId());

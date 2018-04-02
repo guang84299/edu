@@ -25,9 +25,25 @@ public class KnowledgeServiceImpl implements KnowledgeService{
 	@Value("${KNOWLEDGE_LIST}")
 	private String KNOWLEDGE_LIST; 
 	
+	@Value("${KNOWLEDGE_ID}")
+	private String KNOWLEDGE_ID; 
+	
+	@Value("${KNOWLEDGE_NUM}")
+	private String KNOWLEDGE_NUM; 
+	
 	@Override
-	public void addKnowledge(Knowledge knowledge) {
+	public long addKnowledge(Knowledge knowledge) {
+		if(!jedisClient.exists(KNOWLEDGE_ID))
+		{
+			jedisClient.set(KNOWLEDGE_ID, KNOWLEDGE_NUM);
+		}
+		jedisClient.incr(KNOWLEDGE_ID);
+		String num = jedisClient.get(KNOWLEDGE_ID);
+		long id = Long.parseLong(num);
+		knowledge.setId(id);
+		
 		knowledgeMapper.insertSelective(knowledge);
+		return id;
 	}
 
 	@Override

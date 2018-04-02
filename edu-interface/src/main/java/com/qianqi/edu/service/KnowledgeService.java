@@ -5,7 +5,7 @@ import java.util.List;
 import com.qianqi.edu.pojo.Knowledge;
 
 public interface KnowledgeService {
-	void addKnowledge(Knowledge knowledge);
+	long addKnowledge(Knowledge knowledge);
 	void deleteKnowledge(Long id);
 	void updateKnowledge(Knowledge knowledge);
 	Knowledge findKnowledge(Long id);
