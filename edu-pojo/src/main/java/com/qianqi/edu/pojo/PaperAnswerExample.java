@@ -405,6 +405,206 @@ public class PaperAnswerExample {
             return (Criteria) this;
         }
 
+        public Criteria andSEvaluateIsNull() {
+            addCriterion("s_evaluate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSEvaluateIsNotNull() {
+            addCriterion("s_evaluate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSEvaluateEqualTo(Integer value) {
+            addCriterion("s_evaluate =", value, "sEvaluate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSEvaluateNotEqualTo(Integer value) {
+            addCriterion("s_evaluate <>", value, "sEvaluate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSEvaluateGreaterThan(Integer value) {
+            addCriterion("s_evaluate >", value, "sEvaluate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSEvaluateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("s_evaluate >=", value, "sEvaluate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSEvaluateLessThan(Integer value) {
+            addCriterion("s_evaluate <", value, "sEvaluate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSEvaluateLessThanOrEqualTo(Integer value) {
+            addCriterion("s_evaluate <=", value, "sEvaluate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSEvaluateIn(List<Integer> values) {
+            addCriterion("s_evaluate in", values, "sEvaluate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSEvaluateNotIn(List<Integer> values) {
+            addCriterion("s_evaluate not in", values, "sEvaluate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSEvaluateBetween(Integer value1, Integer value2) {
+            addCriterion("s_evaluate between", value1, value2, "sEvaluate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSEvaluateNotBetween(Integer value1, Integer value2) {
+            addCriterion("s_evaluate not between", value1, value2, "sEvaluate");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentIsNull() {
+            addCriterion("s_comment is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentIsNotNull() {
+            addCriterion("s_comment is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentEqualTo(String value) {
+            addCriterion("s_comment =", value, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentNotEqualTo(String value) {
+            addCriterion("s_comment <>", value, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentGreaterThan(String value) {
+            addCriterion("s_comment >", value, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentGreaterThanOrEqualTo(String value) {
+            addCriterion("s_comment >=", value, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentLessThan(String value) {
+            addCriterion("s_comment <", value, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentLessThanOrEqualTo(String value) {
+            addCriterion("s_comment <=", value, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentLike(String value) {
+            addCriterion("s_comment like", value, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentNotLike(String value) {
+            addCriterion("s_comment not like", value, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentIn(List<String> values) {
+            addCriterion("s_comment in", values, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentNotIn(List<String> values) {
+            addCriterion("s_comment not in", values, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentBetween(String value1, String value2) {
+            addCriterion("s_comment between", value1, value2, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andSCommentNotBetween(String value1, String value2) {
+            addCriterion("s_comment not between", value1, value2, "sComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentIsNull() {
+            addCriterion("t_comment is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentIsNotNull() {
+            addCriterion("t_comment is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentEqualTo(String value) {
+            addCriterion("t_comment =", value, "tComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentNotEqualTo(String value) {
+            addCriterion("t_comment <>", value, "tComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentGreaterThan(String value) {
+            addCriterion("t_comment >", value, "tComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentGreaterThanOrEqualTo(String value) {
+            addCriterion("t_comment >=", value, "tComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentLessThan(String value) {
+            addCriterion("t_comment <", value, "tComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentLessThanOrEqualTo(String value) {
+            addCriterion("t_comment <=", value, "tComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentLike(String value) {
+            addCriterion("t_comment like", value, "tComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentNotLike(String value) {
+            addCriterion("t_comment not like", value, "tComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentIn(List<String> values) {
+            addCriterion("t_comment in", values, "tComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentNotIn(List<String> values) {
+            addCriterion("t_comment not in", values, "tComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentBetween(String value1, String value2) {
+            addCriterion("t_comment between", value1, value2, "tComment");
+            return (Criteria) this;
+        }
+
+        public Criteria andTCommentNotBetween(String value1, String value2) {
+            addCriterion("t_comment not between", value1, value2, "tComment");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatedIsNull() {
             addCriterion("created is null");
             return (Criteria) this;
@@ -462,6 +662,196 @@ public class PaperAnswerExample {
 
         public Criteria andCreatedNotBetween(Date value1, Date value2) {
             addCriterion("created not between", value1, value2, "created");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeIsNull() {
+            addCriterion("check_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeIsNotNull() {
+            addCriterion("check_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeEqualTo(Date value) {
+            addCriterion("check_time =", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeNotEqualTo(Date value) {
+            addCriterion("check_time <>", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeGreaterThan(Date value) {
+            addCriterion("check_time >", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("check_time >=", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeLessThan(Date value) {
+            addCriterion("check_time <", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeLessThanOrEqualTo(Date value) {
+            addCriterion("check_time <=", value, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeIn(List<Date> values) {
+            addCriterion("check_time in", values, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeNotIn(List<Date> values) {
+            addCriterion("check_time not in", values, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeBetween(Date value1, Date value2) {
+            addCriterion("check_time between", value1, value2, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCheckTimeNotBetween(Date value1, Date value2) {
+            addCriterion("check_time not between", value1, value2, "checkTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeIsNull() {
+            addCriterion("submit_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeIsNotNull() {
+            addCriterion("submit_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeEqualTo(Date value) {
+            addCriterion("submit_time =", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeNotEqualTo(Date value) {
+            addCriterion("submit_time <>", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeGreaterThan(Date value) {
+            addCriterion("submit_time >", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("submit_time >=", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeLessThan(Date value) {
+            addCriterion("submit_time <", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeLessThanOrEqualTo(Date value) {
+            addCriterion("submit_time <=", value, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeIn(List<Date> values) {
+            addCriterion("submit_time in", values, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeNotIn(List<Date> values) {
+            addCriterion("submit_time not in", values, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeBetween(Date value1, Date value2) {
+            addCriterion("submit_time between", value1, value2, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitTimeNotBetween(Date value1, Date value2) {
+            addCriterion("submit_time not between", value1, value2, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerIsNull() {
+            addCriterion("zhi_answer is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerIsNotNull() {
+            addCriterion("zhi_answer is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerEqualTo(String value) {
+            addCriterion("zhi_answer =", value, "zhiAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerNotEqualTo(String value) {
+            addCriterion("zhi_answer <>", value, "zhiAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerGreaterThan(String value) {
+            addCriterion("zhi_answer >", value, "zhiAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerGreaterThanOrEqualTo(String value) {
+            addCriterion("zhi_answer >=", value, "zhiAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerLessThan(String value) {
+            addCriterion("zhi_answer <", value, "zhiAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerLessThanOrEqualTo(String value) {
+            addCriterion("zhi_answer <=", value, "zhiAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerLike(String value) {
+            addCriterion("zhi_answer like", value, "zhiAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerNotLike(String value) {
+            addCriterion("zhi_answer not like", value, "zhiAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerIn(List<String> values) {
+            addCriterion("zhi_answer in", values, "zhiAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerNotIn(List<String> values) {
+            addCriterion("zhi_answer not in", values, "zhiAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerBetween(String value1, String value2) {
+            addCriterion("zhi_answer between", value1, value2, "zhiAnswer");
+            return (Criteria) this;
+        }
+
+        public Criteria andZhiAnswerNotBetween(String value1, String value2) {
+            addCriterion("zhi_answer not between", value1, value2, "zhiAnswer");
             return (Criteria) this;
         }
     }

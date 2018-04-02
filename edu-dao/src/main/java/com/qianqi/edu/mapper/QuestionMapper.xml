@@ -10,7 +10,7 @@
     <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
     <result column="grade_id" property="gradeId" jdbcType="INTEGER" />
     <result column="difficult" property="difficult" jdbcType="INTEGER" />
-    <result column="knowledge_point" property="knowledgePoint" jdbcType="VARCHAR" />
+    <result column="knowledge_id" property="knowledgeId" jdbcType="BIGINT" />
     <result column="normal_time" property="normalTime" jdbcType="INTEGER" />
     <result column="choice_a" property="choiceA" jdbcType="VARCHAR" />
     <result column="choice_b" property="choiceB" jdbcType="VARCHAR" />
@@ -84,7 +84,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, type, answer, score, teacher_id, subject_id, grade_id, difficult, knowledge_point, 
+    id, type, answer, score, teacher_id, subject_id, grade_id, difficult, knowledge_id, 
     normal_time, choice_a, choice_b, choice_c, choice_d, choice_e, choice_f, choice_g, 
     created, updated
   </sql>
@@ -142,14 +142,14 @@
   <insert id="insert" parameterType="com.qianqi.edu.pojo.Question" >
     insert into question (id, type, answer, 
       score, teacher_id, subject_id, 
-      grade_id, difficult, knowledge_point, 
+      grade_id, difficult, knowledge_id, 
       normal_time, choice_a, choice_b, 
       choice_c, choice_d, choice_e, 
       choice_f, choice_g, created, 
       updated, context)
     values (#{id,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{answer,jdbcType=VARCHAR}, 
       #{score,jdbcType=INTEGER}, #{teacherId,jdbcType=BIGINT}, #{subjectId,jdbcType=INTEGER}, 
-      #{gradeId,jdbcType=INTEGER}, #{difficult,jdbcType=INTEGER}, #{knowledgePoint,jdbcType=VARCHAR}, 
+      #{gradeId,jdbcType=INTEGER}, #{difficult,jdbcType=INTEGER}, #{knowledgeId,jdbcType=BIGINT}, 
       #{normalTime,jdbcType=INTEGER}, #{choiceA,jdbcType=VARCHAR}, #{choiceB,jdbcType=VARCHAR}, 
       #{choiceC,jdbcType=VARCHAR}, #{choiceD,jdbcType=VARCHAR}, #{choiceE,jdbcType=VARCHAR}, 
       #{choiceF,jdbcType=VARCHAR}, #{choiceG,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
@@ -182,8 +182,8 @@
       <if test="difficult != null" >
         difficult,
       </if>
-      <if test="knowledgePoint != null" >
-        knowledge_point,
+      <if test="knowledgeId != null" >
+        knowledge_id,
       </if>
       <if test="normalTime != null" >
         normal_time,
@@ -244,8 +244,8 @@
       <if test="difficult != null" >
         #{difficult,jdbcType=INTEGER},
       </if>
-      <if test="knowledgePoint != null" >
-        #{knowledgePoint,jdbcType=VARCHAR},
+      <if test="knowledgeId != null" >
+        #{knowledgeId,jdbcType=BIGINT},
       </if>
       <if test="normalTime != null" >
         #{normalTime,jdbcType=INTEGER},
@@ -315,8 +315,8 @@
       <if test="record.difficult != null" >
         difficult = #{record.difficult,jdbcType=INTEGER},
       </if>
-      <if test="record.knowledgePoint != null" >
-        knowledge_point = #{record.knowledgePoint,jdbcType=VARCHAR},
+      <if test="record.knowledgeId != null" >
+        knowledge_id = #{record.knowledgeId,jdbcType=BIGINT},
       </if>
       <if test="record.normalTime != null" >
         normal_time = #{record.normalTime,jdbcType=INTEGER},
@@ -366,7 +366,7 @@
       subject_id = #{record.subjectId,jdbcType=INTEGER},
       grade_id = #{record.gradeId,jdbcType=INTEGER},
       difficult = #{record.difficult,jdbcType=INTEGER},
-      knowledge_point = #{record.knowledgePoint,jdbcType=VARCHAR},
+      knowledge_id = #{record.knowledgeId,jdbcType=BIGINT},
       normal_time = #{record.normalTime,jdbcType=INTEGER},
       choice_a = #{record.choiceA,jdbcType=VARCHAR},
       choice_b = #{record.choiceB,jdbcType=VARCHAR},
@@ -392,7 +392,7 @@
       subject_id = #{record.subjectId,jdbcType=INTEGER},
       grade_id = #{record.gradeId,jdbcType=INTEGER},
       difficult = #{record.difficult,jdbcType=INTEGER},
-      knowledge_point = #{record.knowledgePoint,jdbcType=VARCHAR},
+      knowledge_id = #{record.knowledgeId,jdbcType=BIGINT},
       normal_time = #{record.normalTime,jdbcType=INTEGER},
       choice_a = #{record.choiceA,jdbcType=VARCHAR},
       choice_b = #{record.choiceB,jdbcType=VARCHAR},
@@ -431,8 +431,8 @@
       <if test="difficult != null" >
         difficult = #{difficult,jdbcType=INTEGER},
       </if>
-      <if test="knowledgePoint != null" >
-        knowledge_point = #{knowledgePoint,jdbcType=VARCHAR},
+      <if test="knowledgeId != null" >
+        knowledge_id = #{knowledgeId,jdbcType=BIGINT},
       </if>
       <if test="normalTime != null" >
         normal_time = #{normalTime,jdbcType=INTEGER},
@@ -479,7 +479,7 @@
       subject_id = #{subjectId,jdbcType=INTEGER},
       grade_id = #{gradeId,jdbcType=INTEGER},
       difficult = #{difficult,jdbcType=INTEGER},
-      knowledge_point = #{knowledgePoint,jdbcType=VARCHAR},
+      knowledge_id = #{knowledgeId,jdbcType=BIGINT},
       normal_time = #{normalTime,jdbcType=INTEGER},
       choice_a = #{choiceA,jdbcType=VARCHAR},
       choice_b = #{choiceB,jdbcType=VARCHAR},
@@ -502,7 +502,7 @@
       subject_id = #{subjectId,jdbcType=INTEGER},
       grade_id = #{gradeId,jdbcType=INTEGER},
       difficult = #{difficult,jdbcType=INTEGER},
-      knowledge_point = #{knowledgePoint,jdbcType=VARCHAR},
+      knowledge_id = #{knowledgeId,jdbcType=BIGINT},
       normal_time = #{normalTime,jdbcType=INTEGER},
       choice_a = #{choiceA,jdbcType=VARCHAR},
       choice_b = #{choiceB,jdbcType=VARCHAR},

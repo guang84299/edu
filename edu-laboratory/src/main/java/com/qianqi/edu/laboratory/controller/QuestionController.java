@@ -203,7 +203,7 @@ public class QuestionController {
 						 }
 						 else if(colNames.get(cell.getColumnIndex()).equals("知识点"))
 						 {
-							 question.setKnowledgePoint(text);
+							 question.setKnowledgeId(Long.parseLong(text));
 						 }
 						 else if(colNames.get(cell.getColumnIndex()).equals("答题时间"))
 						 {

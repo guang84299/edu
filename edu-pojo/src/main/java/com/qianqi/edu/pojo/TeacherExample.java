@@ -375,73 +375,63 @@ public class TeacherExample {
             return (Criteria) this;
         }
 
-        public Criteria andSchollIsNull() {
-            addCriterion("scholl is null");
+        public Criteria andSchoolIdIsNull() {
+            addCriterion("school_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSchollIsNotNull() {
-            addCriterion("scholl is not null");
+        public Criteria andSchoolIdIsNotNull() {
+            addCriterion("school_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSchollEqualTo(String value) {
-            addCriterion("scholl =", value, "scholl");
+        public Criteria andSchoolIdEqualTo(Integer value) {
+            addCriterion("school_id =", value, "schoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchollNotEqualTo(String value) {
-            addCriterion("scholl <>", value, "scholl");
+        public Criteria andSchoolIdNotEqualTo(Integer value) {
+            addCriterion("school_id <>", value, "schoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchollGreaterThan(String value) {
-            addCriterion("scholl >", value, "scholl");
+        public Criteria andSchoolIdGreaterThan(Integer value) {
+            addCriterion("school_id >", value, "schoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchollGreaterThanOrEqualTo(String value) {
-            addCriterion("scholl >=", value, "scholl");
+        public Criteria andSchoolIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("school_id >=", value, "schoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchollLessThan(String value) {
-            addCriterion("scholl <", value, "scholl");
+        public Criteria andSchoolIdLessThan(Integer value) {
+            addCriterion("school_id <", value, "schoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchollLessThanOrEqualTo(String value) {
-            addCriterion("scholl <=", value, "scholl");
+        public Criteria andSchoolIdLessThanOrEqualTo(Integer value) {
+            addCriterion("school_id <=", value, "schoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchollLike(String value) {
-            addCriterion("scholl like", value, "scholl");
+        public Criteria andSchoolIdIn(List<Integer> values) {
+            addCriterion("school_id in", values, "schoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchollNotLike(String value) {
-            addCriterion("scholl not like", value, "scholl");
+        public Criteria andSchoolIdNotIn(List<Integer> values) {
+            addCriterion("school_id not in", values, "schoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchollIn(List<String> values) {
-            addCriterion("scholl in", values, "scholl");
+        public Criteria andSchoolIdBetween(Integer value1, Integer value2) {
+            addCriterion("school_id between", value1, value2, "schoolId");
             return (Criteria) this;
         }
 
-        public Criteria andSchollNotIn(List<String> values) {
-            addCriterion("scholl not in", values, "scholl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchollBetween(String value1, String value2) {
-            addCriterion("scholl between", value1, value2, "scholl");
-            return (Criteria) this;
-        }
-
-        public Criteria andSchollNotBetween(String value1, String value2) {
-            addCriterion("scholl not between", value1, value2, "scholl");
+        public Criteria andSchoolIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("school_id not between", value1, value2, "schoolId");
             return (Criteria) this;
         }
 

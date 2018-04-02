@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PaperAnswerItemExample {
+public class NoticeExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public PaperAnswerItemExample() {
+    public NoticeExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,313 +165,123 @@ public class PaperAnswerItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdIsNull() {
-            addCriterion("paper_item_id is null");
+        public Criteria andTypeIsNull() {
+            addCriterion("type is null");
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdIsNotNull() {
-            addCriterion("paper_item_id is not null");
+        public Criteria andTypeIsNotNull() {
+            addCriterion("type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdEqualTo(Long value) {
-            addCriterion("paper_item_id =", value, "paperItemId");
+        public Criteria andTypeEqualTo(Integer value) {
+            addCriterion("type =", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdNotEqualTo(Long value) {
-            addCriterion("paper_item_id <>", value, "paperItemId");
+        public Criteria andTypeNotEqualTo(Integer value) {
+            addCriterion("type <>", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdGreaterThan(Long value) {
-            addCriterion("paper_item_id >", value, "paperItemId");
+        public Criteria andTypeGreaterThan(Integer value) {
+            addCriterion("type >", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("paper_item_id >=", value, "paperItemId");
+        public Criteria andTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("type >=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdLessThan(Long value) {
-            addCriterion("paper_item_id <", value, "paperItemId");
+        public Criteria andTypeLessThan(Integer value) {
+            addCriterion("type <", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdLessThanOrEqualTo(Long value) {
-            addCriterion("paper_item_id <=", value, "paperItemId");
+        public Criteria andTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("type <=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdIn(List<Long> values) {
-            addCriterion("paper_item_id in", values, "paperItemId");
+        public Criteria andTypeIn(List<Integer> values) {
+            addCriterion("type in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdNotIn(List<Long> values) {
-            addCriterion("paper_item_id not in", values, "paperItemId");
+        public Criteria andTypeNotIn(List<Integer> values) {
+            addCriterion("type not in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdBetween(Long value1, Long value2) {
-            addCriterion("paper_item_id between", value1, value2, "paperItemId");
+        public Criteria andTypeBetween(Integer value1, Integer value2) {
+            addCriterion("type between", value1, value2, "type");
             return (Criteria) this;
         }
 
-        public Criteria andPaperItemIdNotBetween(Long value1, Long value2) {
-            addCriterion("paper_item_id not between", value1, value2, "paperItemId");
+        public Criteria andTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdIsNull() {
-            addCriterion("paper_answer_id is null");
+        public Criteria andFromIsNull() {
+            addCriterion("from is null");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdIsNotNull() {
-            addCriterion("paper_answer_id is not null");
+        public Criteria andFromIsNotNull() {
+            addCriterion("from is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdEqualTo(Long value) {
-            addCriterion("paper_answer_id =", value, "paperAnswerId");
+        public Criteria andFromEqualTo(Long value) {
+            addCriterion("from =", value, "from");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdNotEqualTo(Long value) {
-            addCriterion("paper_answer_id <>", value, "paperAnswerId");
+        public Criteria andFromNotEqualTo(Long value) {
+            addCriterion("from <>", value, "from");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdGreaterThan(Long value) {
-            addCriterion("paper_answer_id >", value, "paperAnswerId");
+        public Criteria andFromGreaterThan(Long value) {
+            addCriterion("from >", value, "from");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("paper_answer_id >=", value, "paperAnswerId");
+        public Criteria andFromGreaterThanOrEqualTo(Long value) {
+            addCriterion("from >=", value, "from");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdLessThan(Long value) {
-            addCriterion("paper_answer_id <", value, "paperAnswerId");
+        public Criteria andFromLessThan(Long value) {
+            addCriterion("from <", value, "from");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdLessThanOrEqualTo(Long value) {
-            addCriterion("paper_answer_id <=", value, "paperAnswerId");
+        public Criteria andFromLessThanOrEqualTo(Long value) {
+            addCriterion("from <=", value, "from");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdIn(List<Long> values) {
-            addCriterion("paper_answer_id in", values, "paperAnswerId");
+        public Criteria andFromIn(List<Long> values) {
+            addCriterion("from in", values, "from");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdNotIn(List<Long> values) {
-            addCriterion("paper_answer_id not in", values, "paperAnswerId");
+        public Criteria andFromNotIn(List<Long> values) {
+            addCriterion("from not in", values, "from");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdBetween(Long value1, Long value2) {
-            addCriterion("paper_answer_id between", value1, value2, "paperAnswerId");
+        public Criteria andFromBetween(Long value1, Long value2) {
+            addCriterion("from between", value1, value2, "from");
             return (Criteria) this;
         }
 
-        public Criteria andPaperAnswerIdNotBetween(Long value1, Long value2) {
-            addCriterion("paper_answer_id not between", value1, value2, "paperAnswerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerIsNull() {
-            addCriterion("answer is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerIsNotNull() {
-            addCriterion("answer is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerEqualTo(String value) {
-            addCriterion("answer =", value, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerNotEqualTo(String value) {
-            addCriterion("answer <>", value, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerGreaterThan(String value) {
-            addCriterion("answer >", value, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerGreaterThanOrEqualTo(String value) {
-            addCriterion("answer >=", value, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerLessThan(String value) {
-            addCriterion("answer <", value, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerLessThanOrEqualTo(String value) {
-            addCriterion("answer <=", value, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerLike(String value) {
-            addCriterion("answer like", value, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerNotLike(String value) {
-            addCriterion("answer not like", value, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerIn(List<String> values) {
-            addCriterion("answer in", values, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerNotIn(List<String> values) {
-            addCriterion("answer not in", values, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerBetween(String value1, String value2) {
-            addCriterion("answer between", value1, value2, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerNotBetween(String value1, String value2) {
-            addCriterion("answer not between", value1, value2, "answer");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeIsNull() {
-            addCriterion("answer_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeIsNotNull() {
-            addCriterion("answer_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeEqualTo(Long value) {
-            addCriterion("answer_time =", value, "answerTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeNotEqualTo(Long value) {
-            addCriterion("answer_time <>", value, "answerTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeGreaterThan(Long value) {
-            addCriterion("answer_time >", value, "answerTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeGreaterThanOrEqualTo(Long value) {
-            addCriterion("answer_time >=", value, "answerTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeLessThan(Long value) {
-            addCriterion("answer_time <", value, "answerTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeLessThanOrEqualTo(Long value) {
-            addCriterion("answer_time <=", value, "answerTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeIn(List<Long> values) {
-            addCriterion("answer_time in", values, "answerTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeNotIn(List<Long> values) {
-            addCriterion("answer_time not in", values, "answerTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeBetween(Long value1, Long value2) {
-            addCriterion("answer_time between", value1, value2, "answerTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerTimeNotBetween(Long value1, Long value2) {
-            addCriterion("answer_time not between", value1, value2, "answerTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultIsNull() {
-            addCriterion("answer_result is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultIsNotNull() {
-            addCriterion("answer_result is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultEqualTo(Integer value) {
-            addCriterion("answer_result =", value, "answerResult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultNotEqualTo(Integer value) {
-            addCriterion("answer_result <>", value, "answerResult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultGreaterThan(Integer value) {
-            addCriterion("answer_result >", value, "answerResult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultGreaterThanOrEqualTo(Integer value) {
-            addCriterion("answer_result >=", value, "answerResult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultLessThan(Integer value) {
-            addCriterion("answer_result <", value, "answerResult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultLessThanOrEqualTo(Integer value) {
-            addCriterion("answer_result <=", value, "answerResult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultIn(List<Integer> values) {
-            addCriterion("answer_result in", values, "answerResult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultNotIn(List<Integer> values) {
-            addCriterion("answer_result not in", values, "answerResult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultBetween(Integer value1, Integer value2) {
-            addCriterion("answer_result between", value1, value2, "answerResult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAnswerResultNotBetween(Integer value1, Integer value2) {
-            addCriterion("answer_result not between", value1, value2, "answerResult");
+        public Criteria andFromNotBetween(Long value1, Long value2) {
+            addCriterion("from not between", value1, value2, "from");
             return (Criteria) this;
         }
 

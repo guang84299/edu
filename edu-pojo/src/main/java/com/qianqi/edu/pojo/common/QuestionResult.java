@@ -19,7 +19,7 @@ public class QuestionResult extends Question implements Serializable{
 		this.setSubjectId(question.getSubjectId());
 		this.setGradeId(question.getGradeId());
 		this.setDifficult(question.getDifficult());
-		this.setKnowledgePoint(question.getKnowledgePoint());
+		this.setKnowledgeId(question.getKnowledgeId());
 		this.setNormalTime(question.getNormalTime());
 		this.setCreated(question.getCreated());
 		this.setUpdated(question.getUpdated());

@@ -595,73 +595,63 @@ public class QuestionExample {
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointIsNull() {
-            addCriterion("knowledge_point is null");
+        public Criteria andKnowledgeIdIsNull() {
+            addCriterion("knowledge_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointIsNotNull() {
-            addCriterion("knowledge_point is not null");
+        public Criteria andKnowledgeIdIsNotNull() {
+            addCriterion("knowledge_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointEqualTo(String value) {
-            addCriterion("knowledge_point =", value, "knowledgePoint");
+        public Criteria andKnowledgeIdEqualTo(Long value) {
+            addCriterion("knowledge_id =", value, "knowledgeId");
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointNotEqualTo(String value) {
-            addCriterion("knowledge_point <>", value, "knowledgePoint");
+        public Criteria andKnowledgeIdNotEqualTo(Long value) {
+            addCriterion("knowledge_id <>", value, "knowledgeId");
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointGreaterThan(String value) {
-            addCriterion("knowledge_point >", value, "knowledgePoint");
+        public Criteria andKnowledgeIdGreaterThan(Long value) {
+            addCriterion("knowledge_id >", value, "knowledgeId");
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointGreaterThanOrEqualTo(String value) {
-            addCriterion("knowledge_point >=", value, "knowledgePoint");
+        public Criteria andKnowledgeIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("knowledge_id >=", value, "knowledgeId");
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointLessThan(String value) {
-            addCriterion("knowledge_point <", value, "knowledgePoint");
+        public Criteria andKnowledgeIdLessThan(Long value) {
+            addCriterion("knowledge_id <", value, "knowledgeId");
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointLessThanOrEqualTo(String value) {
-            addCriterion("knowledge_point <=", value, "knowledgePoint");
+        public Criteria andKnowledgeIdLessThanOrEqualTo(Long value) {
+            addCriterion("knowledge_id <=", value, "knowledgeId");
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointLike(String value) {
-            addCriterion("knowledge_point like", value, "knowledgePoint");
+        public Criteria andKnowledgeIdIn(List<Long> values) {
+            addCriterion("knowledge_id in", values, "knowledgeId");
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointNotLike(String value) {
-            addCriterion("knowledge_point not like", value, "knowledgePoint");
+        public Criteria andKnowledgeIdNotIn(List<Long> values) {
+            addCriterion("knowledge_id not in", values, "knowledgeId");
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointIn(List<String> values) {
-            addCriterion("knowledge_point in", values, "knowledgePoint");
+        public Criteria andKnowledgeIdBetween(Long value1, Long value2) {
+            addCriterion("knowledge_id between", value1, value2, "knowledgeId");
             return (Criteria) this;
         }
 
-        public Criteria andKnowledgePointNotIn(List<String> values) {
-            addCriterion("knowledge_point not in", values, "knowledgePoint");
-            return (Criteria) this;
-        }
-
-        public Criteria andKnowledgePointBetween(String value1, String value2) {
-            addCriterion("knowledge_point between", value1, value2, "knowledgePoint");
-            return (Criteria) this;
-        }
-
-        public Criteria andKnowledgePointNotBetween(String value1, String value2) {
-            addCriterion("knowledge_point not between", value1, value2, "knowledgePoint");
+        public Criteria andKnowledgeIdNotBetween(Long value1, Long value2) {
+            addCriterion("knowledge_id not between", value1, value2, "knowledgeId");
             return (Criteria) this;
         }
 

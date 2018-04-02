@@ -16,6 +16,10 @@ public class PaperAnswerItem implements Serializable {
 
     private String answer;
 
+    private Long answerTime;
+
+    private Integer answerResult;
+
     private Date created;
 
     public Long getId() {
@@ -48,6 +52,22 @@ public class PaperAnswerItem implements Serializable {
 
     public void setAnswer(String answer) {
         this.answer = answer == null ? null : answer.trim();
+    }
+
+    public Long getAnswerTime() {
+        return answerTime;
+    }
+
+    public void setAnswerTime(Long answerTime) {
+        this.answerTime = answerTime;
+    }
+
+    public Integer getAnswerResult() {
+        return answerResult;
+    }
+
+    public void setAnswerResult(Integer answerResult) {
+        this.answerResult = answerResult;
     }
 
     public Date getCreated() {

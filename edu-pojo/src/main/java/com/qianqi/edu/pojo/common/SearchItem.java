@@ -10,13 +10,14 @@ public class SearchItem implements Serializable{
 	private String id;
 	private String context;
 	private String knowledgePoint;
+	private Long knowledgeId;
 	
 	public SearchItem() {}
 	public SearchItem(Question question) 
 	{
 		this.setId(question.getId()+"");
 		this.setContext(question.getContext());
-		this.setKnowledgePoint(question.getKnowledgePoint());
+		this.setKnowledgeId(question.getKnowledgeId());
 	}
 	
 	public String getId() {
@@ -36,6 +37,12 @@ public class SearchItem implements Serializable{
 	}
 	public void setKnowledgePoint(String knowledgePoint) {
 		this.knowledgePoint = knowledgePoint;
+	}
+	public Long getKnowledgeId() {
+		return knowledgeId;
+	}
+	public void setKnowledgeId(Long knowledgeId) {
+		this.knowledgeId = knowledgeId;
 	}
 	
 	

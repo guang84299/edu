@@ -10,6 +10,8 @@ public class Paper implements Serializable {
 
     private Long id;
 
+    private Integer type;
+
     private String name;
 
     private Long teacherId;
@@ -24,12 +26,24 @@ public class Paper implements Serializable {
 
     private Date created;
 
+    private Long checkEvlTime;
+
+    private String studentIds;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -86,5 +100,21 @@ public class Paper implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public Long getCheckEvlTime() {
+        return checkEvlTime;
+    }
+
+    public void setCheckEvlTime(Long checkEvlTime) {
+        this.checkEvlTime = checkEvlTime;
+    }
+
+    public String getStudentIds() {
+        return studentIds;
+    }
+
+    public void setStudentIds(String studentIds) {
+        this.studentIds = studentIds == null ? null : studentIds.trim();
     }
 }

@@ -20,14 +20,18 @@
 	<!-- 用dubbo协议在20880端口暴露服务 -->
 	<dubbo:protocol name="dubbo" port="20880" />
 	<!-- 声明需要暴露的服务接口 -->
-	<dubbo:service interface="com.qianqi.edu.service.UserService" ref="userServiceImpl" timeout="600000"/>
-	<dubbo:service interface="com.qianqi.edu.service.SsoService" ref="ssoServiceImpl" timeout="600000"/>
-	<dubbo:service interface="com.qianqi.edu.service.QuestionService" ref="questionServiceImpl" timeout="600000"/>
-	<dubbo:service interface="com.qianqi.edu.service.TeacherService" ref="teacherServiceImpl" timeout="600000"/>
 	<dubbo:service interface="com.qianqi.edu.service.GradeService" ref="gradeServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.KnowledgeService" ref="knowledgeServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.NoticeService" ref="noticeServiceImpl" timeout="600000"/>
 	<dubbo:service interface="com.qianqi.edu.service.PaperService" ref="paperServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.QuestionService" ref="questionServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.SchoolService" ref="schoolServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.SearchService" ref="searchServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.SsoService" ref="ssoServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.StudentService" ref="studentServiceImpl" timeout="600000"/>
 	<dubbo:service interface="com.qianqi.edu.service.SubjectService" ref="subjectServiceImpl" timeout="600000"/>
 	<dubbo:service interface="com.qianqi.edu.service.TclassService" ref="tclassServiceImpl" timeout="600000"/>
-	<dubbo:service interface="com.qianqi.edu.service.StudentService" ref="studentServiceImpl" timeout="600000"/>
-	<dubbo:service interface="com.qianqi.edu.service.SearchService" ref="searchServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.TeacherService" ref="teacherServiceImpl" timeout="600000"/>
+	<dubbo:service interface="com.qianqi.edu.service.UserService" ref="userServiceImpl" timeout="600000"/>
+		
 </beans>

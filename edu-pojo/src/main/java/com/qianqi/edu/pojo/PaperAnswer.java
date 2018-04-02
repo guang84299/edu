@@ -18,7 +18,19 @@ public class PaperAnswer implements Serializable {
 
     private Integer checkState;
 
+    private Integer sEvaluate;
+
+    private String sComment;
+
+    private String tComment;
+
     private Date created;
+
+    private Date checkTime;
+
+    private Date submitTime;
+
+    private String zhiAnswer;
 
     public Long getId() {
         return id;
@@ -60,11 +72,59 @@ public class PaperAnswer implements Serializable {
         this.checkState = checkState;
     }
 
+    public Integer getsEvaluate() {
+        return sEvaluate;
+    }
+
+    public void setsEvaluate(Integer sEvaluate) {
+        this.sEvaluate = sEvaluate;
+    }
+
+    public String getsComment() {
+        return sComment;
+    }
+
+    public void setsComment(String sComment) {
+        this.sComment = sComment == null ? null : sComment.trim();
+    }
+
+    public String gettComment() {
+        return tComment;
+    }
+
+    public void settComment(String tComment) {
+        this.tComment = tComment == null ? null : tComment.trim();
+    }
+
     public Date getCreated() {
         return created;
     }
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public Date getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(Date checkTime) {
+        this.checkTime = checkTime;
+    }
+
+    public Date getSubmitTime() {
+        return submitTime;
+    }
+
+    public void setSubmitTime(Date submitTime) {
+        this.submitTime = submitTime;
+    }
+
+    public String getZhiAnswer() {
+        return zhiAnswer;
+    }
+
+    public void setZhiAnswer(String zhiAnswer) {
+        this.zhiAnswer = zhiAnswer == null ? null : zhiAnswer.trim();
     }
 }

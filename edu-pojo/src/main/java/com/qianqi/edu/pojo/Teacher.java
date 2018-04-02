@@ -16,7 +16,7 @@ public class Teacher implements Serializable {
 
     private String phone;
 
-    private String scholl;
+    private Integer schoolId;
 
     private Integer gradeId;
 
@@ -62,12 +62,12 @@ public class Teacher implements Serializable {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getScholl() {
-        return scholl;
+    public Integer getSchoolId() {
+        return schoolId;
     }
 
-    public void setScholl(String scholl) {
-        this.scholl = scholl == null ? null : scholl.trim();
+    public void setSchoolId(Integer schoolId) {
+        this.schoolId = schoolId;
     }
 
     public Integer getGradeId() {

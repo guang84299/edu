@@ -15,7 +15,9 @@ import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qianqi.edu.mapper.KnowledgeMapper;
 import com.qianqi.edu.mapper.QuestionMapper;
+import com.qianqi.edu.pojo.Knowledge;
 import com.qianqi.edu.pojo.Question;
 import com.qianqi.edu.pojo.QuestionExample;
 import com.qianqi.edu.pojo.common.SearchItem;
@@ -25,6 +27,8 @@ import com.qianqi.edu.service.SearchService;
 public class SearchServiceImpl implements SearchService{
 	@Autowired
 	private QuestionMapper questionMapper;
+	@Autowired
+	private KnowledgeMapper knowledgeMapper;
 	@Autowired
 	private SolrServer solrServer;
 	
@@ -36,12 +40,13 @@ public class SearchServiceImpl implements SearchService{
 		try {
 			for(Question question : list)
 			{
+				Knowledge knowledge = knowledgeMapper.selectByPrimaryKey(question.getKnowledgeId());
 				//创建文档对象
 				SolrInputDocument document = new SolrInputDocument();
 				//向文档对象中添加域
 				document.addField("id", question.getId());
 				document.addField("question_context", question.getContext());
-				document.addField("question_knowledge_point", question.getKnowledgePoint());
+				document.addField("question_knowledge_point", knowledge.getKnowledge());
 				//把文档对象写入索引库
 				solrServer.add(document);
 			}
@@ -57,12 +62,14 @@ public class SearchServiceImpl implements SearchService{
 	@Override
 	public void addSearchItem(SearchItem item) {
 		try {
+			Knowledge knowledge = knowledgeMapper.selectByPrimaryKey(item.getKnowledgeId());
+			
 			//创建文档对象
 			SolrInputDocument document = new SolrInputDocument();
 			//向文档对象中添加域
 			document.addField("id", item.getId());
 			document.addField("question_context", item.getContext());
-			document.addField("question_knowledge_point", item.getKnowledgePoint());
+			document.addField("question_knowledge_point", knowledge.getKnowledge());
 			//把文档对象写入索引库
 			solrServer.add(document);
 			//提交

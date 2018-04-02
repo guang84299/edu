@@ -24,7 +24,7 @@ public class Question implements Serializable {
 
     private Integer difficult;
 
-    private String knowledgePoint;
+    private Long knowledgeId;
 
     private Integer normalTime;
 
@@ -112,12 +112,12 @@ public class Question implements Serializable {
         this.difficult = difficult;
     }
 
-    public String getKnowledgePoint() {
-        return knowledgePoint;
+    public Long getKnowledgeId() {
+        return knowledgeId;
     }
 
-    public void setKnowledgePoint(String knowledgePoint) {
-        this.knowledgePoint = knowledgePoint == null ? null : knowledgePoint.trim();
+    public void setKnowledgeId(Long knowledgeId) {
+        this.knowledgeId = knowledgeId;
     }
 
     public Integer getNormalTime() {

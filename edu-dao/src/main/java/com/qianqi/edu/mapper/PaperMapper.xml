@@ -3,6 +3,7 @@
 <mapper namespace="com.qianqi.edu.mapper.PaperMapper" >
   <resultMap id="BaseResultMap" type="com.qianqi.edu.pojo.Paper" >
     <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="teacher_id" property="teacherId" jdbcType="BIGINT" />
     <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
@@ -10,6 +11,8 @@
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="updated" property="updated" jdbcType="TIMESTAMP" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="check_evl_time" property="checkEvlTime" jdbcType="BIGINT" />
+    <result column="student_ids" property="studentIds" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, teacher_id, subject_id, tclass_id, state, updated, created
+    id, type, name, teacher_id, subject_id, tclass_id, state, updated, created, check_evl_time, 
+    student_ids
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qianqi.edu.pojo.PaperExample" >
     select
@@ -103,18 +107,23 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.qianqi.edu.pojo.Paper" >
-    insert into paper (id, name, teacher_id, 
-      subject_id, tclass_id, state, 
-      updated, created)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{teacherId,jdbcType=BIGINT}, 
-      #{subjectId,jdbcType=INTEGER}, #{tclassId,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, 
-      #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP})
+    insert into paper (id, type, name, 
+      teacher_id, subject_id, tclass_id, 
+      state, updated, created, 
+      check_evl_time, student_ids)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{teacherId,jdbcType=BIGINT}, #{subjectId,jdbcType=INTEGER}, #{tclassId,jdbcType=BIGINT}, 
+      #{state,jdbcType=INTEGER}, #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP}, 
+      #{checkEvlTime,jdbcType=BIGINT}, #{studentIds,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.qianqi.edu.pojo.Paper" >
     insert into paper
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="type != null" >
+        type,
       </if>
       <if test="name != null" >
         name,
@@ -137,10 +146,19 @@
       <if test="created != null" >
         created,
       </if>
+      <if test="checkEvlTime != null" >
+        check_evl_time,
+      </if>
+      <if test="studentIds != null" >
+        student_ids,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -163,6 +181,12 @@
       <if test="created != null" >
         #{created,jdbcType=TIMESTAMP},
       </if>
+      <if test="checkEvlTime != null" >
+        #{checkEvlTime,jdbcType=BIGINT},
+      </if>
+      <if test="studentIds != null" >
+        #{studentIds,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.qianqi.edu.pojo.PaperExample" resultType="java.lang.Integer" >
@@ -176,6 +200,9 @@
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
       </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
@@ -198,6 +225,12 @@
       <if test="record.created != null" >
         created = #{record.created,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.checkEvlTime != null" >
+        check_evl_time = #{record.checkEvlTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.studentIds != null" >
+        student_ids = #{record.studentIds,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -206,13 +239,16 @@
   <update id="updateByExample" parameterType="map" >
     update paper
     set id = #{record.id,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       teacher_id = #{record.teacherId,jdbcType=BIGINT},
       subject_id = #{record.subjectId,jdbcType=INTEGER},
       tclass_id = #{record.tclassId,jdbcType=BIGINT},
       state = #{record.state,jdbcType=INTEGER},
       updated = #{record.updated,jdbcType=TIMESTAMP},
-      created = #{record.created,jdbcType=TIMESTAMP}
+      created = #{record.created,jdbcType=TIMESTAMP},
+      check_evl_time = #{record.checkEvlTime,jdbcType=BIGINT},
+      student_ids = #{record.studentIds,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -220,6 +256,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.qianqi.edu.pojo.Paper" >
     update paper
     <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -241,18 +280,27 @@
       <if test="created != null" >
         created = #{created,jdbcType=TIMESTAMP},
       </if>
+      <if test="checkEvlTime != null" >
+        check_evl_time = #{checkEvlTime,jdbcType=BIGINT},
+      </if>
+      <if test="studentIds != null" >
+        student_ids = #{studentIds,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.qianqi.edu.pojo.Paper" >
     update paper
-    set name = #{name,jdbcType=VARCHAR},
+    set type = #{type,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
       teacher_id = #{teacherId,jdbcType=BIGINT},
       subject_id = #{subjectId,jdbcType=INTEGER},
       tclass_id = #{tclassId,jdbcType=BIGINT},
       state = #{state,jdbcType=INTEGER},
       updated = #{updated,jdbcType=TIMESTAMP},
-      created = #{created,jdbcType=TIMESTAMP}
+      created = #{created,jdbcType=TIMESTAMP},
+      check_evl_time = #{checkEvlTime,jdbcType=BIGINT},
+      student_ids = #{studentIds,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
