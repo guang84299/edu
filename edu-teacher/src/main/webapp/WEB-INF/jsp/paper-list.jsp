@@ -60,7 +60,7 @@
         		}
         	}).window("open");
         }
-    },{
+    }/* ,{
         text:'删除',
         iconCls:'icon-cancel',
         handler:function(){
@@ -82,5 +82,5 @@
         	    }
         	});
         }
-    }];
+    } */];
 </script>

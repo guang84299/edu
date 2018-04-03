@@ -165,63 +165,63 @@ public class TeacherSubjectExample {
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdIsNull() {
-            addCriterion("taecher_id is null");
+        public Criteria andTeacherIdIsNull() {
+            addCriterion("teacher_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdIsNotNull() {
-            addCriterion("taecher_id is not null");
+        public Criteria andTeacherIdIsNotNull() {
+            addCriterion("teacher_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdEqualTo(Long value) {
-            addCriterion("taecher_id =", value, "taecherId");
+        public Criteria andTeacherIdEqualTo(Long value) {
+            addCriterion("teacher_id =", value, "teacherId");
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdNotEqualTo(Long value) {
-            addCriterion("taecher_id <>", value, "taecherId");
+        public Criteria andTeacherIdNotEqualTo(Long value) {
+            addCriterion("teacher_id <>", value, "teacherId");
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdGreaterThan(Long value) {
-            addCriterion("taecher_id >", value, "taecherId");
+        public Criteria andTeacherIdGreaterThan(Long value) {
+            addCriterion("teacher_id >", value, "teacherId");
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("taecher_id >=", value, "taecherId");
+        public Criteria andTeacherIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("teacher_id >=", value, "teacherId");
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdLessThan(Long value) {
-            addCriterion("taecher_id <", value, "taecherId");
+        public Criteria andTeacherIdLessThan(Long value) {
+            addCriterion("teacher_id <", value, "teacherId");
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdLessThanOrEqualTo(Long value) {
-            addCriterion("taecher_id <=", value, "taecherId");
+        public Criteria andTeacherIdLessThanOrEqualTo(Long value) {
+            addCriterion("teacher_id <=", value, "teacherId");
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdIn(List<Long> values) {
-            addCriterion("taecher_id in", values, "taecherId");
+        public Criteria andTeacherIdIn(List<Long> values) {
+            addCriterion("teacher_id in", values, "teacherId");
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdNotIn(List<Long> values) {
-            addCriterion("taecher_id not in", values, "taecherId");
+        public Criteria andTeacherIdNotIn(List<Long> values) {
+            addCriterion("teacher_id not in", values, "teacherId");
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdBetween(Long value1, Long value2) {
-            addCriterion("taecher_id between", value1, value2, "taecherId");
+        public Criteria andTeacherIdBetween(Long value1, Long value2) {
+            addCriterion("teacher_id between", value1, value2, "teacherId");
             return (Criteria) this;
         }
 
-        public Criteria andTaecherIdNotBetween(Long value1, Long value2) {
-            addCriterion("taecher_id not between", value1, value2, "taecherId");
+        public Criteria andTeacherIdNotBetween(Long value1, Long value2) {
+            addCriterion("teacher_id not between", value1, value2, "teacherId");
             return (Criteria) this;
         }
 

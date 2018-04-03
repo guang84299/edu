@@ -154,7 +154,7 @@ public class TeacherServiceImpl implements TeacherService{
 	@Override
 	public List<TeacherSubject> findTeacherSubjectByTeacherId(Long teacherId) {
 		TeacherSubjectExample example = new TeacherSubjectExample();
-		example.createCriteria().andTaecherIdEqualTo(teacherId);
+		example.createCriteria().andTeacherIdEqualTo(teacherId);
 		return teacherSubjectMapper.selectByExample(example);
 	}
 
@@ -170,7 +170,7 @@ public class TeacherServiceImpl implements TeacherService{
 		//执行查询
 		TeacherSubjectExample example = new TeacherSubjectExample();
 		if(teacherId != null)
-			example.createCriteria().andTaecherIdEqualTo(teacherId);
+			example.createCriteria().andTeacherIdEqualTo(teacherId);
 		List<TeacherSubject> list = teacherSubjectMapper.selectByExample(example);
 		//创建一个返回值对象
 		EasyUIDataGridResult result = new EasyUIDataGridResult();

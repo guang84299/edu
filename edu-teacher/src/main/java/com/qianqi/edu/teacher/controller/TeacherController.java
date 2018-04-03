@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qianqi.edu.pojo.Grade;
+import com.qianqi.edu.pojo.Knowledge;
 import com.qianqi.edu.pojo.Paper;
 import com.qianqi.edu.pojo.PaperAnswer;
 import com.qianqi.edu.pojo.PaperAnswerItem;
 import com.qianqi.edu.pojo.PaperItem;
 import com.qianqi.edu.pojo.Question;
 import com.qianqi.edu.pojo.School;
+import com.qianqi.edu.pojo.Student;
 import com.qianqi.edu.pojo.StudentTeacherSubject;
 import com.qianqi.edu.pojo.Subject;
 import com.qianqi.edu.pojo.Tclass;
@@ -38,7 +40,9 @@ import com.qianqi.edu.pojo.common.QuestionItem;
 import com.qianqi.edu.pojo.common.QuestionResult;
 import com.qianqi.edu.pojo.common.SearchItem;
 import com.qianqi.edu.pojo.common.StudentData;
+import com.qianqi.edu.pojo.common.TeacherSubjectData;
 import com.qianqi.edu.service.GradeService;
+import com.qianqi.edu.service.KnowledgeService;
 import com.qianqi.edu.service.PaperService;
 import com.qianqi.edu.service.QuestionService;
 import com.qianqi.edu.service.SchoolService;
@@ -71,6 +75,8 @@ public class TeacherController {
 	private SearchService searchService;
 	@Autowired
 	private SchoolService schoolService;
+	@Autowired
+	private  KnowledgeService knowledgeService;
 	
 	@Value("${IMAGE_SERVER_URL}")
 	private String IMAGE_SERVER_URL;
@@ -116,61 +122,109 @@ public class TeacherController {
 		return ssoService.teacherLoginOut(token);
 	}
 	
-	@RequestMapping("/tclass/toadd")
-	public String toAddTclass()
+	@RequestMapping("/tsubject/toadd")
+	public String toAddTeacherSubject(Model model)
 	{
-		return "tclass-add";
+		List<Grade> grades = gradeService.findGradeAll();
+		List<Subject> subjects = subjectService.findSubjectAll();
+		List<School> schools = schoolService.findSchoolAll();
+		
+		if(schools != null && schools.size()>0 && grades != null && grades.size()>0)
+		{
+			List<Tclass> tclasss = tclassService.findTclassBySchoolIdAndGradeId(schools.get(0).getId(), grades.get(0).getId());
+			model.addAttribute("tclasss", tclasss);
+		}
+		
+		
+		model.addAttribute("grades", grades);
+		model.addAttribute("subjects", subjects);
+		model.addAttribute("schools", schools);
+		
+		return "tsubject-add";
 	}
 	
-	@RequestMapping("/tclass/add")
+	@RequestMapping("/tsubject/getclass")
 	@ResponseBody
-	public EduResult addTclass(@RequestBody Tclass tclass)
+	public List<Tclass> getClass(int schoolId,int gradeId)
 	{
-		tclass.setCreated(new Date());
-		tclass.setUpdated(new Date());
-		tclassService.addTclass(tclass);
+		List<Tclass> tclass = tclassService.findTclassBySchoolIdAndGradeId(schoolId, gradeId);
+		return tclass;
+	}
+	
+	@RequestMapping("/tsubject/add")
+	@ResponseBody
+	public EduResult addTeacherSubject(@RequestBody TeacherSubject teacherSubject)
+	{
+		teacherSubject.setCreated(new Date());
+		teacherService.addTeacherSubject(teacherSubject);
 		return EduResult.ok("", null);
 	}
 	
-	@RequestMapping("/tclass/tolist")
-	public String toTclassList()
+	@RequestMapping("/tsubject/tolist")
+	public String toTeacherSubjectList()
 	{
-		return "tclass-list";
+		return "tsubject-list";
 	}
 	
-	@RequestMapping("/tclass/list")
+	@RequestMapping("/tsubject/list")
 	@ResponseBody
-	public EasyUIDataGridResult tclassList(@RequestParam(defaultValue="0") long teacherId, @RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
+	public EasyUIDataGridResult teacherSubjectList(@RequestParam(defaultValue="0") long teacherId, @RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
 	{
-		EasyUIDataGridResult result = tclassService.findTclassList(teacherId, page, rows);
+		EasyUIDataGridResult result = teacherService.findTeacherSubjectList(teacherId, page, rows);
+		List<TeacherSubject> list = (List<TeacherSubject>) result.getRows();
+		List<TeacherSubjectData> list2 = new ArrayList<>();
+		for(TeacherSubject subject : list)
+		{
+			TeacherSubjectData subjectData = new TeacherSubjectData(subject);
+			subjectData.setSchool(schoolService.findSchool(subject.getSchoolId()).getName());
+			subjectData.setGrade(gradeService.findGrade(subject.getGradeId()).getName());
+			subjectData.setTclass(tclassService.findTclass(subject.getTclassId()).getName());
+			subjectData.setSubject(subjectService.findSubject(subject.getSubjectId()).getName());
+			list2.add(subjectData);
+		}
+		result.setRows(list2);
 		return result;
 	}
 	
 
-	@RequestMapping("/tclass/toedit")
-	public String toEditTclass()
+	@RequestMapping("/tsubject/toedit")
+	public String toEditTeacherSubject(Model model)
 	{
-		return "tclass-edit";
+		List<Grade> grades = gradeService.findGradeAll();
+		List<Subject> subjects = subjectService.findSubjectAll();
+		List<School> schools = schoolService.findSchoolAll();
+		
+		if(schools != null && schools.size()>0 && grades != null && grades.size()>0)
+		{
+			List<Tclass> tclasss = tclassService.findTclassBySchoolIdAndGradeId(schools.get(0).getId(), grades.get(0).getId());
+			model.addAttribute("tclasss", tclasss);
+		}
+		
+		
+		model.addAttribute("grades", grades);
+		model.addAttribute("subjects", subjects);
+		model.addAttribute("schools", schools);
+		
+		return "tsubject-edit";
 	}
 	
-	@RequestMapping("/tclass/edit")
+	@RequestMapping("/tsubject/edit")
 	@ResponseBody
-	public EduResult editTclass(@RequestBody Tclass tclass)
+	public EduResult editTeacherSubject(@RequestBody TeacherSubject teacherSubject)
 	{
-		tclass.setUpdated(new Date());
-		tclassService.updateTclass(tclass);
+		teacherService.updateTeacherSubject(teacherSubject);
 		return EduResult.ok("", null);
 	}
 	
-	@RequestMapping("/tclass/delete")
+	@RequestMapping("/tsubject/delete")
 	@ResponseBody
-	public EduResult deleteTclass(String ids)
+	public EduResult deleteTeacherSubject(String ids)
 	{
 		String[] idss = ids.split(",");
 		for(String sid : idss)
 		{
 			long id = Long.parseLong(sid);
-			tclassService.deleteTclass(id);
+			teacherService.deleteTeacherSubject(id);
 		}
 		return EduResult.ok("", null);
 	}
@@ -182,7 +236,17 @@ public class TeacherController {
 		model.addAttribute("subjects", subjects);
 		Teacher teacher = (Teacher) request.getAttribute("teacher");
 		List<TeacherSubject> teacherSubjects = teacherService.findTeacherSubjectByTeacherId(teacher.getId());
-		model.addAttribute("teacherSubjects", teacherSubjects);
+		List<TeacherSubjectData> teacherSubjects2 = new ArrayList<>();
+		for(TeacherSubject subject : teacherSubjects)
+		{
+			TeacherSubjectData subjectData = new TeacherSubjectData(subject);
+			subjectData.setSchool(schoolService.findSchool(subject.getSchoolId()).getName());
+			subjectData.setGrade(gradeService.findGrade(subject.getGradeId()).getName());
+			subjectData.setTclass(tclassService.findTclass(subject.getTclassId()).getName());
+			subjectData.setSubject(subjectService.findSubject(subject.getSubjectId()).getName());
+			teacherSubjects2.add(subjectData);
+		}
+		model.addAttribute("teacherSubjects", teacherSubjects2);
 		
 		return "paper-add";
 	}
@@ -236,40 +300,96 @@ public class TeacherController {
 		model.addAttribute("subjects", subjects);
 		Teacher teacher = (Teacher) request.getAttribute("teacher");
 		List<TeacherSubject> teacherSubjects = teacherService.findTeacherSubjectByTeacherId(teacher.getId());
-		model.addAttribute("teacherSubjects", teacherSubjects);
+		List<TeacherSubjectData> teacherSubjects2 = new ArrayList<>();
+		for(TeacherSubject subject : teacherSubjects)
+		{
+			TeacherSubjectData subjectData = new TeacherSubjectData(subject);
+			subjectData.setSchool(schoolService.findSchool(subject.getSchoolId()).getName());
+			subjectData.setGrade(gradeService.findGrade(subject.getGradeId()).getName());
+			subjectData.setTclass(tclassService.findTclass(subject.getTclassId()).getName());
+			subjectData.setSubject(subjectService.findSubject(subject.getSubjectId()).getName());
+			teacherSubjects2.add(subjectData);
+		}
+		model.addAttribute("teacherSubjects", teacherSubjects2);
+		
+		if(teacherSubjects != null && teacherSubjects.size()>0)
+		{
+			List<StudentTeacherSubject> sts = studentService.findStudentTeacherSubjectByTeacherSubjectId(teacherSubjects.get(0).getId());
+			List<Long> ids = new ArrayList<>();
+			for(StudentTeacherSubject st : sts)
+			{
+				ids.add(st.getStudentId());
+			}
+			List<Student> students = studentService.findStudentList(ids);
+			model.addAttribute("students", students);
+		}
+		
 		return "paper-edit";
 	}
 	
+	@RequestMapping("/paper/getstudent")
+	@ResponseBody
+	public List<Student> getStudent(long teacherSubjectId)
+	{
+		List<StudentTeacherSubject> sts = studentService.findStudentTeacherSubjectByTeacherSubjectId(teacherSubjectId);
+		List<Long> ids = new ArrayList<>();
+		for(StudentTeacherSubject st : sts)
+		{
+			ids.add(st.getStudentId());
+		}
+		List<Student> list = studentService.findStudentList(ids);
+		return list;
+	}
+	
 	@RequestMapping("/paper/question/tolist")
-	public String toQuestionList(@RequestParam(defaultValue="0") long paperId,Model model)
+	public String toQuestionList(@RequestParam(defaultValue="0") long paperId,@RequestParam(defaultValue="1") int type,Model model)
 	{
 		model.addAttribute("paperId", paperId);
+		model.addAttribute("type", type);
 		return "paper-question-list";
 	}
 	
 	@RequestMapping("/paper/question/list")
 	@ResponseBody
-	public EasyUIDataGridResult questionList(@RequestParam(defaultValue="0") long paperId,@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
+	public EasyUIDataGridResult questionList(@RequestParam(defaultValue="0") long paperId,@RequestParam(defaultValue="1") int type,@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
 	{
-		EasyUIDataGridResult result = questionService.findQuestionList(page, rows);
-		List<PaperItem> haslist = paperService.findPaperItemByPaperId(paperId);
+		List<PaperItem> haslist = paperService.findPaperItemByPaperIdAndType(paperId,type);
+		List<Long> ids = new ArrayList<>();
+		for(PaperItem item : haslist)
+		{
+			ids.add(item.getQuestionId());
+		}
+		EasyUIDataGridResult result = questionService.findQuestionListByInIds(ids, page, rows);
+		int page2 = page - ids.size()/rows;
+		EasyUIDataGridResult result2 = null;
+		if(page2>=0)
+			result2 = questionService.findQuestionListByNotInIds(ids, page2, rows);
+		
+		
 		List<Question> list = (List<Question>) result.getRows();
 		List<QuestionResult> newlist = new ArrayList<>();
 		for(Question question : list)
 		{
 			QuestionResult questionResult = new QuestionResult(question);
-			questionResult.setCk(false);
-			for(PaperItem item : haslist)
-			{
-				if((long)(item.getQuestionId()) == (long)(question.getId()))
-				{
-					questionResult.setCk(true);
-					break;
-				}
-			}
+			questionResult.setCk(true);
+			questionResult.setKnowledgePoint(knowledgeService.findKnowledge(question.getKnowledgeId()).getKnowledge());
 			newlist.add(questionResult);
 		}
+		
+		if(result2!=null)
+		{
+			list = (List<Question>) result2.getRows();
+			for(Question question : list)
+			{
+				QuestionResult questionResult = new QuestionResult(question);
+				questionResult.setCk(false);
+				questionResult.setKnowledgePoint(knowledgeService.findKnowledge(question.getKnowledgeId()).getKnowledge());
+				newlist.add(questionResult);
+			}
+		}
 		result.setRows(newlist);
+		result.setTotal(newlist.size());
+		System.out.println("newlist="+newlist.size());
 		return result;
 	}
 	
@@ -277,7 +397,7 @@ public class TeacherController {
 	@ResponseBody
 	public EduResult questionSave(int type,long paperId,String ids)
 	{
-		List<PaperItem> list = paperService.findPaperItemByPaperId(paperId);
+		List<PaperItem> list = paperService.findPaperItemByPaperIdAndType(paperId,type);
 		List<PaperItem> delist = new ArrayList<>();
 		String[] idss = ids.split(",");
 		//删除多余 过滤重复
@@ -326,8 +446,23 @@ public class TeacherController {
 		paper.setState(2);
 		paper.setUpdated(new Date());
 		paperService.updatePaper(paper);
+		
 		//给每个学生发布作业
-		List<StudentTeacherSubject> sts = studentService.findStudentTeacherSubjectByTeacherSubjectId(paper.getTeacherSubjectId());
+		List<StudentTeacherSubject> sts = null;
+		if(StringUtils.isEmpty(paper.getStudentIds()))
+		{
+			sts = studentService.findStudentTeacherSubjectByTeacherSubjectId(paper.getTeacherSubjectId());
+		}
+		else
+		{
+			String[] ids = paper.getStudentIds().split(",");
+			List<Long> sids = new ArrayList<>();
+			for(String id : ids)
+			{
+				sids.add(Long.parseLong(id));
+			}
+			sts = studentService.findStudentTeacherSubjectByTeacherSubjectIdAndStudentIds(paper.getTeacherSubjectId(),sids);
+		}
 		for(StudentTeacherSubject st : sts)
 		{
 			PaperAnswer pa = paperService.findPaperAnswerByStudentIdAndPaperId(st.getStudentId(), paper.getId());
@@ -342,6 +477,7 @@ public class TeacherController {
 				paperService.addPaperAnswer(answer);
 			}
 		}
+		
 		
 		return EduResult.ok("", null);
 	}
@@ -473,8 +609,21 @@ public class TeacherController {
 	
 	@RequestMapping("/question/add")
 	@ResponseBody
-	public EduResult add(@RequestBody Question question)
+	public EduResult add(@RequestBody QuestionResult question)
 	{
+		if(!StringUtils.isEmpty(question.getKnowledgePoint()))
+		{
+			Knowledge kg = knowledgeService.findKnowledgeByKnowledge(question.getKnowledgePoint());
+			if(kg == null)
+			{
+				kg = new Knowledge();
+				kg.setKnowledge(question.getKnowledgePoint());
+				kg.setSubjectId(question.getSubjectId());
+				long id = knowledgeService.addKnowledge(kg);
+				kg.setId(id);
+			}
+			question.setKnowledgeId(kg.getId());
+		}
 		question.setCreated(new Date());
 		question.setUpdated(new Date());
 		questionService.addQuestion(question);

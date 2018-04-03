@@ -4,6 +4,8 @@
   <resultMap id="BaseResultMap" type="com.qianqi.edu.pojo.Tclass" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="grade_id" property="gradeId" jdbcType="INTEGER" />
+    <result column="school_id" property="schoolId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="updated" property="updated" jdbcType="TIMESTAMP" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, user_id, updated, created
+    id, name, grade_id, school_id, user_id, updated, created
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qianqi.edu.pojo.TclassExample" >
     select
@@ -100,10 +102,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.qianqi.edu.pojo.Tclass" >
-    insert into tclass (id, name, user_id, 
-      updated, created)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
-      #{updated,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP})
+    insert into tclass (id, name, grade_id, 
+      school_id, user_id, updated, 
+      created)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{gradeId,jdbcType=INTEGER}, 
+      #{schoolId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{updated,jdbcType=TIMESTAMP}, 
+      #{created,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.qianqi.edu.pojo.Tclass" >
     insert into tclass
@@ -113,6 +117,12 @@
       </if>
       <if test="name != null" >
         name,
+      </if>
+      <if test="gradeId != null" >
+        grade_id,
+      </if>
+      <if test="schoolId != null" >
+        school_id,
       </if>
       <if test="userId != null" >
         user_id,
@@ -130,6 +140,12 @@
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=BIGINT},
@@ -157,6 +173,12 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.gradeId != null" >
+        grade_id = #{record.gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolId != null" >
+        school_id = #{record.schoolId,jdbcType=INTEGER},
+      </if>
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=BIGINT},
       </if>
@@ -175,6 +197,8 @@
     update tclass
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
+      grade_id = #{record.gradeId,jdbcType=INTEGER},
+      school_id = #{record.schoolId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=BIGINT},
       updated = #{record.updated,jdbcType=TIMESTAMP},
       created = #{record.created,jdbcType=TIMESTAMP}
@@ -187,6 +211,12 @@
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeId != null" >
+        grade_id = #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        school_id = #{schoolId,jdbcType=INTEGER},
       </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=BIGINT},
@@ -203,6 +233,8 @@
   <update id="updateByPrimaryKey" parameterType="com.qianqi.edu.pojo.Tclass" >
     update tclass
     set name = #{name,jdbcType=VARCHAR},
+      grade_id = #{gradeId,jdbcType=INTEGER},
+      school_id = #{schoolId,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=BIGINT},
       updated = #{updated,jdbcType=TIMESTAMP},
       created = #{created,jdbcType=TIMESTAMP}

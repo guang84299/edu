@@ -1,5 +1,6 @@
 package com.qianqi.edu.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,6 +108,19 @@ public class StudentServiceImpl implements StudentService{
 		return result;
 	}
 	
+	@Override
+	public List<Student> findStudentList(List<Long> ids)
+	{
+		List<Student> list = new ArrayList<Student>();
+		if(ids != null && ids.size()>0)
+		{
+			StudentExample example = new StudentExample();
+			example.createCriteria().andIdIn(ids);
+			list = studentMapper.selectByExample(example);
+		}
+		return list;
+	}
+	
 	
 	//--------------------------StudentTclass----------------
 
@@ -159,6 +173,20 @@ public class StudentServiceImpl implements StudentService{
 		example.createCriteria().andTeacherSubjectIdEqualTo(teacherSubjectId);
 		
 		return studentTeacherSubjectMapper.selectByExample(example);
+	}
+	
+	@Override
+	public List<StudentTeacherSubject> findStudentTeacherSubjectByTeacherSubjectIdAndStudentIds(Long teacherSubjectId,List<Long> studentIds)
+	{
+		List<StudentTeacherSubject> list = new ArrayList<>();
+		if(studentIds != null && studentIds.size()>0)
+		{
+			StudentTeacherSubjectExample example = new StudentTeacherSubjectExample();
+			example.createCriteria().andTeacherSubjectIdEqualTo(teacherSubjectId)
+			.andStudentIdIn(studentIds);
+			list = studentTeacherSubjectMapper.selectByExample(example);
+		}
+		return list;
 	}
 
 	@Override

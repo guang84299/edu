@@ -1,5 +1,6 @@
 package com.qianqi.edu.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +109,52 @@ public class QuestionServiceImpl implements QuestionService{
 		PageHelper.startPage(page, rows);
 		//执行查询
 		QuestionExample example = new QuestionExample();
+		List<Question> list = questionMapper.selectByExampleWithBLOBs(example);
+		//创建一个返回值对象
+		EasyUIDataGridResult result = new EasyUIDataGridResult();
+		result.setRows(list);
+		//取分页结果
+		PageInfo<Question> pageInfo = new PageInfo<>(list);
+		//取总记录数
+		long total = pageInfo.getTotal();
+		result.setTotal(total);
+		return result;
+	}
+	@Override
+	public EasyUIDataGridResult findQuestionListByInIds(List<Long> ids,int page,int rows)
+	{
+		List<Question> list =  new ArrayList<Question>();
+		if(ids != null && ids.size()>0)
+		{
+			//设置分页信息
+			PageHelper.startPage(page, rows);
+			//执行查询
+			QuestionExample example = new QuestionExample();
+			example.createCriteria().andIdIn(ids);
+			list = questionMapper.selectByExampleWithBLOBs(example);
+		}
+		//创建一个返回值对象
+		EasyUIDataGridResult result = new EasyUIDataGridResult();
+		result.setRows(list);
+		//取分页结果
+		PageInfo<Question> pageInfo = new PageInfo<>(list);
+		//取总记录数
+		long total = pageInfo.getTotal();
+		result.setTotal(total);
+		return result;
+	}
+	
+	@Override
+	public EasyUIDataGridResult findQuestionListByNotInIds(List<Long> ids,int page,int rows)
+	{
+		//设置分页信息
+		PageHelper.startPage(page, rows);
+		//执行查询
+		QuestionExample example = new QuestionExample();
+		if(ids != null && ids.size()>0)
+		{
+			example.createCriteria().andIdNotIn(ids);
+		}
 		List<Question> list = questionMapper.selectByExampleWithBLOBs(example);
 		//创建一个返回值对象
 		EasyUIDataGridResult result = new EasyUIDataGridResult();

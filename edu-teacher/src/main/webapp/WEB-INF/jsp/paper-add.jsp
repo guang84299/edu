@@ -18,8 +18,8 @@
 	            <td>班级:</td>
 	            <td>
 	            	<select name="tclassId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
-			    <c:forEach items="${tclasss}" var="val">
-			      <option value="${val.id }">${val.name }</option>
+			    <c:forEach items="${teacherSubjects}" var="val">
+			      <option value="${val.id }">${val.tclass }</option>
 			     </c:forEach>
 			    </select>
 	            </td>
@@ -45,7 +45,7 @@
 		}
 		var tclass = {};
 		tclass.subjectId = $("[name=subjectId]").val();
-		tclass.tclassId = $("[name=tclassId]").val();
+		tclass.teacherSubjectId = $("[name=tclassId]").val();
 		tclass.teacherId = $("[name=teacherId]").val();
 		var datas = JSON.stringify(tclass);
 		

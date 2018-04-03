@@ -3,7 +3,7 @@
 <mapper namespace="com.qianqi.edu.mapper.TeacherSubjectMapper" >
   <resultMap id="BaseResultMap" type="com.qianqi.edu.pojo.TeacherSubject" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="taecher_id" property="taecherId" jdbcType="BIGINT" />
+    <result column="teacher_id" property="teacherId" jdbcType="BIGINT" />
     <result column="school_id" property="schoolId" jdbcType="INTEGER" />
     <result column="grade_id" property="gradeId" jdbcType="INTEGER" />
     <result column="tclass_id" property="tclassId" jdbcType="BIGINT" />
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, taecher_id, school_id, grade_id, tclass_id, subject_id, created
+    id, teacher_id, school_id, grade_id, tclass_id, subject_id, created
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qianqi.edu.pojo.TeacherSubjectExample" >
     select
@@ -102,10 +102,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.qianqi.edu.pojo.TeacherSubject" >
-    insert into teacher_subject (id, taecher_id, school_id, 
+    insert into teacher_subject (id, teacher_id, school_id, 
       grade_id, tclass_id, subject_id, 
       created)
-    values (#{id,jdbcType=BIGINT}, #{taecherId,jdbcType=BIGINT}, #{schoolId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=BIGINT}, #{teacherId,jdbcType=BIGINT}, #{schoolId,jdbcType=INTEGER}, 
       #{gradeId,jdbcType=INTEGER}, #{tclassId,jdbcType=BIGINT}, #{subjectId,jdbcType=INTEGER}, 
       #{created,jdbcType=TIMESTAMP})
   </insert>
@@ -115,8 +115,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="taecherId != null" >
-        taecher_id,
+      <if test="teacherId != null" >
+        teacher_id,
       </if>
       <if test="schoolId != null" >
         school_id,
@@ -138,8 +138,8 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="taecherId != null" >
-        #{taecherId,jdbcType=BIGINT},
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=BIGINT},
       </if>
       <if test="schoolId != null" >
         #{schoolId,jdbcType=INTEGER},
@@ -170,8 +170,8 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.taecherId != null" >
-        taecher_id = #{record.taecherId,jdbcType=BIGINT},
+      <if test="record.teacherId != null" >
+        teacher_id = #{record.teacherId,jdbcType=BIGINT},
       </if>
       <if test="record.schoolId != null" >
         school_id = #{record.schoolId,jdbcType=INTEGER},
@@ -196,7 +196,7 @@
   <update id="updateByExample" parameterType="map" >
     update teacher_subject
     set id = #{record.id,jdbcType=BIGINT},
-      taecher_id = #{record.taecherId,jdbcType=BIGINT},
+      teacher_id = #{record.teacherId,jdbcType=BIGINT},
       school_id = #{record.schoolId,jdbcType=INTEGER},
       grade_id = #{record.gradeId,jdbcType=INTEGER},
       tclass_id = #{record.tclassId,jdbcType=BIGINT},
@@ -209,8 +209,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.qianqi.edu.pojo.TeacherSubject" >
     update teacher_subject
     <set >
-      <if test="taecherId != null" >
-        taecher_id = #{taecherId,jdbcType=BIGINT},
+      <if test="teacherId != null" >
+        teacher_id = #{teacherId,jdbcType=BIGINT},
       </if>
       <if test="schoolId != null" >
         school_id = #{schoolId,jdbcType=INTEGER},
@@ -232,7 +232,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.qianqi.edu.pojo.TeacherSubject" >
     update teacher_subject
-    set taecher_id = #{taecherId,jdbcType=BIGINT},
+    set teacher_id = #{teacherId,jdbcType=BIGINT},
       school_id = #{schoolId,jdbcType=INTEGER},
       grade_id = #{gradeId,jdbcType=INTEGER},
       tclass_id = #{tclassId,jdbcType=BIGINT},

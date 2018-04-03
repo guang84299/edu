@@ -42,8 +42,8 @@
          	<li>
          		<span>班级管理</span>
          		<ul>
-	         		<li data-options="attributes:{'url':'/tclass/toadd'}">新增班级</li>
-	         		<li data-options="attributes:{'url':'/tclass/tolist'}">查询班级</li>
+	         		<li data-options="attributes:{'url':'/tsubject/toadd'}">新增班级</li>
+	         		<li data-options="attributes:{'url':'/tsubject/tolist'}">查询班级</li>
 	         	</ul>
          	</li>
          	<li>
@@ -111,7 +111,7 @@ $(function(){
 	
 	$(".loginout").click(function(){
 		var params = {"token":$.cookie('token') };
-		$.post("/user/loginout",params, function(data){
+		$.post("/teacher/loginout",params, function(data){
 			if(data.state == 200){
 				window.location.href="/toLogin";
 			}

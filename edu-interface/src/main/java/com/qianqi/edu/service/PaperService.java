@@ -43,5 +43,6 @@ public interface PaperService {
 	void updatePaperItem(PaperItem item);
 	PaperItem findPaperItemById(Long id);
 	List<PaperItem> findPaperItemByPaperId(Long paperId);
+	List<PaperItem> findPaperItemByPaperIdAndType(Long paperId,Integer type);
 	int findPaperItemNumByPaperId(Long paperId);
 }

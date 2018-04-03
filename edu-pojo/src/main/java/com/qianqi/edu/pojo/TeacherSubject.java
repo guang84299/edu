@@ -10,7 +10,7 @@ public class TeacherSubject implements Serializable {
 
     private Long id;
 
-    private Long taecherId;
+    private Long teacherId;
 
     private Integer schoolId;
 
@@ -30,12 +30,12 @@ public class TeacherSubject implements Serializable {
         this.id = id;
     }
 
-    public Long getTaecherId() {
-        return taecherId;
+    public Long getTeacherId() {
+        return teacherId;
     }
 
-    public void setTaecherId(Long taecherId) {
-        this.taecherId = taecherId;
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
     }
 
     public Integer getSchoolId() {

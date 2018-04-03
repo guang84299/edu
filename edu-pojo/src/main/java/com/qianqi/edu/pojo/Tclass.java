@@ -12,6 +12,10 @@ public class Tclass implements Serializable {
 
     private String name;
 
+    private Integer gradeId;
+
+    private Integer schoolId;
+
     private Long userId;
 
     private Date updated;
@@ -32,6 +36,22 @@ public class Tclass implements Serializable {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public Integer getGradeId() {
+        return gradeId;
+    }
+
+    public void setGradeId(Integer gradeId) {
+        this.gradeId = gradeId;
+    }
+
+    public Integer getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(Integer schoolId) {
+        this.schoolId = schoolId;
     }
 
     public Long getUserId() {

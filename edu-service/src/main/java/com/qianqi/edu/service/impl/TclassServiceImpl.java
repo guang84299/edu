@@ -108,4 +108,26 @@ public class TclassServiceImpl implements TclassService{
 		return result;
 	}
 
+	@Override
+	public List<Tclass> findTclassBySchoolId(int schoolId) {
+		TclassExample tclassExample = new TclassExample();
+		tclassExample.createCriteria().andSchoolIdEqualTo(schoolId);
+		return tclassMapper.selectByExample(tclassExample);
+	}
+
+	@Override
+	public List<Tclass> findTclassByGradeId(int gradeId) {
+		TclassExample tclassExample = new TclassExample();
+		tclassExample.createCriteria().andGradeIdEqualTo(gradeId);
+		return tclassMapper.selectByExample(tclassExample);
+	}
+
+	@Override
+	public List<Tclass> findTclassBySchoolIdAndGradeId(int schoolId, int gradeId) {
+		TclassExample tclassExample = new TclassExample();
+		tclassExample.createCriteria().andSchoolIdEqualTo(schoolId)
+		.andGradeIdEqualTo(gradeId);
+		return tclassMapper.selectByExample(tclassExample);
+	}
+
 }

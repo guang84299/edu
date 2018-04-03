@@ -13,6 +13,7 @@ public interface StudentService {
 	Student findStudentById(Long id);
 	Student findStudentByPhone(String phone);
 	EasyUIDataGridResult findStudentList(int page,int rows);
+	List<Student> findStudentList(List<Long> ids);
 	
 	void addStudentTeacherSubject(StudentTeacherSubject studentTeacherSubject);
 	void deleteStudentTeacherSubject(Long id);
@@ -20,6 +21,7 @@ public interface StudentService {
 	StudentTeacherSubject findStudentTeacherSubjectById(Long id);
 	List<StudentTeacherSubject> findStudentTeacherSubjectByStudentId(Long studentId);
 	List<StudentTeacherSubject> findStudentTeacherSubjectByTeacherSubjectId(Long teacherSubjectId);
+	List<StudentTeacherSubject> findStudentTeacherSubjectByTeacherSubjectIdAndStudentIds(Long teacherSubjectId,List<Long> studentIds);
 	EasyUIDataGridResult findStudentTeacherSubjectListByStudentId(Long studentId,int page,int rows);
 	EasyUIDataGridResult findStudentTeacherSubjectListByTeacherSubjectId(Long teacherSubjectId,int page,int rows);
 	EasyUIDataGridResult findStudentTeacherSubjectListByTeacherSubjectIds(List<Long> teacherSubjectIds,int page,int rows);

@@ -300,6 +300,16 @@ public class PaperServiceImpl implements PaperService{
 		
 		return paperItemMapper.selectByExample(example);
 	}
+	
+	@Override
+	public List<PaperItem> findPaperItemByPaperIdAndType(Long paperId,Integer type)
+	{
+		PaperItemExample example = new PaperItemExample();
+		example.createCriteria().andPaperIdEqualTo(paperId)
+		.andTypeEqualTo(type);
+		
+		return paperItemMapper.selectByExample(example);
+	}
 
 	@Override
 	public int findPaperItemNumByPaperId(Long paperId) {

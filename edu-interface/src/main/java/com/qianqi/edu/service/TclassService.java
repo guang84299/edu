@@ -11,6 +11,9 @@ public interface TclassService {
 	void updateTclass(Tclass tclass);
 	Tclass findTclass(Long id);
 	List<Tclass> findTclassByUserId(Long userId);
+	List<Tclass> findTclassBySchoolId(int schoolId);
+	List<Tclass> findTclassByGradeId(int gradeId);
+	List<Tclass> findTclassBySchoolIdAndGradeId(int schoolId,int gradeId);
 	EasyUIDataGridResult findTclassList(int page,int rows);
 	EasyUIDataGridResult findTclassList(Long userId,int page,int rows);
 }

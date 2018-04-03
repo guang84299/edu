@@ -8,7 +8,7 @@
 	    		<tr>
 	            <td>学科:</td>
 	            <td>
-	            	<select name="subjectId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+	            	<select name="subjectId" value="" style="width:200px;height:32px">
 			    <c:forEach items="${subjects}" var="val">
 			      <option value="${val.id }">${val.name }</option>
 			     </c:forEach>
@@ -18,11 +18,19 @@
 	         <tr>
 	            <td>班级:</td>
 	            <td>
-	            	<select name="tclassId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
-			    <c:forEach items="${tclasss}" var="val">
-			      <option value="${val.id }">${val.name }</option>
+	            	<select name="tclassId" value="" style="width:200px;height:32px">
+			    <c:forEach items="${teacherSubjects}" var="val">
+			      <option value="${val.id }">${val.tclass }</option>
 			     </c:forEach>
 			    </select>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>学生:</td>
+	            <td name="student">
+	            		<c:forEach items="${students}" var="val">
+				      <input name="studentIds" type="checkbox" value="${val.id }" style="width:20px;"/>${val.name }
+				     </c:forEach>
 	            </td>
 	        </tr>
 	        
@@ -49,7 +57,7 @@
 	
 	$("#paperEditForm [name=type_1]").click(function(){
 		var id = $("#paperEditForm [name=id]").val();
-		$('#paperItemEditWindow').window({href:"/paper/question/tolist?paperId="+id});
+		$('#paperItemEditWindow').window({href:"/paper/question/tolist?paperId="+id+"&type=1"});
 		$("#paperItemEditWindow").window({
     		onLoad :function(){
     			//回显数据
@@ -61,7 +69,7 @@
 	
 	$("#paperEditForm [name=type_2]").click(function(){
 		var id = $("#paperEditForm [name=id]").val();
-		$('#paperItemEditWindow').window({href:"/paper/question/tolist?paperId="+id});
+		$('#paperItemEditWindow').window({href:"/paper/question/tolist?paperId="+id+"&type=2"});
 		$("#paperItemEditWindow").window({
     		onLoad :function(){
     			//回显数据
@@ -73,7 +81,7 @@
 	
 	$("#paperEditForm [name=type_3]").click(function(){
 		var id = $("#paperEditForm [name=id]").val();
-		$('#paperItemEditWindow').window({href:"/paper/question/tolist?paperId="+id});
+		$('#paperItemEditWindow').window({href:"/paper/question/tolist?paperId="+id+"&type=3"});
 		$("#paperItemEditWindow").window({
     		onLoad :function(){
     			//回显数据
@@ -92,8 +100,18 @@
 		var paper = {};
 		paper.id = $("#paperEditForm [name=id]").val();
 		paper.subjectId = $("#paperEditForm [name=subjectId]").val();
-		paper.tclassId = $("#paperEditForm [name=tclassId]").val();
+		paper.teacherSubjectId = $("#paperEditForm [name=tclassId]").val();
 		paper.teacherId = $("#paperEditForm [name=teacherId]").val();
+		paper.studentIds = '';
+		
+		$("paperEditForm [name=studentIds]:checked").each(function(){ 
+			paper.studentIds+=$(this).val()+","; 
+		});
+		if(paper.studentIds != "" && paper.studentIds.length > 0)
+		{
+			paper.studentIds = paper.studentIds.substr(0,paper.studentIds.length-1);
+		}
+		
 		var datas = JSON.stringify(paper);
 		$.ajax({
 			type: "post",
@@ -120,4 +138,26 @@
 		});
 		
 	}
+	
+	$("[name=tclassId]").change(function(){
+		var datas = {teacherSubjectId:$("[name=tclassId]").val()};
+		$.ajax({
+			type: "post",
+			data: datas,
+			url: "/paper/getstudent",
+			/* contentType : "application/json;charset=UTF-8", */
+			dataType : "json",
+			success: function(data) { 
+				var html = '';
+				for(var i=0;i<data.length;i++)
+				{
+					html +=  '<input name="studentIds" type="checkbox" value="'+data[i].id+'" style="width:20px;"/>'+data[i].name
+				}
+				$("[name=student]").html(html);
+			}, 
+			error: function(e) { 
+				$.messager.alert('错误',"网络错误");
+			} 
+		});
+	});
 </script>
