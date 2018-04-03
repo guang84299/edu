@@ -21,7 +21,7 @@ public class PaperResult extends Paper implements Serializable{
 		this.setName(paper.getName());
 		this.setTeacherId(paper.getTeacherId());
 		this.setSubjectId(paper.getSubjectId());
-		this.setTclassId(paper.getTclassId());
+		this.setTeacherSubjectId(paper.getTeacherSubjectId());
 		this.setState(paper.getState());
 		this.setUpdated(paper.getUpdated());
 		this.setCreated(paper.getCreated());

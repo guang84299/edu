@@ -17,7 +17,7 @@ public interface PaperService {
 	List<Paper> findPaperByTeacherId(Long id);
 	EasyUIDataGridResult findPaperList(int page,int rows);
 	EasyUIDataGridResult findPaperList(Long teacherId,int page,int rows);
-	EasyUIDataGridResult findPaperListByTclassIds(List<Long> tclassIds,int page,int rows);
+	EasyUIDataGridResult findPaperListByTeacherSubjectIds(List<Long> teacherSubjectIds,int page,int rows);
 	
 	
 	void addPaperAnswer(PaperAnswer answer);

@@ -18,7 +18,7 @@ public class Paper implements Serializable {
 
     private Integer subjectId;
 
-    private Long tclassId;
+    private Long teacherSubjectId;
 
     private Integer state;
 
@@ -70,12 +70,12 @@ public class Paper implements Serializable {
         this.subjectId = subjectId;
     }
 
-    public Long getTclassId() {
-        return tclassId;
+    public Long getTeacherSubjectId() {
+        return teacherSubjectId;
     }
 
-    public void setTclassId(Long tclassId) {
-        this.tclassId = tclassId;
+    public void setTeacherSubjectId(Long teacherSubjectId) {
+        this.teacherSubjectId = teacherSubjectId;
     }
 
     public Integer getState() {

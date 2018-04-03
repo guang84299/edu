@@ -24,10 +24,12 @@ import com.qianqi.edu.pojo.PaperAnswer;
 import com.qianqi.edu.pojo.PaperAnswerItem;
 import com.qianqi.edu.pojo.PaperItem;
 import com.qianqi.edu.pojo.Question;
+import com.qianqi.edu.pojo.School;
 import com.qianqi.edu.pojo.StudentTeacherSubject;
 import com.qianqi.edu.pojo.Subject;
 import com.qianqi.edu.pojo.Tclass;
 import com.qianqi.edu.pojo.Teacher;
+import com.qianqi.edu.pojo.TeacherSubject;
 import com.qianqi.edu.pojo.common.EasyUIDataGridResult;
 import com.qianqi.edu.pojo.common.EduResult;
 import com.qianqi.edu.pojo.common.PaperAnswerResult;
@@ -39,6 +41,7 @@ import com.qianqi.edu.pojo.common.StudentData;
 import com.qianqi.edu.service.GradeService;
 import com.qianqi.edu.service.PaperService;
 import com.qianqi.edu.service.QuestionService;
+import com.qianqi.edu.service.SchoolService;
 import com.qianqi.edu.service.SearchService;
 import com.qianqi.edu.service.SsoService;
 import com.qianqi.edu.service.StudentService;
@@ -66,6 +69,8 @@ public class TeacherController {
 	private SsoService ssoService;
 	@Autowired
 	private SearchService searchService;
+	@Autowired
+	private SchoolService schoolService;
 	
 	@Value("${IMAGE_SERVER_URL}")
 	private String IMAGE_SERVER_URL;
@@ -75,8 +80,10 @@ public class TeacherController {
 	{
 		List<Grade> grades = gradeService.findGradeAll();
 		List<Subject> subjects = subjectService.findSubjectAll();
+		List<School> schools = schoolService.findSchoolAll();
 		model.addAttribute("grades", grades);
 		model.addAttribute("subjects", subjects);
+		model.addAttribute("schools", schools);
 		return "register";
 	}
 	
@@ -174,8 +181,8 @@ public class TeacherController {
 		List<Subject> subjects = subjectService.findSubjectAll();
 		model.addAttribute("subjects", subjects);
 		Teacher teacher = (Teacher) request.getAttribute("teacher");
-		List<Tclass> tclasss = tclassService.findTclassByTeacherId(teacher.getId());
-		model.addAttribute("tclasss", tclasss);
+		List<TeacherSubject> teacherSubjects = teacherService.findTeacherSubjectByTeacherId(teacher.getId());
+		model.addAttribute("teacherSubjects", teacherSubjects);
 		
 		return "paper-add";
 	}
@@ -209,7 +216,8 @@ public class TeacherController {
 		for(Paper paper : list)
 		{
 			PaperResult paperResult = new PaperResult(paper);
-			paperResult.setTclass(tclassService.findTclass(paper.getTclassId()).getName());
+			TeacherSubject teacherSubject = teacherService.findTeacherSubject(paper.getTeacherSubjectId());
+			paperResult.setTclass(tclassService.findTclass(teacherSubject.getTclassId()).getName());
 			paperResult.setSubject(subjectService.findSubject(paper.getSubjectId()).getName());
 			if(paper.getState() == 1)
 				paperResult.setStateStr("未发布");
@@ -227,8 +235,8 @@ public class TeacherController {
 		List<Subject> subjects = subjectService.findSubjectAll();
 		model.addAttribute("subjects", subjects);
 		Teacher teacher = (Teacher) request.getAttribute("teacher");
-		List<Tclass> tclasss = tclassService.findTclassByTeacherId(teacher.getId());
-		model.addAttribute("tclasss", tclasss);
+		List<TeacherSubject> teacherSubjects = teacherService.findTeacherSubjectByTeacherId(teacher.getId());
+		model.addAttribute("teacherSubjects", teacherSubjects);
 		return "paper-edit";
 	}
 	
@@ -319,8 +327,8 @@ public class TeacherController {
 		paper.setUpdated(new Date());
 		paperService.updatePaper(paper);
 		//给每个学生发布作业
-		List<StudentTclass> sts = studentService.findStudentTclassByTclassId(paper.getTclassId());
-		for(StudentTclass st : sts)
+		List<StudentTeacherSubject> sts = studentService.findStudentTeacherSubjectByTeacherSubjectId(paper.getTeacherSubjectId());
+		for(StudentTeacherSubject st : sts)
 		{
 			PaperAnswer pa = paperService.findPaperAnswerByStudentIdAndPaperId(st.getStudentId(), paper.getId());
 			if(pa == null)
@@ -369,7 +377,8 @@ public class TeacherController {
 					break;
 				}
 			}
-			result.setTclass(tclassService.findTclass(currpaper.getTclassId()).getName());
+			TeacherSubject teacherSubject = teacherService.findTeacherSubject(currpaper.getTeacherSubjectId());
+			result.setTclass(tclassService.findTclass(teacherSubject.getTclassId()).getName());
 			result.setSubject(subjectService.findSubject(currpaper.getSubjectId()).getName());
 			result.setStateStr(pa.getState()+"%");
 			if(pa.getCheckState() == 0)
@@ -482,32 +491,33 @@ public class TeacherController {
 	@ResponseBody
 	public EasyUIDataGridResult studentList(@RequestParam(defaultValue="0") long teacherId,@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows,HttpServletRequest request)
 	{
-		List<Tclass> clss = tclassService.findTclassByTeacherId(teacherId);
+		List<TeacherSubject> teacherSubjects = teacherService.findTeacherSubjectByTeacherId(teacherId);
 		List<Long> clsids = new ArrayList<>();
-		for(Tclass c : clss)
+		for(TeacherSubject c : teacherSubjects)
 		{
 			clsids.add(c.getId());
 		}
-		EasyUIDataGridResult res = studentService.findStudentTclassListByTclassIds(clsids, page, rows);
-		List<StudentTclass> sts = (List<StudentTclass>) res.getRows();
+		EasyUIDataGridResult res = studentService.findStudentTeacherSubjectListByTeacherSubjectIds(clsids, page, rows);
+		List<StudentTeacherSubject> sts = (List<StudentTeacherSubject>) res.getRows();
 		Teacher teacher = teacherService.findTeacherById(teacherId);
 		
 		List<StudentData> list = new ArrayList<>();
-		for(StudentTclass st : sts)
+		for(StudentTeacherSubject st : sts)
 		{
 			StudentData result = new StudentData(studentService.findStudentById(st.getStudentId()));
 			result.setStudentTclassId(st.getId());
-			Tclass tclass = null;
-			for(Tclass c : clss)
+			TeacherSubject teacherSubject = null;
+			for(TeacherSubject c : teacherSubjects)
 			{
-				if((long)c.getId() == (long)st.getTclassId())
+				if((long)c.getId() == (long)st.getTeacherSubjectId())
 				{
-					tclass = c;
+					teacherSubject = c;
 					break;
 				}
 			}
+			Tclass tclass = tclassService.findTclass(teacherSubject.getTclassId());
 			result.setTclass(tclass.getName());
-			result.setSubject(subjectService.findSubject(teacher.getSubjectId()).getName());
+			result.setSubject(subjectService.findSubject(teacherSubject.getSubjectId()).getName());
 			list.add(result);
 		}
 		res.setRows(list);
@@ -524,7 +534,7 @@ public class TeacherController {
 		for(String sid : idss)
 		{
 			long id = Long.parseLong(sid);
-			studentService.deleteStudentTclass(id);
+			studentService.deleteStudentTeacherSubject(id);
 		}
 		return EduResult.ok("", null);
 	}

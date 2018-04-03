@@ -415,63 +415,63 @@ public class PaperExample {
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdIsNull() {
-            addCriterion("tclass_id is null");
+        public Criteria andTeacherSubjectIdIsNull() {
+            addCriterion("teacher_subject_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdIsNotNull() {
-            addCriterion("tclass_id is not null");
+        public Criteria andTeacherSubjectIdIsNotNull() {
+            addCriterion("teacher_subject_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdEqualTo(Long value) {
-            addCriterion("tclass_id =", value, "tclassId");
+        public Criteria andTeacherSubjectIdEqualTo(Long value) {
+            addCriterion("teacher_subject_id =", value, "teacherSubjectId");
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdNotEqualTo(Long value) {
-            addCriterion("tclass_id <>", value, "tclassId");
+        public Criteria andTeacherSubjectIdNotEqualTo(Long value) {
+            addCriterion("teacher_subject_id <>", value, "teacherSubjectId");
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdGreaterThan(Long value) {
-            addCriterion("tclass_id >", value, "tclassId");
+        public Criteria andTeacherSubjectIdGreaterThan(Long value) {
+            addCriterion("teacher_subject_id >", value, "teacherSubjectId");
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("tclass_id >=", value, "tclassId");
+        public Criteria andTeacherSubjectIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("teacher_subject_id >=", value, "teacherSubjectId");
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdLessThan(Long value) {
-            addCriterion("tclass_id <", value, "tclassId");
+        public Criteria andTeacherSubjectIdLessThan(Long value) {
+            addCriterion("teacher_subject_id <", value, "teacherSubjectId");
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdLessThanOrEqualTo(Long value) {
-            addCriterion("tclass_id <=", value, "tclassId");
+        public Criteria andTeacherSubjectIdLessThanOrEqualTo(Long value) {
+            addCriterion("teacher_subject_id <=", value, "teacherSubjectId");
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdIn(List<Long> values) {
-            addCriterion("tclass_id in", values, "tclassId");
+        public Criteria andTeacherSubjectIdIn(List<Long> values) {
+            addCriterion("teacher_subject_id in", values, "teacherSubjectId");
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdNotIn(List<Long> values) {
-            addCriterion("tclass_id not in", values, "tclassId");
+        public Criteria andTeacherSubjectIdNotIn(List<Long> values) {
+            addCriterion("teacher_subject_id not in", values, "teacherSubjectId");
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdBetween(Long value1, Long value2) {
-            addCriterion("tclass_id between", value1, value2, "tclassId");
+        public Criteria andTeacherSubjectIdBetween(Long value1, Long value2) {
+            addCriterion("teacher_subject_id between", value1, value2, "teacherSubjectId");
             return (Criteria) this;
         }
 
-        public Criteria andTclassIdNotBetween(Long value1, Long value2) {
-            addCriterion("tclass_id not between", value1, value2, "tclassId");
+        public Criteria andTeacherSubjectIdNotBetween(Long value1, Long value2) {
+            addCriterion("teacher_subject_id not between", value1, value2, "teacherSubjectId");
             return (Criteria) this;
         }
 

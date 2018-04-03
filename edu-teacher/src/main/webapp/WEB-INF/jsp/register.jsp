@@ -34,7 +34,12 @@
 	        </div>
 	        <div style="margin-bottom:20px;">
 	            <div>
-	            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	学校: <input name="scholl" class="easyui-textbox" data-options="required:true" style="width:200px;height:32px" value=""/>
+	            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	学校: 
+	            	<select name="schoolId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
+			    <c:forEach items="${schools}" var="val">
+			      <option value="${val.id }">${val.name }</option>
+			     </c:forEach>
+			    </select>
 	            </div>
 	        </div>
 	        <div style="margin-bottom:20px;">
@@ -74,7 +79,7 @@
     		teacher.name = $("#regbg [name=name]").val();
     		teacher.password = $("#regbg [name=password]").val();
     		teacher.phone = $("#regbg [name=phone]").val();
-    		teacher.scholl = $("#regbg [name=scholl]").val();
+    		teacher.schoolId = $("#regbg [name=schoolId]").val();
     		teacher.gradeId = $("#regbg [name=gradeId]").val();
     		teacher.subjectId = $("#regbg [name=subjectId]").val();
     		teacher.idcard = $("#regbg [name=idcard]").val();

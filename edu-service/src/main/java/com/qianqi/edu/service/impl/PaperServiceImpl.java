@@ -128,12 +128,12 @@ public class PaperServiceImpl implements PaperService{
 	}
 
 	@Override
-	public EasyUIDataGridResult findPaperListByTclassIds(List<Long> tclassIds, int page, int rows) {
+	public EasyUIDataGridResult findPaperListByTeacherSubjectIds(List<Long> teacherSubjectIds,int page,int rows) {
 		//设置分页信息
 		PageHelper.startPage(page, rows);
 		//执行查询
 		PaperExample example = new PaperExample();
-		example.createCriteria().andTclassIdIn(tclassIds)
+		example.createCriteria().andTeacherSubjectIdIn(teacherSubjectIds)
 		.andStateEqualTo(2);
 		List<Paper> list = paperMapper.selectByExample(example);
 		//创建一个返回值对象
