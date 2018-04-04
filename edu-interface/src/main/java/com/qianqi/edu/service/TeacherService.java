@@ -18,6 +18,7 @@ public interface TeacherService {
 	void deleteTeacher(Long id);
 	
 	EasyUIDataGridResult findTeacherList(int page,int rows);
+	EasyUIDataGridResult findTeacherList(List<Integer> schools,List<Integer> gradeIds,List<Integer> subjectIds,int page,int rows);
 	
 	
 	

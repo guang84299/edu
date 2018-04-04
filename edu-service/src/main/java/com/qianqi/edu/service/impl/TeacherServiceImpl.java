@@ -15,6 +15,7 @@ import com.qianqi.edu.mapper.TeacherMapper;
 import com.qianqi.edu.mapper.TeacherSubjectMapper;
 import com.qianqi.edu.pojo.Teacher;
 import com.qianqi.edu.pojo.TeacherExample;
+import com.qianqi.edu.pojo.TeacherExample.Criteria;
 import com.qianqi.edu.pojo.TeacherSubject;
 import com.qianqi.edu.pojo.TeacherSubjectExample;
 import com.qianqi.edu.pojo.common.EasyUIDataGridResult;
@@ -91,6 +92,35 @@ public class TeacherServiceImpl implements TeacherService{
 		PageHelper.startPage(page, rows);
 		//执行查询
 		TeacherExample example = new TeacherExample();
+		List<Teacher> list = teacherMapper.selectByExample(example);
+		//创建一个返回值对象
+		EasyUIDataGridResult result = new EasyUIDataGridResult();
+		result.setRows(list);
+		//取分页结果
+		PageInfo<Teacher> pageInfo = new PageInfo<>(list);
+		//取总记录数
+		long total = pageInfo.getTotal();
+		result.setTotal(total);
+		return result;
+	}
+	
+	
+	@Override
+	public EasyUIDataGridResult findTeacherList(List<Integer> schools,List<Integer> gradeIds,List<Integer> subjectIds,int page,int rows)
+	{
+		//设置分页信息
+		PageHelper.startPage(page, rows);
+		//执行查询
+		TeacherExample example = new TeacherExample();
+		example.setOrderByClause("state asc");
+		Criteria criteria = example.createCriteria();
+		if(schools != null && schools.size()>0)
+			criteria = criteria.andSchoolIdIn(schools);
+		if(gradeIds != null && gradeIds.size()>0)
+			criteria = criteria.andGradeIdIn(gradeIds);
+		if(subjectIds != null && subjectIds.size()>0)
+			criteria = criteria.andSubjectIdIn(subjectIds);
+		
 		List<Teacher> list = teacherMapper.selectByExample(example);
 		//创建一个返回值对象
 		EasyUIDataGridResult result = new EasyUIDataGridResult();

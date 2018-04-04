@@ -92,6 +92,13 @@ public class SsoServiceImpl implements SsoService{
 		{
 			String token = UUID.randomUUID().toString();
 			Teacher teacher = list.get(0);
+			if(teacher.getState() == 0)
+				return EduResult.err("账号未审核",null);
+			if(teacher.getState() == 3)
+				return EduResult.err("审核不通过",null);
+			if(teacher.getState() != 1)
+				return EduResult.err("账号不合法",null);
+			
 			teacher.setPassword(null);
 			jedisClient.set(SESSION_TEACHER_LIST+token, JsonUtils.objectToJson(teacher));
 			// 设置Session的过期时间

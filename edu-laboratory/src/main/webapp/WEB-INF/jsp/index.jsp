@@ -44,6 +44,7 @@
          		<ul>
 	         		<li data-options="attributes:{'url':'user/toadd'}">新增用户</li>
 	         		<li data-options="attributes:{'url':'user/tolist'}">查询用户</li>
+	         		<li data-options="attributes:{'url':'teacher/tolist'}">教师管理</li>
 	         	</ul>
          	</li>
          	<li>

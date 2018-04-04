@@ -490,7 +490,7 @@ public class TeacherController {
 	
 	@RequestMapping("/paper/check/list")
 	@ResponseBody
-	public EasyUIDataGridResult checkPaper(@RequestParam(defaultValue="0") long teacherId,@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows,HttpServletRequest request)
+	public EasyUIDataGridResult checkPaperList(@RequestParam(defaultValue="0") long teacherId,@RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows,HttpServletRequest request)
 	{
 		EasyUIDataGridResult res = paperService.findPaperList(teacherId,page,rows);
 		List<Paper> papers = (List<Paper>) res.getRows();
@@ -578,7 +578,27 @@ public class TeacherController {
 		{
 			PaperAnswer pa = paperService.findPaperAnswerById(paperAnswerId);
 			pa.setCheckState(2);
+			pa.setCheckTime(new Date());
 			paperService.updatePaperAnswer(pa);
+			
+			List<PaperAnswer> pas = paperService.findPaperAnswerByPaperId(pa.getPaperId());
+			boolean b = true;
+			long time = 0;
+			for(PaperAnswer p : pas)
+			{
+				if(p.getCheckState() != 2)
+				{
+					b = false;
+					break;
+				}
+				time += (p.getCheckTime().getTime() - p.getSubmitTime().getTime());
+			}
+			if(b)
+			{
+				Paper paper = paperService.findPaperById(pa.getPaperId());
+				paper.setCheckEvlTime(time/pas.size());
+				paperService.updatePaper(paper);
+			}
 		}
 		return EduResult.ok("", null);
 	}

@@ -7,6 +7,7 @@
     <result column="paper_id" property="paperId" jdbcType="BIGINT" />
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="check_state" property="checkState" jdbcType="INTEGER" />
+    <result column="submit_state" property="submitState" jdbcType="INTEGER" />
     <result column="s_evaluate" property="sEvaluate" jdbcType="INTEGER" />
     <result column="s_comment" property="sComment" jdbcType="VARCHAR" />
     <result column="t_comment" property="tComment" jdbcType="VARCHAR" />
@@ -74,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, student_id, paper_id, state, check_state, s_evaluate, s_comment, t_comment, created, 
-    check_time, submit_time, zhi_answer
+    id, student_id, paper_id, state, check_state, submit_state, s_evaluate, s_comment, 
+    t_comment, created, check_time, submit_time, zhi_answer
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qianqi.edu.pojo.PaperAnswerExample" >
     select
@@ -109,15 +110,15 @@
   </delete>
   <insert id="insert" parameterType="com.qianqi.edu.pojo.PaperAnswer" >
     insert into paper_answer (id, student_id, paper_id, 
-      state, check_state, s_evaluate, 
-      s_comment, t_comment, created, 
-      check_time, submit_time, zhi_answer
-      )
+      state, check_state, submit_state, 
+      s_evaluate, s_comment, t_comment, 
+      created, check_time, submit_time, 
+      zhi_answer)
     values (#{id,jdbcType=BIGINT}, #{studentId,jdbcType=BIGINT}, #{paperId,jdbcType=BIGINT}, 
-      #{state,jdbcType=INTEGER}, #{checkState,jdbcType=INTEGER}, #{sEvaluate,jdbcType=INTEGER}, 
-      #{sComment,jdbcType=VARCHAR}, #{tComment,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
-      #{checkTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, #{zhiAnswer,jdbcType=VARCHAR}
-      )
+      #{state,jdbcType=INTEGER}, #{checkState,jdbcType=INTEGER}, #{submitState,jdbcType=INTEGER}, 
+      #{sEvaluate,jdbcType=INTEGER}, #{sComment,jdbcType=VARCHAR}, #{tComment,jdbcType=VARCHAR}, 
+      #{created,jdbcType=TIMESTAMP}, #{checkTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP}, 
+      #{zhiAnswer,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.qianqi.edu.pojo.PaperAnswer" >
     insert into paper_answer
@@ -136,6 +137,9 @@
       </if>
       <if test="checkState != null" >
         check_state,
+      </if>
+      <if test="submitState != null" >
+        submit_state,
       </if>
       <if test="sEvaluate != null" >
         s_evaluate,
@@ -174,6 +178,9 @@
       </if>
       <if test="checkState != null" >
         #{checkState,jdbcType=INTEGER},
+      </if>
+      <if test="submitState != null" >
+        #{submitState,jdbcType=INTEGER},
       </if>
       <if test="sEvaluate != null" >
         #{sEvaluate,jdbcType=INTEGER},
@@ -222,6 +229,9 @@
       <if test="record.checkState != null" >
         check_state = #{record.checkState,jdbcType=INTEGER},
       </if>
+      <if test="record.submitState != null" >
+        submit_state = #{record.submitState,jdbcType=INTEGER},
+      </if>
       <if test="record.sEvaluate != null" >
         s_evaluate = #{record.sEvaluate,jdbcType=INTEGER},
       </if>
@@ -255,6 +265,7 @@
       paper_id = #{record.paperId,jdbcType=BIGINT},
       state = #{record.state,jdbcType=INTEGER},
       check_state = #{record.checkState,jdbcType=INTEGER},
+      submit_state = #{record.submitState,jdbcType=INTEGER},
       s_evaluate = #{record.sEvaluate,jdbcType=INTEGER},
       s_comment = #{record.sComment,jdbcType=VARCHAR},
       t_comment = #{record.tComment,jdbcType=VARCHAR},
@@ -280,6 +291,9 @@
       </if>
       <if test="checkState != null" >
         check_state = #{checkState,jdbcType=INTEGER},
+      </if>
+      <if test="submitState != null" >
+        submit_state = #{submitState,jdbcType=INTEGER},
       </if>
       <if test="sEvaluate != null" >
         s_evaluate = #{sEvaluate,jdbcType=INTEGER},
@@ -311,6 +325,7 @@
       paper_id = #{paperId,jdbcType=BIGINT},
       state = #{state,jdbcType=INTEGER},
       check_state = #{checkState,jdbcType=INTEGER},
+      submit_state = #{submitState,jdbcType=INTEGER},
       s_evaluate = #{sEvaluate,jdbcType=INTEGER},
       s_comment = #{sComment,jdbcType=VARCHAR},
       t_comment = #{tComment,jdbcType=VARCHAR},

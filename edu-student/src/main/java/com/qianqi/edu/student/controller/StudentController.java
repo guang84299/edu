@@ -28,8 +28,9 @@ import com.qianqi.edu.pojo.PaperAnswerItem;
 import com.qianqi.edu.pojo.PaperItem;
 import com.qianqi.edu.pojo.Question;
 import com.qianqi.edu.pojo.Student;
-import com.qianqi.edu.pojo.StudentTclass;
+import com.qianqi.edu.pojo.StudentTeacherSubject;
 import com.qianqi.edu.pojo.Tclass;
+import com.qianqi.edu.pojo.TeacherSubject;
 import com.qianqi.edu.pojo.common.EasyUIDataGridResult;
 import com.qianqi.edu.pojo.common.EduResult;
 import com.qianqi.edu.pojo.common.PaperAnswerResult;
@@ -41,11 +42,14 @@ import com.qianqi.edu.service.SsoService;
 import com.qianqi.edu.service.StudentService;
 import com.qianqi.edu.service.SubjectService;
 import com.qianqi.edu.service.TclassService;
+import com.qianqi.edu.service.TeacherService;
 
 @Controller
 public class StudentController {
 	@Autowired
 	private StudentService studentService;
+	@Autowired
+	private TeacherService teacherService;
 	@Autowired
 	private TclassService tclassService;
 	@Autowired
@@ -103,16 +107,22 @@ public class StudentController {
 	
 	@RequestMapping("/student_tclass/add")
 	@ResponseBody
-	public EduResult addStudentTclass(@RequestBody StudentTclass studentTclass)
+	public EduResult addStudentTclass(@RequestBody StudentTeacherSubject studentTeacherSubject)
 	{
-		Tclass tclass = tclassService.findTclass(studentTclass.getTclassId());
-		if(tclass == null)
+		TeacherSubject ts = teacherService.findTeacherSubject(studentTeacherSubject.getTeacherSubjectId());
+		if(ts == null)
 		{
 			return EduResult.err("代码不存在！", null);
 		}
-		studentTclass.setCreated(new Date());
-		studentTclass.setUpdated(new Date());
-		studentService.addStudentTclass(studentTclass);
+		studentTeacherSubject.setCreated(new Date());
+		studentTeacherSubject.setUpdated(new Date());
+		int count = studentService.countStudentTeacherSubjectByTeacherSubjectIdAndStudentId(studentTeacherSubject.getTeacherSubjectId(),studentTeacherSubject.getStudentId());
+		if(count<=0)
+			studentService.addStudentTeacherSubject(studentTeacherSubject);
+		else
+		{
+			return EduResult.err("已经添加！", null);
+		}
 		return EduResult.ok("", null);
 	}
 	
@@ -126,7 +136,7 @@ public class StudentController {
 	@ResponseBody
 	public EasyUIDataGridResult studentTclassList(@RequestParam(defaultValue="0") long studentId, @RequestParam(defaultValue="0") int page,@RequestParam(defaultValue="5")int rows)
 	{
-		EasyUIDataGridResult result = studentService.findStudentTclassListByStudentId(studentId, page, rows);
+		EasyUIDataGridResult result = studentService.findStudentTeacherSubjectListByStudentId(studentId, page, rows);
 		return result;
 	}
 	
@@ -138,7 +148,7 @@ public class StudentController {
 		for(String sid : idss)
 		{
 			long id = Long.parseLong(sid);
-			studentService.deleteStudentTclass(id);
+			studentService.deleteStudentTeacherSubject(id);
 		}
 		return EduResult.ok("", null);
 	}
@@ -267,6 +277,43 @@ public class StudentController {
 				}
 				
 				PaperAnswerItem paperAnswerItem = paperService.findPaperAnswerItem(item.getPaperItemId(), item.getPaperAnswerId());
+				PaperItem paperItem = paperService.findPaperItemById(item.getPaperItemId());
+				Question question = questionService.findQuestionById(paperItem.getQuestionId());
+				
+				if(question.getType() == 1 || question.getType() == 2)
+				{
+					if(item.getAnswer() != null && item.getAnswer().equals(question.getAnswer()))
+						item.setAnswerResult(1);	
+					else
+						item.setAnswerResult(0);	
+				}
+				else if(question.getType() == 3)
+				{
+					int b = 1;
+					if(item.getAnswer() != null)
+					{
+						String[] rs = item.getAnswer().split(",");
+						String[] rs2 = question.getAnswer().split(",");
+						if(rs2.length == rs.length)
+						{
+							for(int i=0;i<rs.length;i++)
+							{
+								if(!question.getAnswer().contains(rs[i]))
+									b = 0;
+							}
+						}
+						else
+							b = 0;
+					}
+					else
+						b = 0;
+					item.setAnswerResult(b);	
+				}
+				else
+				{
+					item.setAnswerResult(0);	
+				}
+				
 				if(paperAnswerItem == null)
 				{
 					item.setCreated(new Date());
@@ -274,7 +321,9 @@ public class StudentController {
 				}
 				else
 				{
+					paperAnswerItem.setAnswerTime(paperAnswerItem.getAnswerTime()+item.getAnswerTime());
 					paperAnswerItem.setAnswer(item.getAnswer());
+					paperAnswerItem.setAnswerResult(item.getAnswerResult());
 					paperService.updatePaperAnswerItem(paperAnswerItem);
 				}
 			}
@@ -288,6 +337,11 @@ public class StudentController {
 				if(pa != null)
 				{
 					pa.setState(state);
+					if(state == 100)
+					{
+						pa.setSubmitTime(new Date());
+						pa.setSubmitState(1);
+					}
 					paperService.updatePaperAnswer(pa);
 				}
 			}
@@ -334,7 +388,8 @@ public class StudentController {
 		{
 			Paper paper = paperService.findPaperById(pa.getPaperId());
 			PaperAnswerResult answerResult = new PaperAnswerResult(pa);
-			answerResult.setTclass(tclassService.findTclass(paper.getTclassId()).getName());
+			TeacherSubject ts = teacherService.findTeacherSubject(paper.getTeacherSubjectId());
+			answerResult.setTclass(tclassService.findTclass(ts.getTclassId()).getName());
 			answerResult.setSubject(subjectService.findSubject(paper.getSubjectId()).getName());
 			answerResult.setStateStr(pa.getState()+"%");
 			if(pa.getCheckState() == 0)

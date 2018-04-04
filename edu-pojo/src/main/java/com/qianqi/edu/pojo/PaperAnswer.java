@@ -18,6 +18,8 @@ public class PaperAnswer implements Serializable {
 
     private Integer checkState;
 
+    private Integer submitState;
+
     private Integer sEvaluate;
 
     private String sComment;
@@ -70,6 +72,14 @@ public class PaperAnswer implements Serializable {
 
     public void setCheckState(Integer checkState) {
         this.checkState = checkState;
+    }
+
+    public Integer getSubmitState() {
+        return submitState;
+    }
+
+    public void setSubmitState(Integer submitState) {
+        this.submitState = submitState;
     }
 
     public Integer getsEvaluate() {

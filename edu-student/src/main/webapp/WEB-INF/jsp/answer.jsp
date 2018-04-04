@@ -84,6 +84,8 @@
 
 <script type="text/javascript">
 	
+	var timestamp=new Date().getTime();
+
 	$("#answerEditForm .question_zhuguan button").click(function(){
 		var paperItemId = $(this).attr("data-paperItemId");
 		var fileName = $("#answerEditForm .question_zhuguan .uploadfile_"+paperItemId).val();
@@ -125,9 +127,80 @@
 			error: function(e) { 
 				$.messager.alert('错误',"网络错误");
 			} 
-	    }); 		
+	    }); 	
+		
+		var maxTime = 0;
+		var t = $(this).attr("data-time");
+		if(t && parseInt(t) > maxTime)
+			maxTime  = parseInt(t);
+		
+		var time=new Date().getTime();
+		$(this).attr("data-time",time-timestamp+maxTime);
+		timestamp = time;
 	});
-
+	
+	$("#answerEditForm .question_judge input").click(function(){
+		var times = $(this).siblings("[data-time]");
+		var maxTime = 0;
+		if(times)
+		{
+			for(var i=0;i<times.length;i++)
+			{
+				var t = parseInt($(times[i]).attr("data-time"));
+				if(t > maxTime)
+					maxTime  = t;
+			}
+		}
+		var t = $(this).attr("data-time");
+		if(t && parseInt(t) > maxTime)
+			maxTime  = parseInt(t);
+		
+		var time=new Date().getTime();
+		$(this).attr("data-time",time-timestamp+maxTime);
+		timestamp = time;
+	});
+	
+	$("#answerEditForm .question_single input").click(function(){
+		var times = $(this).siblings("[data-time]");
+		var maxTime = 0;
+		if(times)
+		{
+			for(var i=0;i<times.length;i++)
+			{
+				var t = parseInt($(times[i]).attr("data-time"));
+				if(t > maxTime)
+					maxTime  = t;
+			}
+		}
+		var t = $(this).attr("data-time");
+		if(t && parseInt(t) > maxTime)
+			maxTime  = parseInt(t);
+		
+		var time=new Date().getTime();
+		$(this).attr("data-time",time-timestamp+maxTime);
+		timestamp = time;
+	});
+	
+	$("#answerEditForm .question_mutli input").click(function(){
+		var times = $(this).siblings("[data-time]");
+		var maxTime = 0;
+		if(times)
+		{
+			for(var i=0;i<times.length;i++)
+			{
+				var t = parseInt($(times[i]).attr("data-time"));
+				if(t > maxTime)
+					maxTime  = t;
+			}
+		}
+		var t = $(this).attr("data-time");
+		if(t && parseInt(t) > maxTime)
+			maxTime  = parseInt(t);
+		
+		var time=new Date().getTime();
+		$(this).attr("data-time",time-timestamp+maxTime);
+		timestamp = time;
+	});
 
 	function answersubmitForm(){
 		/* if(!$('#answerEditForm').form('validate')){
@@ -141,11 +214,15 @@
 			var paperAnswerId = $(this).find("input:eq(0)").attr("data-paperAnswerId");
 		    	var an = $(this).find("input:eq(0)").attr("name");
 		    	var answer = $("#answerEditForm [name="+an+"]:checked").val();
+		    	var answerTime = parseInt($("#answerEditForm [name="+an+"]:checked").attr("data-time"));
+		    	if(!answerTime)
+		    		answerTime = 0;
 		    	if(answer != null && answer != undefined)
 	    		{
 		    		paper_answer_item.paperItemId = paperItemId;
 			    	paper_answer_item.paperAnswerId = paperAnswerId;
 			    	paper_answer_item.answer = answer;
+			    	paper_answer_item.answerTime = answerTime;
 			    	paper_answer_items.push(paper_answer_item);
 	    		}
 		  });
@@ -155,11 +232,15 @@
 			var paperAnswerId = $(this).find("input:eq(0)").attr("data-paperAnswerId");
 		    	var an = $(this).find("input:eq(0)").attr("name");
 		    	var answer = $("#answerEditForm [name="+an+"]:checked").val();
+		    var answerTime = parseInt($("#answerEditForm [name="+an+"]:checked").attr("data-time"));
+			if(!answerTime)
+	    		answerTime = 0;
 		    	if(answer != null && answer != undefined)
 	    		{
 		    		paper_answer_item.paperItemId = paperItemId;
 			    	paper_answer_item.paperAnswerId = paperAnswerId;
 			    	paper_answer_item.answer = answer;
+			    	paper_answer_item.answerTime = answerTime;
 			    	paper_answer_items.push(paper_answer_item);
 	    		}
 		  });
@@ -169,8 +250,12 @@
 			var paperAnswerId = $(this).find("input:eq(0)").attr("data-paperAnswerId");
 		    	var an = $(this).find("input:eq(0)").attr("name");
 		    	var answer = "";
+		    	var maxTime = 0;
 		    	$("#answerEditForm [name="+an+"]:checked").each(function(){ 
 		    			answer+=$(this).val()+","; 
+		    			var t = $(this).attr("data-time");
+		    			if(t && parseInt(t) > maxTime)
+		    				maxTime = parseInt(t);
 				});
 		    	if(answer != "" && answer.length > 0)
 			{
@@ -179,6 +264,7 @@
 		    		paper_answer_item.paperItemId = paperItemId;
 			    	paper_answer_item.paperAnswerId = paperAnswerId;
 			    	paper_answer_item.answer = answer;
+			    	paper_answer_item.answerTime = maxTime;
 			    	paper_answer_items.push(paper_answer_item);
 			}
 		  });
@@ -189,11 +275,15 @@
 			var paperAnswerId = $(this).find("input:eq(0)").attr("data-paperAnswerId");
 		    	var an = $(this).find("input:eq(0)").attr("name");
 		    	var answer = $("#answerEditForm [name="+an+"]").val();
+		    	var answerTime = parseInt($(this).find("button:eq(0)").attr("data-time"));
+		    	if(!answerTime)
+		    		answerTime = 0;
 		    	if(answer != "" && answer.length > 0)
 			{
 		    		paper_answer_item.paperItemId = paperItemId;
 			    	paper_answer_item.paperAnswerId = paperAnswerId;
 			    	paper_answer_item.answer = answer;
+			    	paper_answer_item.answerTime = answerTime;
 			    	paper_answer_items.push(paper_answer_item);
 			}
 		  });

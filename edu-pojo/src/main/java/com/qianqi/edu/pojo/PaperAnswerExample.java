@@ -405,6 +405,66 @@ public class PaperAnswerExample {
             return (Criteria) this;
         }
 
+        public Criteria andSubmitStateIsNull() {
+            addCriterion("submit_state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitStateIsNotNull() {
+            addCriterion("submit_state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitStateEqualTo(Integer value) {
+            addCriterion("submit_state =", value, "submitState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitStateNotEqualTo(Integer value) {
+            addCriterion("submit_state <>", value, "submitState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitStateGreaterThan(Integer value) {
+            addCriterion("submit_state >", value, "submitState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("submit_state >=", value, "submitState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitStateLessThan(Integer value) {
+            addCriterion("submit_state <", value, "submitState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitStateLessThanOrEqualTo(Integer value) {
+            addCriterion("submit_state <=", value, "submitState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitStateIn(List<Integer> values) {
+            addCriterion("submit_state in", values, "submitState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitStateNotIn(List<Integer> values) {
+            addCriterion("submit_state not in", values, "submitState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitStateBetween(Integer value1, Integer value2) {
+            addCriterion("submit_state between", value1, value2, "submitState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSubmitStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("submit_state not between", value1, value2, "submitState");
+            return (Criteria) this;
+        }
+
         public Criteria andSEvaluateIsNull() {
             addCriterion("s_evaluate is null");
             return (Criteria) this;

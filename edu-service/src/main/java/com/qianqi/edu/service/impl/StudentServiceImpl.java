@@ -247,5 +247,14 @@ public class StudentServiceImpl implements StudentService{
 		result.setTotal(total);
 		return result;
 	}
+	
+	@Override
+	public int countStudentTeacherSubjectByTeacherSubjectIdAndStudentId(Long teacherSubjectId,Long studentId)
+	{
+		StudentTeacherSubjectExample example = new StudentTeacherSubjectExample();
+		example.createCriteria().andTeacherSubjectIdEqualTo(teacherSubjectId)
+		.andStudentIdEqualTo(studentId);
+		return studentTeacherSubjectMapper.countByExample(example);
+	}
 
 }

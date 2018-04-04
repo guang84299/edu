@@ -5,7 +5,7 @@
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
         	<th data-options="field:'id',width:60">科目ID</th>
-            <th data-options="field:'tclassId',width:200">科目代码</th>
+            <th data-options="field:'teacherSubjectId',width:200">科目代码</th>
             <th data-options="field:'created',width:130,align:'center',formatter:E3.formatDateTime">创建日期</th>
             <th data-options="field:'updated',width:130,align:'center',formatter:E3.formatDateTime">更新日期</th>
         </tr>

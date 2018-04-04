@@ -30,6 +30,8 @@ public interface PaperService {
 	List<PaperAnswer> findPaperAnswerByPaperIds(List<Long> paperIds);
 	List<PaperAnswer> findPaperAnswerByStudentIdAndState(Long studentId,int state);
 	EasyUIDataGridResult findPaperAnswerByStudentId(Long studentId,int page,int rows);
+	int countPaperAnswerByCheckState(List<Long> paperIds,int state);
+	int countPaperAnswerBySubmitState(List<Long> paperIds,int state);
 	
 	void addPaperAnswerItem(PaperAnswerItem item);
 	void deletePaperAnswerItem(Long id);

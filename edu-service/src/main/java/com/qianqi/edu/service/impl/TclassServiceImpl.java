@@ -1,5 +1,6 @@
 package com.qianqi.edu.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,20 @@ public class TclassServiceImpl implements TclassService{
 		return tclass;
 	}
 
+	@Override
+	public List<Tclass> findTclassByIds(List<Long> ids)
+	{
+		List<Tclass> list = new ArrayList<Tclass>();
+		
+		if(ids != null && ids.size()>0)
+		{
+			TclassExample tclassExample = new TclassExample();
+			tclassExample.createCriteria().andIdIn(ids);
+			list = tclassMapper.selectByExample(tclassExample);
+		}
+		return list;
+	}
+	
 	@Override
 	public List<Tclass> findTclassByUserId(Long userId) {
 		TclassExample tclassExample = new TclassExample();

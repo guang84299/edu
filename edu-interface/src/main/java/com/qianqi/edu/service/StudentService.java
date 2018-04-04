@@ -25,4 +25,5 @@ public interface StudentService {
 	EasyUIDataGridResult findStudentTeacherSubjectListByStudentId(Long studentId,int page,int rows);
 	EasyUIDataGridResult findStudentTeacherSubjectListByTeacherSubjectId(Long teacherSubjectId,int page,int rows);
 	EasyUIDataGridResult findStudentTeacherSubjectListByTeacherSubjectIds(List<Long> teacherSubjectIds,int page,int rows);
+	int countStudentTeacherSubjectByTeacherSubjectIdAndStudentId(Long teacherSubjectId,Long studentId);
 }

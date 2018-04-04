@@ -110,11 +110,12 @@ $(function(){
 	});
 	
 	$(".loginout").click(function(){
-		var params = {"token":$.cookie('token') };
+		var params = {"token":$.cookie('token-teacher') };
 		$.post("/teacher/loginout",params, function(data){
 			if(data.state == 200){
 				window.location.href="/toLogin";
 			}
+			
 		});
 	});
 });

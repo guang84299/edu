@@ -48,7 +48,7 @@
 		tclass.teacherSubjectId = $("[name=tclassId]").val();
 		tclass.teacherId = $("[name=teacherId]").val();
 		var datas = JSON.stringify(tclass);
-		
+		alert(datas);
 		$.ajax({
 			type: "post",
 			data: datas,

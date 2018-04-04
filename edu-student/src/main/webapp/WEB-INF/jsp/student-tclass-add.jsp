@@ -24,7 +24,7 @@
 			return ;
 		}
 		var studenttclass = {};
-		studenttclass.tclassId = $("[name=tclassId]").val();
+		studenttclass.teacherSubjectId = $("[name=tclassId]").val();
 		studenttclass.studentId = $("[name=studentId]").val();
 		studenttclass.teacherId = $("[name=teacherId]").val();
 		var datas = JSON.stringify(studenttclass);

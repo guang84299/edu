@@ -61,7 +61,10 @@
 					}
 					else
 					{
-						$.messager.alert('错误',"手机号或密码不正确！");
+						if(data.msg && data.msg.length>4)
+							$.messager.alert('错误',data.msg);
+						else
+							$.messager.alert('错误',"手机号或密码不正确！");
 					}
 				}, 
 				error: function(e) { 

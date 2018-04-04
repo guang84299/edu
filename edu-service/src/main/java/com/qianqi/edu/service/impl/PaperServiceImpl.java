@@ -233,6 +233,32 @@ public class PaperServiceImpl implements PaperService{
 		return result;
 	}
 	
+	@Override
+	public int countPaperAnswerByCheckState(List<Long> paperIds,int state)
+	{
+		int count = 0;
+		if(paperIds != null && paperIds.size()>0)
+		{
+			PaperAnswerExample paperAnswerExample = new PaperAnswerExample();
+			paperAnswerExample.createCriteria().andPaperIdIn(paperIds).andCheckStateEqualTo(state);
+			count = paperAnswerMapper.countByExample(paperAnswerExample);
+		}
+		return count;
+	}
+	
+	@Override
+	public int countPaperAnswerBySubmitState(List<Long> paperIds,int state)
+	{
+		int count = 0;
+		if(paperIds != null && paperIds.size()>0)
+		{
+			PaperAnswerExample paperAnswerExample = new PaperAnswerExample();
+			paperAnswerExample.createCriteria().andPaperIdIn(paperIds).andSubmitStateEqualTo(state);
+			count = paperAnswerMapper.countByExample(paperAnswerExample);
+		}
+		return count;
+	}
+	
 	//--------------------------------
 	
 	@Override

@@ -10,6 +10,7 @@ public interface TclassService {
 	void deleteTclass(Long id);
 	void updateTclass(Tclass tclass);
 	Tclass findTclass(Long id);
+	List<Tclass> findTclassByIds(List<Long> ids);
 	List<Tclass> findTclassByUserId(Long userId);
 	List<Tclass> findTclassBySchoolId(int schoolId);
 	List<Tclass> findTclassByGradeId(int gradeId);
