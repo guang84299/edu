@@ -116,10 +116,10 @@ public class TeacherServiceImpl implements TeacherService{
 		Criteria criteria = example.createCriteria();
 		if(schools != null && schools.size()>0)
 			criteria = criteria.andSchoolIdIn(schools);
-		if(gradeIds != null && gradeIds.size()>0)
-			criteria = criteria.andGradeIdIn(gradeIds);
-		if(subjectIds != null && subjectIds.size()>0)
-			criteria = criteria.andSubjectIdIn(subjectIds);
+//		if(gradeIds != null && gradeIds.size()>0)
+//			criteria = criteria.andGradeIdIn(gradeIds);
+//		if(subjectIds != null && subjectIds.size()>0)
+//			criteria = criteria.andSubjectIdIn(subjectIds);
 		
 		List<Teacher> list = teacherMapper.selectByExample(example);
 		//创建一个返回值对象

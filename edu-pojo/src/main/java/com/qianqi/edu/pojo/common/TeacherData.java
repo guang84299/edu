@@ -23,9 +23,8 @@ public class TeacherData extends Teacher  implements Serializable{
 		this.setPassword(teacher.getPassword());
 		this.setPhone(teacher.getPhone());
 		this.setSchoolId(teacher.getSchoolId());
-		this.setGradeId(teacher.getGradeId());
 		this.setIdcard(teacher.getIdcard());
-		this.setSubjectId(teacher.getSubjectId());
+		this.setTidcard(teacher.getTidcard());
 		this.setState(teacher.getState());
 		this.setCreated(teacher.getCreated());
 		this.setUpdated(teacher.getUpdated());

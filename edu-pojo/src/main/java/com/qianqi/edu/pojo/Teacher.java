@@ -18,11 +18,9 @@ public class Teacher implements Serializable {
 
     private Integer schoolId;
 
-    private Integer gradeId;
-
-    private Integer subjectId;
-
     private String idcard;
+
+    private String tidcard;
 
     private Integer state;
 
@@ -70,28 +68,20 @@ public class Teacher implements Serializable {
         this.schoolId = schoolId;
     }
 
-    public Integer getGradeId() {
-        return gradeId;
-    }
-
-    public void setGradeId(Integer gradeId) {
-        this.gradeId = gradeId;
-    }
-
-    public Integer getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(Integer subjectId) {
-        this.subjectId = subjectId;
-    }
-
     public String getIdcard() {
         return idcard;
     }
 
     public void setIdcard(String idcard) {
         this.idcard = idcard == null ? null : idcard.trim();
+    }
+
+    public String getTidcard() {
+        return tidcard;
+    }
+
+    public void setTidcard(String tidcard) {
+        this.tidcard = tidcard == null ? null : tidcard.trim();
     }
 
     public Integer getState() {
