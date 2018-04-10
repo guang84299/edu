@@ -42,29 +42,14 @@
 			    </select>
 	            </div>
 	        </div>
-	        <div style="margin-bottom:20px;">
+	       <div style="margin-bottom:20px;">
 	            <div>
-	            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年级:
-	            	<select name="gradeId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
-			    <c:forEach items="${grades}" var="val">
-			      <option value="${val.id }">${val.name }</option>
-			     </c:forEach>
-			    </select>
+	            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身份证号: <input name="idcard" class="easyui-textbox" data-options="required:true" style="width:200px;height:32px" value=""/>
 	            </div>
 	        </div>
 	        <div style="margin-bottom:20px;">
 	            <div>
-	            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学科:
-	            	<select name="subjectId" value="" class="easyui-combobox" data-options="required:true" style="width:200px;height:32px">
-			    <c:forEach items="${subjects}" var="val">
-			      <option value="${val.id }">${val.name }</option>
-			     </c:forEach>
-			    </select>
-	            </div>
-	        </div>
-	        <div style="margin-bottom:20px;">
-	            <div>
-	            	教师资格证号: <input name="idcard" class="easyui-textbox" data-options="required:true" style="width:200px;height:32px" value=""/>
+	            	教师资格证号: <input name="tidcard" class="easyui-textbox" data-options="required:true" style="width:200px;height:32px" value=""/>
 	            </div>
 	        </div>
 	        <div>
@@ -80,8 +65,7 @@
     		teacher.password = $("#regbg [name=password]").val();
     		teacher.phone = $("#regbg [name=phone]").val();
     		teacher.schoolId = $("#regbg [name=schoolId]").val();
-    		teacher.gradeId = $("#regbg [name=gradeId]").val();
-    		teacher.subjectId = $("#regbg [name=subjectId]").val();
+    		teacher.tidcard = $("#regbg [name=tidcard]").val();
     		teacher.idcard = $("#regbg [name=idcard]").val();
     		
     		if(!$("#regbg").form('validate')){

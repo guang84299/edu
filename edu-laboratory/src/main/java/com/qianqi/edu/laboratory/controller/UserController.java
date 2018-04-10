@@ -222,8 +222,8 @@ public class UserController {
 		{
 			TeacherData td = new TeacherData(t);
 			td.setSchool(schoolService.findSchool(t.getSchoolId()).getName());
-			td.setGrade(gradeService.findGrade(t.getGradeId()).getName());
-			td.setSubject(subjectService.findSubject(t.getSubjectId()).getName());
+//			td.setGrade(gradeService.findGrade(t.getGradeId()).getName());
+//			td.setSubject(subjectService.findSubject(t.getSubjectId()).getName());
 			
 			List<TeacherSubject> tss = teacherService.findTeacherSubjectByTeacherId(t.getId());
 			List<Long> ids = new ArrayList<Long>();

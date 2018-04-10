@@ -140,16 +140,33 @@ public class TeacherServiceImpl implements TeacherService{
 	
 	
 	@Override
-	public void addTeacherSubject(TeacherSubject teacherSubject) {
-		if(!jedisClient.exists(TEACHER_SUBJECT_ID))
+	public int addTeacherSubject(TeacherSubject teacherSubject) {
+		int state = 1;
+		TeacherSubjectExample example = new TeacherSubjectExample();
+		example.createCriteria().andTeacherIdEqualTo(teacherSubject.getTeacherId())
+		.andSchoolIdEqualTo(teacherSubject.getSchoolId())
+		.andSubjectIdEqualTo(teacherSubject.getSubjectId())
+		.andGradeIdEqualTo(teacherSubject.getGradeId())
+		.andTclassIdEqualTo(teacherSubject.getTclassId());
+		
+		int count = teacherSubjectMapper.countByExample(example);
+		if(count > 0)
 		{
-			jedisClient.set(TEACHER_SUBJECT_ID, TEACHER_SUBJECT_NUM);
+			state = 0;
 		}
-		jedisClient.incr(TEACHER_SUBJECT_ID);
-		String num = jedisClient.get(TEACHER_SUBJECT_ID);
-		long id = Long.parseLong(num);
-		teacherSubject.setId(id);
-		teacherSubjectMapper.insertSelective(teacherSubject);
+		else
+		{
+			if(!jedisClient.exists(TEACHER_SUBJECT_ID))
+			{
+				jedisClient.set(TEACHER_SUBJECT_ID, TEACHER_SUBJECT_NUM);
+			}
+			jedisClient.incr(TEACHER_SUBJECT_ID);
+			String num = jedisClient.get(TEACHER_SUBJECT_ID);
+			long id = Long.parseLong(num);
+			teacherSubject.setId(id);
+			teacherSubjectMapper.insertSelective(teacherSubject);
+		}
+		return state;
 	}
 
 	@Override
@@ -185,6 +202,15 @@ public class TeacherServiceImpl implements TeacherService{
 	public List<TeacherSubject> findTeacherSubjectByTeacherId(Long teacherId) {
 		TeacherSubjectExample example = new TeacherSubjectExample();
 		example.createCriteria().andTeacherIdEqualTo(teacherId);
+		return teacherSubjectMapper.selectByExample(example);
+	}
+	
+	@Override
+	public List<TeacherSubject> findTeacherSubjectByTeacherIdAndsubjectId(Long teacherId,Integer subjectId)
+	{
+		TeacherSubjectExample example = new TeacherSubjectExample();
+		example.createCriteria().andTeacherIdEqualTo(teacherId)
+		.andSubjectIdEqualTo(subjectId);
 		return teacherSubjectMapper.selectByExample(example);
 	}
 

@@ -22,11 +22,12 @@ public interface TeacherService {
 	
 	
 	
-	void addTeacherSubject(TeacherSubject teacherSubject);
+	int addTeacherSubject(TeacherSubject teacherSubject);
 	void deleteTeacherSubject(Long id);
 	void updateTeacherSubject(TeacherSubject teacherSubject);
 	TeacherSubject findTeacherSubject(Long id);
 	List<TeacherSubject> findTeacherSubjectByTeacherId(Long teacherId);
+	List<TeacherSubject> findTeacherSubjectByTeacherIdAndsubjectId(Long teacherId,Integer subjectId);
 	EasyUIDataGridResult findTeacherSubjectList(int page,int rows);
 	EasyUIDataGridResult findTeacherSubjectList(Long teacherId,int page,int rows);
 }

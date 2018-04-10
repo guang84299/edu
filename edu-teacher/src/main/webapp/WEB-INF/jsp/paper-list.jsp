@@ -32,6 +32,10 @@
     	return ids;
     }
     
+    
+    
+    
+   
     var toolbar = [{
         text:'新增',
         iconCls:'icon-add',
@@ -83,4 +87,15 @@
         	});
         }
     } */];
+    
+    $(function(){
+     	$("#paperList").datagrid({
+     		onClickRow: function (rowIndex, rowData) {
+	    			var ids = getSelectionsIds();
+	            	if(ids.length != 0 && ids.indexOf(',') == -1){
+	            		$('#paperEditWindow').window({href:"/paper/toedit?paperId="+ids});
+	            	}
+	   		}
+	    });
+    });
 </script>

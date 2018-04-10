@@ -4,16 +4,6 @@
 	<form id="tclassAddForm" class="itemForm" method="post">
 	    <table cellpadding="5">
 	        <tr>
-	            <td>学校:</td>
-	            <td>
-	            		<select name="schoolId" value=""  style="width:200px;height:32px">
-				    <c:forEach items="${schools}" var="val">
-				      <option value="${val.id }">${val.name }</option>
-				     </c:forEach>
-				    </select>
-	            </td>
-	        </tr>
-	        <tr>
 	            <td>年级:</td>
 	            <td>
 	            		<select name="gradeId" value="" style="width:200px;height:32px">
@@ -45,10 +35,10 @@
 	        </tr>
 	    </table>
 	    <input type="hidden" name="teacherId" value="${teacher.id}"/>
+	    <input type="hidden" name="schoolId" value="${teacher.schoolId}"/>
 	</form>
 	<div style="padding:5px">
 	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="tclassAddsubmitForm()">提交</a>
-	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="tclassAddclearForm()">重置</a>
 	</div>
 </div>
 <script type="text/javascript">
@@ -88,7 +78,14 @@
 		tclass.tclassId = $("[name=tclassId]").val();
 		tclass.subjectId = $("[name=subjectId]").val();
 		tclass.teacherId = $("[name=teacherId]").val();
+		
+		if(!tclass.tclassId)
+		{
+			$.messager.alert('提示','必须选择一个班级!');
+			return ;
+		}
 		var datas = JSON.stringify(tclass);
+	
 		$.ajax({
 			type: "post",
 			data: datas,
@@ -102,7 +99,7 @@
 				}
 				else
 				{
-					$.messager.alert('错误',"新增失败！");
+					$.messager.alert('错误',data.msg);
 				}
 			}, 
 			error: function(e) { 

@@ -13,8 +13,7 @@
         </tr>
     </thead>
 </table>
-<div id="tclassEditWindow" class="easyui-window" title="编辑" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/tsubject/toedit'" style="width:80%;height:80%;padding:10px;">
-</div>
+
 <script>
 
     function getSelectionsIds(){
@@ -34,29 +33,8 @@
         handler:function(){
         	$(".tree-title:contains('新增班级')").parent().click();
         }
-    },{
-        text:'编辑',
-        iconCls:'icon-edit',
-        handler:function(){
-        	var ids = getSelectionsIds();
-        	if(ids.length == 0){
-        		$.messager.alert('提示','必须选择一个才能编辑!');
-        		return ;
-        	}
-        	if(ids.indexOf(',') > 0){
-        		$.messager.alert('提示','只能选择一个!');
-        		return ;
-        	}
-        	
-        	$("#tclassEditWindow").window({
-        		onLoad :function(){
-        			//回显数据
-        			var data = $("#tclassList").datagrid("getSelections")[0];
-        			$("#tclassEditForm").form("load",data);
-        		}
-        	}).window("open");
-        }
-    },{
+    },
+    {
         text:'删除',
         iconCls:'icon-cancel',
         handler:function(){

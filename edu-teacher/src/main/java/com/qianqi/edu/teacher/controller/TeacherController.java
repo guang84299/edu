@@ -84,11 +84,7 @@ public class TeacherController {
 	@RequestMapping("/toRegister")
 	public String toRegister(Model model)
 	{
-		List<Grade> grades = gradeService.findGradeAll();
-		List<Subject> subjects = subjectService.findSubjectAll();
 		List<School> schools = schoolService.findSchoolAll();
-		model.addAttribute("grades", grades);
-		model.addAttribute("subjects", subjects);
 		model.addAttribute("schools", schools);
 		return "register";
 	}
@@ -123,22 +119,22 @@ public class TeacherController {
 	}
 	
 	@RequestMapping("/tsubject/toadd")
-	public String toAddTeacherSubject(Model model)
+	public String toAddTeacherSubject(Model model,HttpServletRequest request)
 	{
+		Teacher teacher = (Teacher) request.getAttribute("teacher");
+		
 		List<Grade> grades = gradeService.findGradeAll();
 		List<Subject> subjects = subjectService.findSubjectAll();
-		List<School> schools = schoolService.findSchoolAll();
 		
-		if(schools != null && schools.size()>0 && grades != null && grades.size()>0)
+		if(grades != null && grades.size()>0)
 		{
-			List<Tclass> tclasss = tclassService.findTclassBySchoolIdAndGradeId(schools.get(0).getId(), grades.get(0).getId());
+			List<Tclass> tclasss = tclassService.findTclassBySchoolIdAndGradeId(teacher.getSchoolId(), grades.get(0).getId());
 			model.addAttribute("tclasss", tclasss);
 		}
 		
 		
 		model.addAttribute("grades", grades);
 		model.addAttribute("subjects", subjects);
-		model.addAttribute("schools", schools);
 		
 		return "tsubject-add";
 	}
@@ -156,8 +152,11 @@ public class TeacherController {
 	public EduResult addTeacherSubject(@RequestBody TeacherSubject teacherSubject)
 	{
 		teacherSubject.setCreated(new Date());
-		teacherService.addTeacherSubject(teacherSubject);
-		return EduResult.ok("", null);
+		int state = teacherService.addTeacherSubject(teacherSubject);
+		if(state == 1)
+			return EduResult.ok("", null);
+		else
+			return EduResult.err("班级已存在！", null);
 	}
 	
 	@RequestMapping("/tsubject/tolist")
@@ -186,35 +185,6 @@ public class TeacherController {
 		return result;
 	}
 	
-
-	@RequestMapping("/tsubject/toedit")
-	public String toEditTeacherSubject(Model model)
-	{
-		List<Grade> grades = gradeService.findGradeAll();
-		List<Subject> subjects = subjectService.findSubjectAll();
-		List<School> schools = schoolService.findSchoolAll();
-		
-		if(schools != null && schools.size()>0 && grades != null && grades.size()>0)
-		{
-			List<Tclass> tclasss = tclassService.findTclassBySchoolIdAndGradeId(schools.get(0).getId(), grades.get(0).getId());
-			model.addAttribute("tclasss", tclasss);
-		}
-		
-		
-		model.addAttribute("grades", grades);
-		model.addAttribute("subjects", subjects);
-		model.addAttribute("schools", schools);
-		
-		return "tsubject-edit";
-	}
-	
-	@RequestMapping("/tsubject/edit")
-	@ResponseBody
-	public EduResult editTeacherSubject(@RequestBody TeacherSubject teacherSubject)
-	{
-		teacherService.updateTeacherSubject(teacherSubject);
-		return EduResult.ok("", null);
-	}
 	
 	@RequestMapping("/tsubject/delete")
 	@ResponseBody
@@ -232,23 +202,68 @@ public class TeacherController {
 	@RequestMapping("/paper/toadd")
 	public String toAddPaper(Model model,HttpServletRequest request)
 	{
-		List<Subject> subjects = subjectService.findSubjectAll();
-		model.addAttribute("subjects", subjects);
+		List<Subject> subjects = new ArrayList<Subject>();
+		
 		Teacher teacher = (Teacher) request.getAttribute("teacher");
+		School school = schoolService.findSchool(teacher.getSchoolId());
 		List<TeacherSubject> teacherSubjects = teacherService.findTeacherSubjectByTeacherId(teacher.getId());
 		List<TeacherSubjectData> teacherSubjects2 = new ArrayList<>();
 		for(TeacherSubject subject : teacherSubjects)
 		{
 			TeacherSubjectData subjectData = new TeacherSubjectData(subject);
-			subjectData.setSchool(schoolService.findSchool(subject.getSchoolId()).getName());
+			subjectData.setSchool(school.getName());
 			subjectData.setGrade(gradeService.findGrade(subject.getGradeId()).getName());
 			subjectData.setTclass(tclassService.findTclass(subject.getTclassId()).getName());
-			subjectData.setSubject(subjectService.findSubject(subject.getSubjectId()).getName());
+			Subject subject2 = subjectService.findSubject(subject.getSubjectId());
+			subjectData.setSubject(subject2.getName());
+			
+			
+			boolean b = true;
+			for(Subject s : subjects)
+			{
+				if(subject2.getId().intValue() == s.getId().intValue())
+				{
+					b = false;
+					break;
+				}
+			}
+			if(b)
+			{
+				subjects.add(subject2);
+			}
+			
+			Subject s1 = subjects.get(0);
+			if(subject2.getId().intValue() == s1.getId().intValue())
+			{
+				teacherSubjects2.add(subjectData);
+			}
+		}
+		
+		model.addAttribute("teacherSubjects", teacherSubjects2);
+		model.addAttribute("subjects", subjects);
+		return "paper-add";
+	}
+	
+	@RequestMapping("/paper/getTeacherSubject")
+	@ResponseBody
+	public List<TeacherSubjectData> getTeacherSubject(long teacherId,int schoolId,int subjectId)
+	{
+		School school = schoolService.findSchool(schoolId);
+		List<TeacherSubject> teacherSubjects = teacherService.findTeacherSubjectByTeacherIdAndsubjectId(teacherId,subjectId);
+		List<TeacherSubjectData> teacherSubjects2 = new ArrayList<>();
+		for(TeacherSubject subject : teacherSubjects)
+		{
+			TeacherSubjectData subjectData = new TeacherSubjectData(subject);
+			subjectData.setSchool(school.getName());
+			subjectData.setGrade(gradeService.findGrade(subject.getGradeId()).getName());
+			subjectData.setTclass(tclassService.findTclass(subject.getTclassId()).getName());
+			Subject subject2 = subjectService.findSubject(subject.getSubjectId());
+			subjectData.setSubject(subject2.getName());
+			
 			teacherSubjects2.add(subjectData);
 		}
-		model.addAttribute("teacherSubjects", teacherSubjects2);
 		
-		return "paper-add";
+		return teacherSubjects2;
 	}
 	
 	@RequestMapping("/paper/add")
@@ -296,33 +311,34 @@ public class TeacherController {
 	@RequestMapping("/paper/toedit")
 	public String toEditPaper(Model model,HttpServletRequest request)
 	{
-		List<Subject> subjects = subjectService.findSubjectAll();
-		model.addAttribute("subjects", subjects);
-		Teacher teacher = (Teacher) request.getAttribute("teacher");
-		List<TeacherSubject> teacherSubjects = teacherService.findTeacherSubjectByTeacherId(teacher.getId());
-		List<TeacherSubjectData> teacherSubjects2 = new ArrayList<>();
-		for(TeacherSubject subject : teacherSubjects)
-		{
-			TeacherSubjectData subjectData = new TeacherSubjectData(subject);
-			subjectData.setSchool(schoolService.findSchool(subject.getSchoolId()).getName());
-			subjectData.setGrade(gradeService.findGrade(subject.getGradeId()).getName());
-			subjectData.setTclass(tclassService.findTclass(subject.getTclassId()).getName());
-			subjectData.setSubject(subjectService.findSubject(subject.getSubjectId()).getName());
-			teacherSubjects2.add(subjectData);
-		}
-		model.addAttribute("teacherSubjects", teacherSubjects2);
+		String paperIds = request.getParameter("paperId");
+		long paperId = Long.parseLong(paperIds);
+		Paper paper = paperService.findPaperById(paperId);
+		TeacherSubject teacherSubject = teacherService.findTeacherSubject(paper.getTeacherSubjectId());
 		
-		if(teacherSubjects != null && teacherSubjects.size()>0)
+		Subject subject = subjectService.findSubject(teacherSubject.getSubjectId());
+		List<Subject> subjects = new ArrayList<>();
+		subjects.add(subject);
+		model.addAttribute("subjects", subjects);
+		
+		List<TeacherSubjectData> teacherSubjects = new ArrayList<>();
+		TeacherSubjectData subjectData = new TeacherSubjectData(teacherSubject);
+		subjectData.setSchool(schoolService.findSchool(teacherSubject.getSchoolId()).getName());
+		subjectData.setGrade(gradeService.findGrade(teacherSubject.getGradeId()).getName());
+		subjectData.setTclass(tclassService.findTclass(teacherSubject.getTclassId()).getName());
+		subjectData.setSubject(subject.getName());
+		teacherSubjects.add(subjectData);
+		
+		model.addAttribute("teacherSubjects", teacherSubjects);
+		
+		List<StudentTeacherSubject> sts = studentService.findStudentTeacherSubjectByTeacherSubjectId(teacherSubjects.get(0).getId());
+		List<Long> ids = new ArrayList<>();
+		for(StudentTeacherSubject st : sts)
 		{
-			List<StudentTeacherSubject> sts = studentService.findStudentTeacherSubjectByTeacherSubjectId(teacherSubjects.get(0).getId());
-			List<Long> ids = new ArrayList<>();
-			for(StudentTeacherSubject st : sts)
-			{
-				ids.add(st.getStudentId());
-			}
-			List<Student> students = studentService.findStudentList(ids);
-			model.addAttribute("students", students);
+			ids.add(st.getStudentId());
 		}
+		List<Student> students = studentService.findStudentList(ids);
+		model.addAttribute("students", students);
 		
 		return "paper-edit";
 	}
