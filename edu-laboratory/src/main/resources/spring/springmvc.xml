@@ -62,4 +62,5 @@
 	<dubbo:reference interface="com.qianqi.edu.service.SchoolService" id="schoolServiceImpl" />
 	<dubbo:reference interface="com.qianqi.edu.service.TclassService" id="tclassServiceImpl" />
 	<dubbo:reference interface="com.qianqi.edu.service.PaperService" id="paperServiceImpl" />
+	<dubbo:reference interface="com.qianqi.edu.service.StaService" id="staServiceImpl" />
 </beans>
