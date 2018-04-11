@@ -88,12 +88,12 @@ var E3 = {
     },
     // 格式化题库困难度
 	formatQuestionDifficult : function formatStatus(val,row){
-        if (val == 0){
+        if (val == 1){
             return '简单';
-        } else if(val == 1){
+        } else if(val == 2){
         	return '一般';
         }
-        else if(val == 2){
+        else if(val == 3){
         	return '困难';
         } else {
         	return '未知';

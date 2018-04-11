@@ -56,9 +56,9 @@
 	        <tr>
 	            <td>困难度:</td>
 	            <td>
-	            <input name="difficult" type="radio" value="0" checked="checked" style="width:20px;"/>简单
-		        <input name="difficult" type="radio" value="1" style="width:20px;"/>一般
-		        <input name="difficult" type="radio" value="2" style="width:20px;"/>困难
+	            <input name="difficult" type="radio" value="1" checked="checked" style="width:20px;"/>简单
+		        <input name="difficult" type="radio" value="2" style="width:20px;"/>一般
+		        <input name="difficult" type="radio" value="3" style="width:20px;"/>困难
 	            </td>
 	        </tr>
 	        <tr>
@@ -115,9 +115,9 @@
 	        <tr>
 	            <td>困难度:</td>
 	            <td>
-	            <input name="difficult" type="radio" value="0" checked="checked" style="width:20px;"/>简单
-		        <input name="difficult" type="radio" value="1" style="width:20px;"/>一般
-		        <input name="difficult" type="radio" value="2" style="width:20px;"/>困难
+	            <input name="difficult" type="radio" value="1" checked="checked" style="width:20px;"/>简单
+		        <input name="difficult" type="radio" value="2" style="width:20px;"/>一般
+		        <input name="difficult" type="radio" value="3" style="width:20px;"/>困难
 	            </td>
 	        </tr>
 	        <tr>
@@ -190,9 +190,9 @@
 	        <tr>
 	            <td>困难度:</td>
 	            <td>
-	            <input name="difficult" type="radio" value="0" checked="checked" style="width:20px;"/>简单
-		        <input name="difficult" type="radio" value="1" style="width:20px;"/>一般
-		        <input name="difficult" type="radio" value="2" style="width:20px;"/>困难
+	            <input name="difficult" type="radio" value="1" checked="checked" style="width:20px;"/>简单
+		        <input name="difficult" type="radio" value="2" style="width:20px;"/>一般
+		        <input name="difficult" type="radio" value="3" style="width:20px;"/>困难
 	            </td>
 	        </tr>
 	        <tr>
@@ -261,9 +261,9 @@
 	        <tr>
 	            <td>困难度:</td>
 	            <td>
-	            <input name="difficult" type="radio" value="0" checked="checked" style="width:20px;"/>简单
-		        <input name="difficult" type="radio" value="1" style="width:20px;"/>一般
-		        <input name="difficult" type="radio" value="2" style="width:20px;"/>困难
+	            <input name="difficult" type="radio" value="1" checked="checked" style="width:20px;"/>简单
+		        <input name="difficult" type="radio" value="2" style="width:20px;"/>一般
+		        <input name="difficult" type="radio" value="3" style="width:20px;"/>困难
 	            </td>
 	        </tr>
 	        <tr>
