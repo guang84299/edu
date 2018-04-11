@@ -435,6 +435,66 @@ public class StudentExample {
             return (Criteria) this;
         }
 
+        public Criteria andDifficultIsNull() {
+            addCriterion("difficult is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDifficultIsNotNull() {
+            addCriterion("difficult is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDifficultEqualTo(Integer value) {
+            addCriterion("difficult =", value, "difficult");
+            return (Criteria) this;
+        }
+
+        public Criteria andDifficultNotEqualTo(Integer value) {
+            addCriterion("difficult <>", value, "difficult");
+            return (Criteria) this;
+        }
+
+        public Criteria andDifficultGreaterThan(Integer value) {
+            addCriterion("difficult >", value, "difficult");
+            return (Criteria) this;
+        }
+
+        public Criteria andDifficultGreaterThanOrEqualTo(Integer value) {
+            addCriterion("difficult >=", value, "difficult");
+            return (Criteria) this;
+        }
+
+        public Criteria andDifficultLessThan(Integer value) {
+            addCriterion("difficult <", value, "difficult");
+            return (Criteria) this;
+        }
+
+        public Criteria andDifficultLessThanOrEqualTo(Integer value) {
+            addCriterion("difficult <=", value, "difficult");
+            return (Criteria) this;
+        }
+
+        public Criteria andDifficultIn(List<Integer> values) {
+            addCriterion("difficult in", values, "difficult");
+            return (Criteria) this;
+        }
+
+        public Criteria andDifficultNotIn(List<Integer> values) {
+            addCriterion("difficult not in", values, "difficult");
+            return (Criteria) this;
+        }
+
+        public Criteria andDifficultBetween(Integer value1, Integer value2) {
+            addCriterion("difficult between", value1, value2, "difficult");
+            return (Criteria) this;
+        }
+
+        public Criteria andDifficultNotBetween(Integer value1, Integer value2) {
+            addCriterion("difficult not between", value1, value2, "difficult");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatedIsNull() {
             addCriterion("created is null");
             return (Criteria) this;

@@ -18,6 +18,8 @@ public class Student implements Serializable {
 
     private Integer state;
 
+    private Integer difficult;
+
     private Date created;
 
     private Date updated;
@@ -60,6 +62,14 @@ public class Student implements Serializable {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Integer getDifficult() {
+        return difficult;
+    }
+
+    public void setDifficult(Integer difficult) {
+        this.difficult = difficult;
     }
 
     public Date getCreated() {

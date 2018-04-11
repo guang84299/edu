@@ -39,6 +39,7 @@ import com.qianqi.edu.pojo.common.QuestionItem;
 import com.qianqi.edu.service.PaperService;
 import com.qianqi.edu.service.QuestionService;
 import com.qianqi.edu.service.SsoService;
+import com.qianqi.edu.service.StaService;
 import com.qianqi.edu.service.StudentService;
 import com.qianqi.edu.service.SubjectService;
 import com.qianqi.edu.service.TclassService;
@@ -60,6 +61,8 @@ public class StudentController {
 	private QuestionService questionService;
 	@Autowired
 	private SsoService ssoService;
+	@Autowired
+	private StaService staService;
 	
 	@Value("${IMAGE_SERVER_URL}")
 	private String IMAGE_SERVER_URL;
@@ -348,6 +351,20 @@ public class StudentController {
 			
 		}
 		return EduResult.ok("", null);
+	}
+	
+	public void uploadSta(long paperId,long studentId,PaperAnswer paperAnswer)
+	{
+		Paper paper = paperService.findPaperById(paperId);
+		TeacherSubject teacherSubject = teacherService.findTeacherSubject(paper.getTeacherSubjectId());
+		
+		int schoolId = teacherSubject.getSchoolId();
+		int gradeId = teacherSubject.getGradeId();
+		int subjectId = teacherSubject.getSubjectId();
+		long tclassId = teacherSubject.getTclassId();
+		long teacherId = teacherSubject.getTeacherId();
+		
+		
 	}
 	
 	@RequestMapping("/paper/answer/upload")
