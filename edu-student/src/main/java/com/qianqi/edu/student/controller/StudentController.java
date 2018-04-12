@@ -381,6 +381,9 @@ public class StudentController {
 		int starLevel = paperAnswer.getsEvaluate();
 		Date created = new Date();
 		
+		//是否包含主观题
+		boolean zhuguan = false;
+		
 		List<PaperItem> pis = paperService.findPaperItemByPaperIdAndType(paperId,student.getDifficult());
 		for(PaperItem pi : pis)
 		{
@@ -418,8 +421,16 @@ public class StudentController {
 			staQuestion.setCreated(created);
 			
 			staService.addStaQuestion(staQuestion);
+			if(objective == 1)
+				zhuguan = true;
 		}
 		answerTime = actualTime;
+		
+		//如果不包含主观题，直接批改完成
+		if(!zhuguan)
+		{
+			checkState = 100;
+		}
 		
 		StaPaper staPaper = new StaPaper();
 		staPaper.setPaperId(paperId);
@@ -436,6 +447,7 @@ public class StudentController {
 		staPaper.setCheckTime(checkTime);
 		staPaper.setAnswerTime(answerTime);
 		staPaper.setStarLevel(starLevel);
+		staPaper.setInobjective(zhuguan ? 1 : 0);
 		staPaper.setCreated(created);
 		
 		staService.addStaPaper(staPaper);

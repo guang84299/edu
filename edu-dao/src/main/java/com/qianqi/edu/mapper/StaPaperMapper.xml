@@ -17,6 +17,7 @@
     <result column="check_time" property="checkTime" jdbcType="BIGINT" />
     <result column="answer_time" property="answerTime" jdbcType="BIGINT" />
     <result column="star_level" property="starLevel" jdbcType="INTEGER" />
+    <result column="inobjective" property="inobjective" jdbcType="INTEGER" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -80,7 +81,7 @@
   <sql id="Base_Column_List" >
     id, paper_id, school_id, grade_id, subject_id, tclass_id, teacher_id, student_id, 
     difficult, predict_time, actual_time, check_state, check_time, answer_time, star_level, 
-    created
+    inobjective, created
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qianqi.edu.pojo.StaPaperExample" >
     select
@@ -118,13 +119,13 @@
       teacher_id, student_id, difficult, 
       predict_time, actual_time, check_state, 
       check_time, answer_time, star_level, 
-      created)
+      inobjective, created)
     values (#{id,jdbcType=BIGINT}, #{paperId,jdbcType=BIGINT}, #{schoolId,jdbcType=INTEGER}, 
       #{gradeId,jdbcType=INTEGER}, #{subjectId,jdbcType=INTEGER}, #{tclassId,jdbcType=BIGINT}, 
       #{teacherId,jdbcType=BIGINT}, #{studentId,jdbcType=BIGINT}, #{difficult,jdbcType=INTEGER}, 
       #{predictTime,jdbcType=BIGINT}, #{actualTime,jdbcType=BIGINT}, #{checkState,jdbcType=INTEGER}, 
       #{checkTime,jdbcType=BIGINT}, #{answerTime,jdbcType=BIGINT}, #{starLevel,jdbcType=INTEGER}, 
-      #{created,jdbcType=TIMESTAMP})
+      #{inobjective,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.qianqi.edu.pojo.StaPaper" >
     insert into sta_paper
@@ -173,6 +174,9 @@
       </if>
       <if test="starLevel != null" >
         star_level,
+      </if>
+      <if test="inobjective != null" >
+        inobjective,
       </if>
       <if test="created != null" >
         created,
@@ -223,6 +227,9 @@
       </if>
       <if test="starLevel != null" >
         #{starLevel,jdbcType=INTEGER},
+      </if>
+      <if test="inobjective != null" >
+        #{inobjective,jdbcType=INTEGER},
       </if>
       <if test="created != null" >
         #{created,jdbcType=TIMESTAMP},
@@ -283,6 +290,9 @@
       <if test="record.starLevel != null" >
         star_level = #{record.starLevel,jdbcType=INTEGER},
       </if>
+      <if test="record.inobjective != null" >
+        inobjective = #{record.inobjective,jdbcType=INTEGER},
+      </if>
       <if test="record.created != null" >
         created = #{record.created,jdbcType=TIMESTAMP},
       </if>
@@ -308,6 +318,7 @@
       check_time = #{record.checkTime,jdbcType=BIGINT},
       answer_time = #{record.answerTime,jdbcType=BIGINT},
       star_level = #{record.starLevel,jdbcType=INTEGER},
+      inobjective = #{record.inobjective,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -358,6 +369,9 @@
       <if test="starLevel != null" >
         star_level = #{starLevel,jdbcType=INTEGER},
       </if>
+      <if test="inobjective != null" >
+        inobjective = #{inobjective,jdbcType=INTEGER},
+      </if>
       <if test="created != null" >
         created = #{created,jdbcType=TIMESTAMP},
       </if>
@@ -380,6 +394,7 @@
       check_time = #{checkTime,jdbcType=BIGINT},
       answer_time = #{answerTime,jdbcType=BIGINT},
       star_level = #{starLevel,jdbcType=INTEGER},
+      inobjective = #{inobjective,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>

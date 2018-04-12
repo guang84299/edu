@@ -1005,6 +1005,66 @@ public class StaPaperExample {
             return (Criteria) this;
         }
 
+        public Criteria andInobjectiveIsNull() {
+            addCriterion("inobjective is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInobjectiveIsNotNull() {
+            addCriterion("inobjective is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInobjectiveEqualTo(Integer value) {
+            addCriterion("inobjective =", value, "inobjective");
+            return (Criteria) this;
+        }
+
+        public Criteria andInobjectiveNotEqualTo(Integer value) {
+            addCriterion("inobjective <>", value, "inobjective");
+            return (Criteria) this;
+        }
+
+        public Criteria andInobjectiveGreaterThan(Integer value) {
+            addCriterion("inobjective >", value, "inobjective");
+            return (Criteria) this;
+        }
+
+        public Criteria andInobjectiveGreaterThanOrEqualTo(Integer value) {
+            addCriterion("inobjective >=", value, "inobjective");
+            return (Criteria) this;
+        }
+
+        public Criteria andInobjectiveLessThan(Integer value) {
+            addCriterion("inobjective <", value, "inobjective");
+            return (Criteria) this;
+        }
+
+        public Criteria andInobjectiveLessThanOrEqualTo(Integer value) {
+            addCriterion("inobjective <=", value, "inobjective");
+            return (Criteria) this;
+        }
+
+        public Criteria andInobjectiveIn(List<Integer> values) {
+            addCriterion("inobjective in", values, "inobjective");
+            return (Criteria) this;
+        }
+
+        public Criteria andInobjectiveNotIn(List<Integer> values) {
+            addCriterion("inobjective not in", values, "inobjective");
+            return (Criteria) this;
+        }
+
+        public Criteria andInobjectiveBetween(Integer value1, Integer value2) {
+            addCriterion("inobjective between", value1, value2, "inobjective");
+            return (Criteria) this;
+        }
+
+        public Criteria andInobjectiveNotBetween(Integer value1, Integer value2) {
+            addCriterion("inobjective not between", value1, value2, "inobjective");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatedIsNull() {
             addCriterion("created is null");
             return (Criteria) this;

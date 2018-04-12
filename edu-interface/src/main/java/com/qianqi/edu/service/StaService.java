@@ -13,6 +13,8 @@ public interface StaService {
 	StaPaper findStaPaper(Long id);
 	List<StaPaper> findStaPaperByPaperId(long paperId);
 	List<StaPaper> findStaPapers(Integer schoolId,Integer gradeId,Long tclassId,Integer subjectId,Integer difficult,long fromTime,long toTime);
+	List<StaPaper> findStaPaper(Integer schoolId,Integer gradeId,Long tclassId,Integer subjectId,Integer difficult,Integer inobjective,Integer checkState,long fromTime,long toTime);
+	long countStaPapers(Integer schoolId,Integer gradeId,Long tclassId,Integer subjectId,Integer difficult,Integer inobjective,Integer checkState,long fromTime,long toTime);
 	
 	
 	void addStaQuestion(StaQuestion staQuestion);
@@ -20,4 +22,5 @@ public interface StaService {
 	void updateStaQuestion(StaQuestion staQuestion);
 	StaQuestion findStaQuestion(Long id);
 	List<StaQuestion> findStaQuestions(Integer schoolId,Integer gradeId,Long tclassId,Integer subjectId,Integer difficult,Long knowledgeId,long fromTime,long toTime);
+	long countStaQuestions(Integer schoolId,Integer gradeId,Long tclassId,Integer subjectId,Integer difficult,Long knowledgeId,long fromTime,long toTime);
 }

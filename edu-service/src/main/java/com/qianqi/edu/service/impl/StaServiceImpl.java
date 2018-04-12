@@ -69,6 +69,52 @@ public class StaServiceImpl implements StaService{
 		
 		return staPaperMapper.selectByExample(example);
 	}
+	
+	@Override
+	public List<StaPaper> findStaPaper(Integer schoolId,Integer gradeId,Long tclassId,Integer subjectId,Integer difficult,Integer inobjective,Integer checkState,long fromTime,long toTime)
+	{
+		StaPaperExample example = new StaPaperExample();
+		Criteria c = example.createCriteria().andCreatedBetween(new Date(fromTime), new Date(toTime));
+		if(schoolId != null)
+			c = c.andSchoolIdEqualTo(schoolId);
+		if(gradeId != null)
+			c = c.andGradeIdEqualTo(gradeId);
+		if(tclassId != null)
+			c = c.andTclassIdEqualTo(tclassId);
+		if(subjectId != null)
+			c = c.andSubjectIdEqualTo(subjectId);
+		if(difficult != null)
+			c = c.andDifficultEqualTo(difficult);
+		if(inobjective != null)
+			c = c.andInobjectiveEqualTo(inobjective);
+		if(checkState != null)
+			c = c.andCheckStateEqualTo(checkState);
+		
+		return staPaperMapper.selectByExample(example);
+	}
+	
+	@Override
+	public long countStaPapers(Integer schoolId,Integer gradeId,Long tclassId,Integer subjectId,Integer difficult,Integer inobjective,Integer checkState,long fromTime,long toTime)
+	{
+		StaPaperExample example = new StaPaperExample();
+		Criteria c = example.createCriteria().andCreatedBetween(new Date(fromTime), new Date(toTime));
+		if(schoolId != null)
+			c = c.andSchoolIdEqualTo(schoolId);
+		if(gradeId != null)
+			c = c.andGradeIdEqualTo(gradeId);
+		if(tclassId != null)
+			c = c.andTclassIdEqualTo(tclassId);
+		if(subjectId != null)
+			c = c.andSubjectIdEqualTo(subjectId);
+		if(difficult != null)
+			c = c.andDifficultEqualTo(difficult);
+		if(inobjective != null)
+			c = c.andInobjectiveEqualTo(inobjective);
+		if(checkState != null)
+			c = c.andCheckStateEqualTo(checkState);
+		
+		return staPaperMapper.countByExample(example);
+	}
 
 	
 	//----------------------------------------------------------
@@ -115,6 +161,27 @@ public class StaServiceImpl implements StaService{
 			c = c.andKnowledgeIdEqualTo(knowledgeId);
 		
 		return staQuestionMapper.selectByExample(example);
+	}
+	
+	@Override
+	public long countStaQuestions(Integer schoolId,Integer gradeId,Long tclassId,Integer subjectId,Integer difficult,Long knowledgeId,long fromTime,long toTime)
+	{
+		StaQuestionExample example = new StaQuestionExample();
+		com.qianqi.edu.pojo.StaQuestionExample.Criteria c = example.createCriteria().andCreatedBetween(new Date(fromTime), new Date(toTime));
+		if(schoolId != null)
+			c = c.andSchoolIdEqualTo(schoolId);
+		if(gradeId != null)
+			c = c.andGradeIdEqualTo(gradeId);
+		if(tclassId != null)
+			c = c.andTclassIdEqualTo(tclassId);
+		if(subjectId != null)
+			c = c.andSubjectIdEqualTo(subjectId);
+		if(difficult != null)
+			c = c.andDifficultEqualTo(difficult);
+		if(knowledgeId != null)
+			c = c.andKnowledgeIdEqualTo(knowledgeId);
+		
+		return staQuestionMapper.countByExample(example);
 	}
 
 }

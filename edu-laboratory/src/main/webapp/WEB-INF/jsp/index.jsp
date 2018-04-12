@@ -63,11 +63,21 @@
          	</li>
          	
          	<li>
-         		<span>统计信息</span>
+         		<span>作业布置统计</span>
          		<ul>
 	         		<li data-options="attributes:{'url':'/sta/tosubject'}">按科目</li>
 	         		<li data-options="attributes:{'url':'/sta/toknowledge'}">按知识点</li>
-	         		<li data-options="attributes:{'url':'/sta/totclass'}">按学校班级</li>
+	         		<li data-options="attributes:{'url':'/sta/toschool'}">按学校</li>
+	         		<li data-options="attributes:{'url':'/sta/totclass'}">按班级</li>
+	         	</ul>
+         	</li>
+         	
+         	<li>
+         		<span>作业批改统计</span>
+         		<ul>
+	         		<li data-options="attributes:{'url':'/sta/tocheckcomp'}">完成率</li>
+	         		<li data-options="attributes:{'url':'/sta/tochecktime'}">及时性</li>
+	         		<li data-options="attributes:{'url':'/sta/tocheckstar'}">作业评分</li>
 	         	</ul>
          	</li>
          	

@@ -38,6 +38,8 @@ public class StaPaper implements Serializable {
 
     private Integer starLevel;
 
+    private Integer inobjective;
+
     private Date created;
 
     public Long getId() {
@@ -158,6 +160,14 @@ public class StaPaper implements Serializable {
 
     public void setStarLevel(Integer starLevel) {
         this.starLevel = starLevel;
+    }
+
+    public Integer getInobjective() {
+        return inobjective;
+    }
+
+    public void setInobjective(Integer inobjective) {
+        this.inobjective = inobjective;
     }
 
     public Date getCreated() {

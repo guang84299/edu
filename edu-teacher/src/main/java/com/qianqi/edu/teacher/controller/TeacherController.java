@@ -621,7 +621,7 @@ public class TeacherController {
 				paper.setCheckEvlTime(time/pas.size());
 				paperService.updatePaper(paper);
 				
-				//更新统计
+				//更新统计				
 				List<StaPaper> staps = staService.findStaPaperByPaperId(paper.getId());
 				for(StaPaper stap : staps)
 				{
