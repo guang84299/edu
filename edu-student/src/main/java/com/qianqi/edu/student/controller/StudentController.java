@@ -27,6 +27,8 @@ import com.qianqi.edu.pojo.PaperAnswer;
 import com.qianqi.edu.pojo.PaperAnswerItem;
 import com.qianqi.edu.pojo.PaperItem;
 import com.qianqi.edu.pojo.Question;
+import com.qianqi.edu.pojo.StaPaper;
+import com.qianqi.edu.pojo.StaQuestion;
 import com.qianqi.edu.pojo.Student;
 import com.qianqi.edu.pojo.StudentTeacherSubject;
 import com.qianqi.edu.pojo.Tclass;
@@ -165,11 +167,11 @@ public class StudentController {
 		if(paperIdStr != null)
 		{
 			long paperId = Long.parseLong(paperIdStr);
-			pa = paperService.findPaperAnswerByStudentIdAndPaperId(student.getId(), paperId);
+			pa = paperService.findPaperAnswerByStudentIdAndPaperIdAndDifficult(student.getId(), paperId,student.getDifficult());
 		}
 		else
 		{
-			List<PaperAnswer> list = paperService.findPaperAnswerByStudentIdAndState(student.getId(), 100);
+			List<PaperAnswer> list = paperService.findPaperAnswerByStudentIdAndStateAndDifficult(student.getId(), 100,student.getDifficult());
 			if(list != null && list.size()>0)
 			{
 				pa = list.get(0);
@@ -179,7 +181,7 @@ public class StudentController {
 		if(pa != null)
 		{
 			List<QuestionItem> items = new ArrayList<>();
-			List<PaperItem> pis = paperService.findPaperItemByPaperId(pa.getPaperId());
+			List<PaperItem> pis = paperService.findPaperItemByPaperIdAndType(pa.getPaperId(),student.getDifficult());
 			for(PaperItem pi : pis)
 			{
 				Question question = questionService.findQuestionById(pi.getQuestionId());
@@ -218,11 +220,11 @@ public class StudentController {
 		if(paperIdStr != null)
 		{
 			long paperId = Long.parseLong(paperIdStr);
-			pa = paperService.findPaperAnswerByStudentIdAndPaperId(student.getId(), paperId);
+			pa = paperService.findPaperAnswerByStudentIdAndPaperIdAndDifficult(student.getId(), paperId,student.getDifficult());
 		}
 		else
 		{
-			List<PaperAnswer> list = paperService.findPaperAnswerByStudentIdAndState(student.getId(), 100);
+			List<PaperAnswer> list = paperService.findPaperAnswerByStudentIdAndStateAndDifficult(student.getId(), 100,student.getDifficult());
 			if(list != null && list.size()>0)
 			{
 				pa = list.get(0);
@@ -231,7 +233,7 @@ public class StudentController {
 		List<QuestionItem> items = new ArrayList<>();
 		if(pa != null)
 		{
-			List<PaperItem> pis = paperService.findPaperItemByPaperId(pa.getPaperId());
+			List<PaperItem> pis = paperService.findPaperItemByPaperIdAndType(pa.getPaperId(),student.getDifficult());
 			for(PaperItem pi : pis)
 			{
 				Question question = questionService.findQuestionById(pi.getQuestionId());
@@ -332,11 +334,13 @@ public class StudentController {
 			}
 			if(paperId != 0)
 			{
-				int num = paperService.findPaperItemNumByPaperId(paperId);
+				Student student = (Student) request.getAttribute("student");
+				
+				int num = paperService.findPaperItemNumByPaperIdAndType(paperId,student.getDifficult());
 				float size = items.size();
 				int state = (int) (size/num*100);
-				Student student = (Student) request.getAttribute("student");
-				PaperAnswer pa = paperService.findPaperAnswerByStudentIdAndPaperId(student.getId(), paperId);
+				
+				PaperAnswer pa = paperService.findPaperAnswerByStudentIdAndPaperIdAndDifficult(student.getId(), paperId,student.getDifficult());
 				if(pa != null)
 				{
 					pa.setState(state);
@@ -346,6 +350,10 @@ public class StudentController {
 						pa.setSubmitState(1);
 					}
 					paperService.updatePaperAnswer(pa);
+					if(state == 100)
+					{
+						uploadSta(paperId,student,pa);
+					}
 				}
 			}
 			
@@ -353,7 +361,7 @@ public class StudentController {
 		return EduResult.ok("", null);
 	}
 	
-	public void uploadSta(long paperId,long studentId,PaperAnswer paperAnswer)
+	public void uploadSta(long paperId,Student student,PaperAnswer paperAnswer)
 	{
 		Paper paper = paperService.findPaperById(paperId);
 		TeacherSubject teacherSubject = teacherService.findTeacherSubject(paper.getTeacherSubjectId());
@@ -363,8 +371,74 @@ public class StudentController {
 		int subjectId = teacherSubject.getSubjectId();
 		long tclassId = teacherSubject.getTclassId();
 		long teacherId = teacherSubject.getTeacherId();
+		long studentId = student.getId();
+		int difficult = paperAnswer.getDifficult();
+		long predictTime = 0;
+		long actualTime = 0;
+		int checkState = 0;
+		long checkTime = 0;
+		long answerTime = 0;
+		int starLevel = paperAnswer.getsEvaluate();
+		Date created = new Date();
 		
+		List<PaperItem> pis = paperService.findPaperItemByPaperIdAndType(paperId,student.getDifficult());
+		for(PaperItem pi : pis)
+		{
+			Question question = questionService.findQuestionById(pi.getQuestionId());
+			if(question != null)
+			{
+				predictTime += question.getNormalTime()*1000;
+			}
+			PaperAnswerItem paperAnswerItem = paperService.findPaperAnswerItem(pi.getId(), paperAnswer.getId());
+			actualTime += paperAnswerItem.getAnswerTime();
+			
+			long questionId = question.getId();
+			int q_difficult = question.getDifficult();
+			long knowledgeId = question.getKnowledgeId();
+			long q_answerTime =  paperAnswerItem.getAnswerTime();
+			int answerResult = paperAnswerItem.getAnswerResult();
+			int objective = 1;
+			if(question.getType().intValue() == 1 || question.getType().intValue() == 2 || question.getType().intValue() == 3)
+				objective = 0;
+			
+			StaQuestion staQuestion = new StaQuestion();
+			staQuestion.setPaperId(paperId);
+			staQuestion.setSchoolId(schoolId);
+			staQuestion.setGradeId(gradeId);
+			staQuestion.setSubjectId(subjectId);
+			staQuestion.setTclassId(tclassId);
+			staQuestion.setTeacherId(teacherId);
+			staQuestion.setStudentId(studentId);
+			staQuestion.setQuestionId(questionId);
+			staQuestion.setDifficult(q_difficult);
+			staQuestion.setKnowledgeId(knowledgeId);
+			staQuestion.setAnswerTime(q_answerTime);
+			staQuestion.setAnswerResult(answerResult);
+			staQuestion.setObjective(objective);
+			staQuestion.setCreated(created);
+			
+			staService.addStaQuestion(staQuestion);
+		}
+		answerTime = actualTime;
 		
+		StaPaper staPaper = new StaPaper();
+		staPaper.setPaperId(paperId);
+		staPaper.setSchoolId(schoolId);
+		staPaper.setGradeId(gradeId);
+		staPaper.setSubjectId(subjectId);
+		staPaper.setTclassId(tclassId);
+		staPaper.setTeacherId(teacherId);
+		staPaper.setStudentId(studentId);
+		staPaper.setDifficult(difficult);
+		staPaper.setPredictTime(predictTime);
+		staPaper.setActualTime(actualTime);
+		staPaper.setCheckState(checkState);
+		staPaper.setCheckTime(checkTime);
+		staPaper.setAnswerTime(answerTime);
+		staPaper.setStarLevel(starLevel);
+		staPaper.setCreated(created);
+		
+		staService.addStaPaper(staPaper);
 	}
 	
 	@RequestMapping("/paper/answer/upload")

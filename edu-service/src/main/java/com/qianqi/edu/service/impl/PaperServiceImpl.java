@@ -172,14 +172,25 @@ public class PaperServiceImpl implements PaperService{
 	}
 
 	@Override
-	public PaperAnswer findPaperAnswerByStudentIdAndPaperId(Long studentId, Long paperId) {
+	public PaperAnswer findPaperAnswerByStudentIdAndPaperIdAndDifficult(Long studentId,Long paperId,Integer difficult) {
 		PaperAnswerExample paperAnswerExample = new PaperAnswerExample();
 		paperAnswerExample.createCriteria().andStudentIdEqualTo(studentId)
-		.andPaperIdEqualTo(paperId);
+		.andPaperIdEqualTo(paperId)
+		.andDifficultEqualTo(difficult);
 		List<PaperAnswer> list = paperAnswerMapper.selectByExample(paperAnswerExample);
 		if(list!=null && list.size()>0)
 			return list.get(0);
 		return null;
+	}
+	
+	@Override
+	public List<PaperAnswer> findPaperAnswerByStudentIdAndPaperId(Long studentId,Long paperId)
+	{
+		PaperAnswerExample paperAnswerExample = new PaperAnswerExample();
+		paperAnswerExample.createCriteria().andStudentIdEqualTo(studentId)
+		.andPaperIdEqualTo(paperId);
+		List<PaperAnswer> list = paperAnswerMapper.selectByExample(paperAnswerExample);
+		return list;
 	}
 	
 
@@ -205,12 +216,21 @@ public class PaperServiceImpl implements PaperService{
 		return paperAnswerMapper.selectByExample(paperAnswerExample);
 	}
 
-	
 	@Override
-	public List<PaperAnswer> findPaperAnswerByStudentIdAndState(Long studentId,int state) {
+	public List<PaperAnswer> findPaperAnswerByStudentIdAndState(Long studentId,int state)
+	{
 		PaperAnswerExample paperAnswerExample = new PaperAnswerExample();
 		paperAnswerExample.createCriteria().andStudentIdEqualTo(studentId)
 		.andStateLessThan(state);
+		return paperAnswerMapper.selectByExample(paperAnswerExample);
+	}
+	
+	@Override
+	public List<PaperAnswer> findPaperAnswerByStudentIdAndStateAndDifficult(Long studentId,int state,Integer difficult) {
+		PaperAnswerExample paperAnswerExample = new PaperAnswerExample();
+		paperAnswerExample.createCriteria().andStudentIdEqualTo(studentId)
+		.andStateLessThan(state)
+		.andDifficultEqualTo(difficult);
 		return paperAnswerMapper.selectByExample(paperAnswerExample);
 	}
 	
@@ -338,9 +358,10 @@ public class PaperServiceImpl implements PaperService{
 	}
 
 	@Override
-	public int findPaperItemNumByPaperId(Long paperId) {
+	public int findPaperItemNumByPaperIdAndType(Long paperId,Integer type) {
 		PaperItemExample example = new PaperItemExample();
-		example.createCriteria().andPaperIdEqualTo(paperId);
+		example.createCriteria().andPaperIdEqualTo(paperId)
+		.andTypeEqualTo(type);
 		return paperItemMapper.countByExample(example);
 	}
 

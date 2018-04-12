@@ -26,6 +26,7 @@ import com.qianqi.edu.pojo.PaperAnswerItem;
 import com.qianqi.edu.pojo.PaperItem;
 import com.qianqi.edu.pojo.Question;
 import com.qianqi.edu.pojo.School;
+import com.qianqi.edu.pojo.StaPaper;
 import com.qianqi.edu.pojo.Student;
 import com.qianqi.edu.pojo.StudentTeacherSubject;
 import com.qianqi.edu.pojo.Subject;
@@ -48,6 +49,7 @@ import com.qianqi.edu.service.QuestionService;
 import com.qianqi.edu.service.SchoolService;
 import com.qianqi.edu.service.SearchService;
 import com.qianqi.edu.service.SsoService;
+import com.qianqi.edu.service.StaService;
 import com.qianqi.edu.service.StudentService;
 import com.qianqi.edu.service.SubjectService;
 import com.qianqi.edu.service.TclassService;
@@ -77,6 +79,8 @@ public class TeacherController {
 	private SchoolService schoolService;
 	@Autowired
 	private  KnowledgeService knowledgeService;
+	@Autowired
+	private StaService staService;
 	
 	@Value("${IMAGE_SERVER_URL}")
 	private String IMAGE_SERVER_URL;
@@ -481,12 +485,14 @@ public class TeacherController {
 		}
 		for(StudentTeacherSubject st : sts)
 		{
-			PaperAnswer pa = paperService.findPaperAnswerByStudentIdAndPaperId(st.getStudentId(), paper.getId());
+			Student student = studentService.findStudentById(st.getStudentId());
+			PaperAnswer pa = paperService.findPaperAnswerByStudentIdAndPaperIdAndDifficult(st.getStudentId(), paper.getId(),student.getDifficult());
 			if(pa == null)
 			{
 				PaperAnswer answer = new PaperAnswer();
 				answer.setPaperId(paper.getId());
 				answer.setStudentId(st.getStudentId());
+				answer.setDifficult(student.getDifficult());
 				answer.setState(0);
 				answer.setCheckState(0);
 				answer.setCreated(new Date());
@@ -561,7 +567,7 @@ public class TeacherController {
 			if(pa != null)
 			{
 				List<QuestionItem> items = new ArrayList<>();
-				List<PaperItem> pis = paperService.findPaperItemByPaperId(pa.getPaperId());
+				List<PaperItem> pis = paperService.findPaperItemByPaperIdAndType(pa.getPaperId(),pa.getDifficult());
 				for(PaperItem pi : pis)
 				{
 					Question question = questionService.findQuestionById(pi.getQuestionId());
@@ -614,6 +620,22 @@ public class TeacherController {
 				Paper paper = paperService.findPaperById(pa.getPaperId());
 				paper.setCheckEvlTime(time/pas.size());
 				paperService.updatePaper(paper);
+				
+				//更新统计
+				List<StaPaper> staps = staService.findStaPaperByPaperId(paper.getId());
+				for(StaPaper stap : staps)
+				{
+					stap.setCheckState(100);
+					for(PaperAnswer p : pas)
+					{
+						if(p.getStudentId().longValue() == stap.getStudentId().longValue())
+						{
+							stap.setCheckTime(p.getCheckTime().getTime() - p.getSubmitTime().getTime());
+							break;
+						}
+					}
+					staService.updateStaPaper(stap);
+				}
 			}
 		}
 		return EduResult.ok("", null);

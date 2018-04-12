@@ -24,11 +24,13 @@ public interface PaperService {
 	void deletePaperAnswer(Long id);
 	void updatePaperAnswer(PaperAnswer answer);
 	PaperAnswer findPaperAnswerById(Long id);
-	PaperAnswer findPaperAnswerByStudentIdAndPaperId(Long studentId,Long paperId);
+	PaperAnswer findPaperAnswerByStudentIdAndPaperIdAndDifficult(Long studentId,Long paperId,Integer difficult);
+	List<PaperAnswer> findPaperAnswerByStudentIdAndPaperId(Long studentId,Long paperId);
 	List<PaperAnswer> findPaperAnswerByStudentId(Long studentId);
 	List<PaperAnswer> findPaperAnswerByPaperId(Long paperId);
 	List<PaperAnswer> findPaperAnswerByPaperIds(List<Long> paperIds);
 	List<PaperAnswer> findPaperAnswerByStudentIdAndState(Long studentId,int state);
+	List<PaperAnswer> findPaperAnswerByStudentIdAndStateAndDifficult(Long studentId,int state,Integer difficult);
 	EasyUIDataGridResult findPaperAnswerByStudentId(Long studentId,int page,int rows);
 	int countPaperAnswerByCheckState(List<Long> paperIds,int state);
 	int countPaperAnswerBySubmitState(List<Long> paperIds,int state);
@@ -46,5 +48,5 @@ public interface PaperService {
 	PaperItem findPaperItemById(Long id);
 	List<PaperItem> findPaperItemByPaperId(Long paperId);
 	List<PaperItem> findPaperItemByPaperIdAndType(Long paperId,Integer type);
-	int findPaperItemNumByPaperId(Long paperId);
+	int findPaperItemNumByPaperIdAndType(Long paperId,Integer type);
 }

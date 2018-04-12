@@ -16,6 +16,8 @@ public class PaperAnswer implements Serializable {
 
     private Integer state;
 
+    private Integer difficult;
+
     private Integer checkState;
 
     private Integer submitState;
@@ -64,6 +66,14 @@ public class PaperAnswer implements Serializable {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Integer getDifficult() {
+        return difficult;
+    }
+
+    public void setDifficult(Integer difficult) {
+        this.difficult = difficult;
     }
 
     public Integer getCheckState() {

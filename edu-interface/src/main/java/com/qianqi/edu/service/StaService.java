@@ -11,6 +11,7 @@ public interface StaService {
 	void deleteStaPaper(Long id);
 	void updateStaPaper(StaPaper staPaper);
 	StaPaper findStaPaper(Long id);
+	List<StaPaper> findStaPaperByPaperId(long paperId);
 	List<StaPaper> findStaPapers(Integer schoolId,Integer gradeId,Long tclassId,Integer subjectId,Integer difficult,long fromTime,long toTime);
 	
 	

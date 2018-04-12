@@ -42,6 +42,14 @@ public class StaServiceImpl implements StaService{
 	public StaPaper findStaPaper(Long id) {
 		return staPaperMapper.selectByPrimaryKey(id);
 	}
+	
+	@Override
+	public List<StaPaper> findStaPaperByPaperId(long paperId)
+	{
+		StaPaperExample example = new StaPaperExample();
+		example.createCriteria().andPaperIdEqualTo(paperId);
+		return staPaperMapper.selectByExample(example);
+	}
 
 	@Override
 	public List<StaPaper> findStaPapers(Integer schoolId, Integer gradeId, Long tclassId, Integer subjectId,
