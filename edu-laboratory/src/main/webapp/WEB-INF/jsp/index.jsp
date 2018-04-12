@@ -11,11 +11,13 @@
 <link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.5.3/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="css/e3.css" />
 <link rel="stylesheet" type="text/css" href="css/default.css" />
+<link rel="stylesheet" type="text/css" href="js/dist/chartist.min.css" />
 <script type="text/javascript" src="js/jquery-easyui-1.5.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="js/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/dist/chartist.min.js"></script>
 <style type="text/css">
 	.content {
 		padding: 10px 10px 10px 10px;
@@ -29,6 +31,10 @@
 	  cursor: pointer;
 	  color:#000;
 	}
+	
+	@import "js/dist/scss/settings/_chartist-settings.scss";
+	@import "js/dist/scss/chartist.scss";
+
 </style>
 </head>
 <body class="easyui-layout">
@@ -55,6 +61,16 @@
 	         		<li data-options="attributes:{'url':'/question/toimport'}">批量导入</li>
 	         	</ul>
          	</li>
+         	
+         	<li>
+         		<span>统计信息</span>
+         		<ul>
+	         		<li data-options="attributes:{'url':'/sta/tosubject'}">按科目</li>
+	         		<li data-options="attributes:{'url':'/sta/toknowledge'}">按知识点</li>
+	         		<li data-options="attributes:{'url':'/sta/totclass'}">按学校班级</li>
+	         	</ul>
+         	</li>
+         	
          	<li>
          		<span>分类管理</span>
          		<ul>
